@@ -1,0 +1,2 @@
+module AvailableWallHelper
+end

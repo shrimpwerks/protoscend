@@ -1,0 +1,2 @@
+class MaintenanceRequestController < ApplicationController
+end

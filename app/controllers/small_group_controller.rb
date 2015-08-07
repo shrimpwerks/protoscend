@@ -1,0 +1,2 @@
+class SmallGroupController < ApplicationController
+end
