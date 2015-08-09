@@ -8,7 +8,8 @@ class AnnouncementController < ApplicationController
   end
 
   def index
-    @announcements = Announcement.limit(5).offset(params[:offset])
-    render json: @announcements.to_json
+    @announcement = Announcement.last(1)
+    # @announcements = Announcement.limit(5).offset(params[:offset])
+    render json: @announcement.to_json
   end
 end
