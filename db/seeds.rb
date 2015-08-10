@@ -100,6 +100,16 @@
 #   hidden: 0
 # )
 #
+User.create(
+  fname: 'Barbara',
+  lname: 'Streisand',
+  email: 'b.streisand@live.com',
+  password: 'encrypt-this',
+  user_level: 2,
+  small_groups_id: 1,
+  hidden: 0
+)
+#
 # AssignedRoute.create(
 #   users_id: 1,
 #   gym: 'Dixon',

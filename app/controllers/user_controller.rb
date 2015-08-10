@@ -11,7 +11,12 @@ class UserController < ApplicationController
 
   # for browsing a collection of users: pass in '?offset=5' for 6-10
   def index
+    @users_count = User.count
     @users = User.limit(5).offset(params[:offset])
-    render json: @users.to_json
+    data = {
+      "users" => @users,
+      "count" => @users_count
+    }
+    render json: data.to_json
   end
 end
