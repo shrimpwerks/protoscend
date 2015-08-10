@@ -13,6 +13,7 @@ class UserController < ApplicationController
   def index
     @users_count = User.count
     @users = User.limit(5).offset(params[:offset])
+                 .order(params[:sort_by].to_s + ' ' + params[:order_by].to_s)
     data = {
       "users" => @users,
       "count" => @users_count
