@@ -12,7 +12,9 @@ class UserController < ApplicationController
   # for browsing a collection of users: pass in '?offset=5' for 6-10
   def index
     @users_count = User.count
-    @users = User.limit(5).offset(params[:offset])
+    @users = User.select('users.*, count(routes.id) as route_count')
+                 .joins('left outer join routes on routes.users_id = users.id').group(:id)
+                 .limit(5).offset(params[:offset])
                  .order(params[:sort_by].to_s + ' ' + params[:order_by].to_s)
     data = {
       "users" => @users,
