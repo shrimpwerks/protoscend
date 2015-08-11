@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150807033856) do
+ActiveRecord::Schema.define(version: 20150810235823) do
 
   create_table "announcements", force: :cascade do |t|
     t.text     "announcement", limit: 65535
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20150807033856) do
 
   create_table "routes", force: :cascade do |t|
     t.string   "route_name",         limit: 255
-    t.integer  "users_id",           limit: 4
+    t.integer  "user_id",            limit: 4
     t.integer  "available_walls_id", limit: 4
     t.string   "location",           limit: 255
     t.string   "tape_color",         limit: 255
