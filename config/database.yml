@@ -11,7 +11,7 @@
 
 development:
   adapter: mysql
-  database: rails_routes
+  database: rails_routes_v2
   username: root
   password:
   host: localhost
