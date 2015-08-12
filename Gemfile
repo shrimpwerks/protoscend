@@ -27,6 +27,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'active_model_serializers'
 
+# for working with react
+gem 'react-rails', '~> 1.0'
+
 # sabisu stuff
 # gem 'sabisu_rails', github: "IcaliaLabs/sabisu-rails"
 # gem 'compass-rails'

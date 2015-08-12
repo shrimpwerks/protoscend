@@ -1,4 +1,4 @@
-class AuthenticationController < ApplicationController
+class Api::AuthenticationController < ApplicationController
   def create
     user_password = params[:password]
     user_email = params[:email]
