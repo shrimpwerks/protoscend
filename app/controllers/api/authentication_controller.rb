@@ -4,14 +4,11 @@ class Api::AuthenticationController < ApplicationController
     user_email = params[:email]
     puts(user_password)
     puts(user_email)
-    # user_password = params[:session][:password]
-    # user_email = params[:session][:email]
 
     @user = user_email.present? && User.find_by(email: user_email)
-    # @user = User.find_by(email: user_email)
 
     if @user.valid_password? user_password
-      sign_in @user, store: false
+      # sign_in @user, store: false
       @user.generate_authentication_token!
       @user.save
       render json: @user, meta: { status: 200 }
@@ -22,6 +19,9 @@ class Api::AuthenticationController < ApplicationController
 
   def destroy
     # current_user.destroy
+    # current_user.sign_out
+    puts "current_user: " + @user
+    # sign_out current_user
     head 204
   end
 end

@@ -6,14 +6,3 @@
   </div>
 </div>
 <%= react_component('UserBox') %>
-
-<script type="text/javascript">
-  // Put an 'active' class on the right page that they're on
-  $("#users_pagination").on('click', 'li', function(e) {
-    e.preventDefault();
-    $("#users_pagination").find('li').each(function() {
-      $(this).removeClass('active');
-    });
-    $(this).addClass('active');
-  });
-</script>

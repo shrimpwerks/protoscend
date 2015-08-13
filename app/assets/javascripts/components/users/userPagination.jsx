@@ -4,8 +4,9 @@ var UserPagination = React.createClass({
         page = 1,
         userPages = [];
     for (i=0; i < this.props.count; i+=5) {
+      page_id = "users_pagination_"+page;
       userPages.push(
-        <li className={(i == 0) ? 'active' : ''} value={i} key={i}><a href="#" onClick={this.props.handleClick.bind(null, i)}>{page}</a></li>
+        <li id={page_id} className={(i == 0) ? 'active' : ''} value={i} key={i}><a href="#" onClick={this.props.handleClick.bind(null, i, page_id)}>{page}</a></li>
       );
       page += 1;
     }

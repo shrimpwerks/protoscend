@@ -75,8 +75,15 @@ var UserBox = React.createClass({
     this.formatURL();
     this.loadUsersFromServer();
   },
-  handlePageClick: function(i) {
-    this.state.offset = i;
+  handlePageClick: function(offset, page_id) {
+    // highlight current page
+    $("#users_pagination").find('li').each(function() {
+      $(this).removeClass('active');
+    });
+    $("#"+page_id).addClass('active')
+
+    // fetch correct page data
+    this.state.offset = offset;
     this.formatURL();
     this.loadUsersFromServer();
   },

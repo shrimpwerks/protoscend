@@ -16,7 +16,6 @@ var LoginBox = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
     this.handleLogin(React.findDOMNode(this.refs.email).value.trim(), React.findDOMNode(this.refs.password).value.trim());
-    this.unmount();
   },
   handleLogin: function(email, password) {
     $.ajax({
@@ -31,16 +30,14 @@ var LoginBox = React.createClass({
       success: function(data) {
         sessionStorage.setItem('authentication', data.user.auth_token);
         sessionStorage.setItem('id', data.user.id);
-        sessionStorage.setItem('email', data.user.email);
-        sessionStorage.setItem('fname', data.user.fname);
-        sessionStorage.setItem('lname', data.user.lname);
-        sessionStorage.setItem('small_group', data.user.small_groups_id);
         sessionStorage.setItem('user_level', data.user.user_level);
-        console.log(data);
-        // $("#loading_users_spinner").addClass('hide');
+        $("#login_error_message").hide();
+        $("#logout_button").show();
+        this.unmount();
       }.bind(this),
       error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
+        // console.error(this.props.url, status, err.toString());
+        $("#login_error_message").show("slow");
       }.bind(this)
     });
   },
@@ -57,9 +54,9 @@ var LoginBox = React.createClass({
         <form onSubmit={this.handleSubmit}>
           <div className="well">
             <h2>Login:</h2>
-            <input type="text" className="form-control" ref="email" placeholder="Email"/>
+            <input type="text" className="form-control" ref="email" placeholder="Email" />
             <br />
-            <input type="password" className="form-control" ref="password" placeholder="Password"/>
+            <input type="password" className="form-control" ref="password" placeholder="Password" />
             <br />
             <input type="submit" className="form-control" />
             <br />
