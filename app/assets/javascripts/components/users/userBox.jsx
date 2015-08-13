@@ -3,6 +3,9 @@ var UserBox = React.createClass({
     console.log(this.state.url);
     $.ajax({
       url: this.state.url,
+      beforeSend: function(req) {
+        req.setRequestHeader("Authorization", sessionStorage.getItem('authentication'));
+      },
       dataType: 'json',
       cache: false,
       success: function(data) {
@@ -83,6 +86,13 @@ var UserBox = React.createClass({
     this.formatURL();
     this.state.prev_sort_by = 'null'
     this.loadUsersFromServer();
+  },
+  componentWillMount: function() {
+    if (!sessionStorage.getItem('id')) {
+      this.render = function() {
+        return false;
+      }
+    }
   },
   componentDidMount: function() {
     this.loadUsersFromServer();

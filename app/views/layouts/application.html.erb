@@ -53,7 +53,7 @@
           <li><a href="#">Separated link</a></li>
         </ul>
       </li>
-      <li><a href="#">Logout</a></li>
+      <li><a id="logout_button" href="/">Logout</a></li>
     </ul>
   </div><!-- /.navbar-collapse -->
   </div>
@@ -64,3 +64,13 @@
   </div>
 </body>
 </html>
+
+<script type="text/javascript">
+  $("#logout_button").on('click',function() {
+    sessionStorage.clear();
+  });
+
+  if (!sessionStorage.getItem('id')) {
+    $("#logout_button").remove();
+  }
+</script>

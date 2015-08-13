@@ -1,6 +1,6 @@
 class Api::UserController < ApplicationController
   # protect_from_forgery with: :exception
-  # before_action :authenticate_with_token!
+  before_action :authenticate_with_token!
   respond_to :json
 
   def show
