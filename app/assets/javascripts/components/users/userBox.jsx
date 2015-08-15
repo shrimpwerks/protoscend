@@ -112,6 +112,13 @@ var UserBox = React.createClass({
       <div className="userBox">
         <div className="row">
           <div className=".col-lg-3 .col-lg-offset-3 .col-md-3 .col-md-offset-3 .col-sm-3 .col-sm-offset-3">
+            <h1>Profiles <span style={{color:"#337ab7"}}><i id="loading_users_spinner" className="fa fa-spinner fa-pulse"></i></span>
+              <br/><small>Click on the view link next to the person's name to view the route in more detail.</small></h1>
+            <hr/>
+          </div>
+        </div>
+        <div className="row">
+          <div className=".col-lg-3 .col-lg-offset-3 .col-md-3 .col-md-offset-3 .col-sm-3 .col-sm-offset-3">
           <UserSearch handleSearch={this.handleSearch} handleReset={this.handleReset}/>
             <br/>
             <table className="table">
