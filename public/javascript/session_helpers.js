@@ -1,7 +1,13 @@
 // check if they have the necessary client-side session variables
 $( document ).ready(function() {
+  if (sessionStorage.getItem('routing_error_message')) {
+    $("#routing_error_message").show();
+    sessionStorage.removeItem('routing_error_message');
+  }
   if (!sessionStorage.getItem('authentication') && (window.location != 'http://localhost:3000/')) {
-    history.back();
+    sessionStorage.setItem('routing_error_message', true);
+    // history.back();
+    $(location).attr('href','http://localhost:3000/');
   }
 });
 
@@ -21,6 +27,7 @@ $("#logout_button").on('click',function() {
   sessionStorage.clear();
 });
 
+// hide the logout button if they seem to be logged in
 if (!sessionStorage.getItem('id')) {
   $("#logout_button").hide();
 }

@@ -32,6 +32,7 @@ var LoginBox = React.createClass({
         sessionStorage.setItem('id', data.user.id);
         sessionStorage.setItem('user_level', data.user.user_level);
         $("#login_error_message").hide();
+        $("#routing_error_message").hide();
         $("#logout_button").show();
         this.unmount();
       }.bind(this),
