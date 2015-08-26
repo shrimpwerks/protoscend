@@ -14,10 +14,11 @@ Rails.application.routes.draw do
     resources :route,               :only => [:show, :index]
     resources :small_group,         :only => [:show, :index]
     resources :support_ticket,      :only => [:show, :index]
-    resources :user,                :only => [:show, :index]
+    resources :user,                :only => [:show, :index, :create]
   end
   root to: "home#index"
-  resources :user,                :only => [:show, :index]
+  resources :register,            :only => [:index]
+  resources :user                # :only => [:show, :index, :create]
 
     # get '/announcement/:id', to: 'announcement#show'
     # get '/announcement/', to: 'announcement#index'
