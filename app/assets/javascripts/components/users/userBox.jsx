@@ -121,7 +121,7 @@ var UserBox = React.createClass({
           <div className=".col-lg-3 .col-lg-offset-3 .col-md-3 .col-md-offset-3 .col-sm-3 .col-sm-offset-3">
           <UserSearch handleSearch={this.handleSearch} handleReset={this.handleReset}/>
             <br/>
-            <table className="table">
+            <table className="table table-striped table-hover">
               <UserList data={this.state.data} handleClick={this.handleSortClick}/>
             </table>
           </div>
