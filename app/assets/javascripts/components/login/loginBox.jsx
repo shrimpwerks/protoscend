@@ -28,9 +28,9 @@ var LoginBox = React.createClass({
       },
       cache: false,
       success: function(data) {
-        sessionStorage.setItem('authentication', data.user.auth_token);
-        sessionStorage.setItem('id', data.user.id);
-        sessionStorage.setItem('user_level', data.user.user_level);
+        sessionStorage.setItem('authentication', data.auth_token);
+        sessionStorage.setItem('id', data.id);
+        sessionStorage.setItem('user_level', data.user_level);
         $("#login_error_message").hide();
         $("#routing_error_message").hide();
         $("#logout_button").show();
