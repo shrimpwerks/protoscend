@@ -1,6 +1,6 @@
 class AddRoutesCountToUsers < ActiveRecord::Migration
   def change
-    # add_column :users, :route_count, :integer, :default => 0
+    add_column :users, :route_count, :integer, :default => 0
 
     User.reset_column_information
     User.all.each do |u|
