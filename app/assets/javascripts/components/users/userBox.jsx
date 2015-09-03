@@ -1,99 +1,103 @@
 var UserBox = React.createClass({
-  loadUsersFromServer: function() {
-    console.log(this.state.url);
-    $.ajax({
-      url: this.state.url,
-      beforeSend: function(req) {
-        req.setRequestHeader("Authorization", sessionStorage.getItem('authentication'));
-      },
-      dataType: 'json',
-      cache: false,
-      success: function(data) {
-        this.setState({
-          data: data.user,
-          count: data.meta.count
-        });
-        $("#loading_users_spinner").addClass('hide');
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
-  },
+
   getInitialState: function() {
     return {
       data: [],
+      users: [],
       count: 0,
       url: 'http://localhost:3000/api/user',
       s_fname: '',
       s_lname: '',
       s_email: '',
       sort_by: '',
-      prev_sort_by: 'null',
-      order: 'ASC',
-      offset: 0
+      order: 'ASC'
     };
   },
-  formatURL: function() {
-    var url ='http://localhost:3000/api/user?'
 
-    if (this.state.offset !== 0) {
-      url = url + 'offset=' + this.state.offset + '&';
-    }
-    if (this.state.s_fname !== '') {
-      url = url + 's_fname=' + this.state.s_fname + '&'
-    }
-    if (this.state.s_lname !== '') {
-      url = url + 's_lname=' + this.state.s_lname + '&'
-    }
-    if (this.state.s_email !== '') {
-      url = url + 's_email=' + this.state.s_email + '&'
-    }
-    if (this.state.sort_by !== '') {
-      if (this.state.sort_by === this.state.prev_sort_by) {
-        if (this.state.order === 'ASC') {
-          this.state.order = 'DESC';
-        } else {
-          this.state.order = 'ASC';
-        }
-      }
-      url = url + 'sort_by=' + this.state.sort_by + '&order_by=' + this.state.order;
-    }
-    this.state.url = url;
-  },
   handleSearch: function(s) {
-    this.state.s_fname = s.fname;
-    this.state.s_lname = s.lname;
-    this.state.s_email = s.email;
-    this.formatURL();
-    this.loadUsersFromServer();
+    // Retrieve form fields from state
+    var firstName = s.fname;
+    var lastName = s.lname;
+    var email = s.email;
+
+    // Retrieve cached data set
+    var users = this.state.data;
+
+    // Filter based on present form fields
+    if (firstName) {
+      users = users.filter(function(user) {
+        return user.fname.match(new RegExp(firstName)) ? true : false;
+      });
+    }
+    if (lastName) {
+      users = users.filter(function(user) {
+        return user.lname.match(new RegExp(lastName)) ? true : false;
+      });
+    }
+    if (email) {
+      users = users.filter(function(user) {
+        return user.email.match(new RegExp(email)) ? true : false;
+      });
+    }
+
+    // Set new working set based on filters
+    this.setState({
+      users: users,
+      count: users.count
+    });
   },
+
   handleReset: function(e) {
+    // Reset form fields
     this.state.s_fname = '';
     this.state.s_lname = '';
     this.state.s_email = '';
-    this.formatURL();
-    this.loadUsersFromServer();
-  },
-  handlePageClick: function(offset, page_id) {
-    // highlight current page
-    $("#users_pagination").find('li').each(function() {
-      $(this).removeClass('active');
-    });
-    $("#"+page_id).addClass('active')
 
-    // fetch correct page data
-    this.state.offset = offset;
-    this.formatURL();
-    this.loadUsersFromServer();
+    // Reset working set to (initial) cached data set
+    this.setState({
+      users: this.state.data,
+      count: this.state.data.count
+    });
   },
-  handleSortClick: function(val) {
-    this.state.sort_by = val;
-    this.state.prev_sort_by = this.state.sort_by;
-    this.formatURL();
-    this.state.prev_sort_by = 'null'
-    this.loadUsersFromServer();
+
+  handleSortClick: function(column) {
+    // Shuffle sort_by and prev_sort_by
+    this.setState({
+      prev_sort_by: this.state.sort_by,
+      sort_by: column
+    });
+
+    // Toggle order if the user clicked the same column twice 
+    if (this.state.prev_sort_by == this.state.sort_by) {
+      if (this.state.order == "DESC") {
+        this.setState({order: "ASC"});
+      } else if (this.state.order == "ASC") {
+        this.setState({order: "DESC"});
+      }
+    }
+
+    // Retrieve current working set
+    var users = this.state.users;
+
+    // Sort users based on order
+    if (this.state.order == "DESC") {
+      users = users.sort(function (a, b) {
+        if(a[column] < b[column]) return -1;
+        if(a[column] > b[column]) return 1;
+        return 0;
+      });
+    } else if (this.state.order == "ASC") {
+      users = users.sort(function (a, b) {
+        if(a[column] > b[column]) return -1;
+        if(a[column] < b[column]) return 1;
+        return 0;
+      });
+    }
+
+    // Reassign current working set (with new order)
+    this.setState({users: users});
   },
+
   componentWillMount: function() {
     if (!sessionStorage.getItem('id')) {
       this.render = function() {
@@ -101,32 +105,59 @@ var UserBox = React.createClass({
       }
     }
   },
+
   componentDidMount: function() {
-    this.loadUsersFromServer();
-    // do this if we want live polling, but really that's pretty taxing form
-    // no reason.
-    // setInterval(this.loadUsersFromServer, this.props.pollInterval);
+    var data = {
+      s_fname: this.state.s_fname,
+      s_lname: this.state.s_lname,
+      s_email: this.state.s_email
+    };
+
+    $.ajax({
+      url: this.state.url,
+      dataType: 'json',
+      data: data,
+      cache: false,
+
+      beforeSend: function(req) {
+        req.setRequestHeader("Authorization", sessionStorage.getItem('authentication'));
+      },
+
+      success: function(data) {
+        this.setState({
+          data: data.user,
+          users: data.user,
+          count: data.meta.count
+        });
+        $("#loading_users_spinner").addClass('hide');
+      }.bind(this),
+
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
   },
+
   render: function() {
     return (
       <div className="userBox">
         <div className="row">
           <div className=".col-lg-3 .col-lg-offset-3 .col-md-3 .col-md-offset-3 .col-sm-3 .col-sm-offset-3">
-            <h1>Profiles <span style={{color:"#337ab7"}}><i id="loading_users_spinner" className="fa fa-spinner fa-pulse"></i></span>
-              <br/><small>Click on the view link next to the person's name to view the route in more detail.</small></h1>
+            <h1>
+              Profiles <span style={{color:"#337ab7"}}><i id="loading_users_spinner" className="fa fa-spinner fa-pulse"></i></span>
+              <br/>
+              <small>Click on the view link next to the person's name to view the route in more detail.</small>
+            </h1>
             <hr/>
           </div>
         </div>
         <div className="row">
           <div className=".col-lg-3 .col-lg-offset-3 .col-md-3 .col-md-offset-3 .col-sm-3 .col-sm-offset-3">
-          <UserSearch handleSearch={this.handleSearch} handleReset={this.handleReset}/>
+            <UserSearch handleSearch={this.handleSearch} handleReset={this.handleReset}/>
             <br/>
-            <table className="table table-striped table-hover">
-              <UserList data={this.state.data} handleClick={this.handleSortClick}/>
-            </table>
+            <UserList data={this.state.users} handleClick={this.handleSortClick}/>
           </div>
         </div>
-        <UserPagination count={this.state.count} handleClick={this.handlePageClick}/>
       </div>
     );
   }
