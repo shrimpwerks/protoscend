@@ -9,12 +9,8 @@ class Api::UserController < ApplicationController
   end
 
   def index
-    @users = User.where(nil)
-    @users.search_fname(params[:s_fname]) if params[:s_fname].present?
-    @users.search_lname(params[:s_lname]) if params[:s_lname].present?
-    @users.search_email(params[:s_email]) if params[:s_email].present?
-
-    render json: @users, meta: { count: @users.length }
+    @users = User.all
+    render json: @users
   end
 
   def create

@@ -4,7 +4,6 @@ var UserBox = React.createClass({
     return {
       data: [],
       users: [],
-      count: 0,
       url: 'http://localhost:3000/api/user',
       s_fname: '',
       s_lname: '',
@@ -41,10 +40,7 @@ var UserBox = React.createClass({
     }
 
     // Set new working set based on filters
-    this.setState({
-      users: users,
-      count: users.count
-    });
+    this.setState({users: users});
   },
 
   handleReset: function(e) {
@@ -54,18 +50,12 @@ var UserBox = React.createClass({
     this.state.s_email = '';
 
     // Reset working set to (initial) cached data set
-    this.setState({
-      users: this.state.data,
-      count: this.state.data.count
-    });
+    this.setState({users: this.state.data});
   },
 
   handleSortClick: function(column) {
     // Shuffle sort_by and prev_sort_by
-    this.setState({
-      prev_sort_by: this.state.sort_by,
-      sort_by: column
-    });
+    this.setState({prev_sort_by: this.state.sort_by, sort_by: column});
 
     // Toggle order if the user clicked the same column twice 
     if (this.state.prev_sort_by == this.state.sort_by) {
@@ -107,16 +97,9 @@ var UserBox = React.createClass({
   },
 
   componentDidMount: function() {
-    var data = {
-      s_fname: this.state.s_fname,
-      s_lname: this.state.s_lname,
-      s_email: this.state.s_email
-    };
-
     $.ajax({
       url: this.state.url,
       dataType: 'json',
-      data: data,
       cache: false,
 
       beforeSend: function(req) {
@@ -124,11 +107,7 @@ var UserBox = React.createClass({
       },
 
       success: function(data) {
-        this.setState({
-          data: data.user,
-          users: data.user,
-          count: data.meta.count
-        });
+        this.setState({data: data.user, users: data.user});
         $("#loading_users_spinner").addClass('hide');
       }.bind(this),
 
