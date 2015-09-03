@@ -1,7 +1,7 @@
 class Route < ActiveRecord::Base
 
   # associations
-  belongs_to :user, inverse_of: :routes
+  belongs_to :user, counter_cache: true
 
   has_many :comments, inverse_of: :route
   has_many :maintenance_requests, inverse_of: :route

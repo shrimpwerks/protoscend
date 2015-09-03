@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(version: 20150811214157) do
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
     t.string   "auth_token",             limit: 255, default: ""
-    t.integer  "route_count",            limit: 4,   default: 0
+    t.integer  "routes_count",           limit: 4,   default: 0
   end
 
   add_index "users", ["auth_token"], name: "index_users_on_auth_token", unique: true, using: :btree

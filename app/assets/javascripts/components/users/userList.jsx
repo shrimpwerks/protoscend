@@ -24,7 +24,7 @@ var UserList = React.createClass({
               }
             })()}
           </td>
-          <td>{user.route_count}</td>
+          <td>{user.routes_count}</td>
         </tr>
       );
     });
@@ -36,7 +36,7 @@ var UserList = React.createClass({
             <th onClick={this.props.handleClick.bind(null, 'lname')}>Last Name</th>
             <th onClick={this.props.handleClick.bind(null, 'email')}>Email</th>
             <th onClick={this.props.handleClick.bind(null, 'user_level')}>Access</th>
-            <th onClick={this.props.handleClick.bind(null, 'route_count')}>Number of Routes</th>
+            <th onClick={this.props.handleClick.bind(null, 'routes_count')}>Number of Routes</th>
           </tr>
         </thead>
         <tbody className="view_users">
