@@ -26,17 +26,17 @@ var UserBox = React.createClass({
     // Filter based on present form fields
     if (firstName) {
       users = users.filter(function(user) {
-        return user.fname.match(new RegExp(firstName)) ? true : false;
+        return user.fname.toLowerCase().match(new RegExp(firstName.toLowerCase())) ? true : false;
       });
     }
     if (lastName) {
       users = users.filter(function(user) {
-        return user.lname.match(new RegExp(lastName)) ? true : false;
+        return user.lname.toLowerCase().match(new RegExp(lastName.toLowerCase())) ? true : false;
       });
     }
     if (email) {
       users = users.filter(function(user) {
-        return user.email.match(new RegExp(email)) ? true : false;
+        return user.email.toLowerCase().match(new RegExp(email.toLowerCase())) ? true : false;
       });
     }
 
