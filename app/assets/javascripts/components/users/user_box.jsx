@@ -1,10 +1,8 @@
 var UserBox = React.createClass({
-
   getInitialState: function() {
     return {
       data: [],
       users: [],
-      url: 'http://localhost:3000/api/user',
       s_fname: '',
       s_lname: '',
       s_email: '',
@@ -54,16 +52,18 @@ var UserBox = React.createClass({
   },
 
   handleSortClick: function(column) {
-    // Shuffle sort_by and prev_sort_by
-    this.setState({prev_sort_by: this.state.sort_by, sort_by: column});
+    var prev = this.state.sort_by
+    this.setState({sort_by: column});
 
-    // Toggle order if the user clicked the same column twice 
-    if (this.state.prev_sort_by == this.state.sort_by) {
+    // Toggle order if the user clicked the same column twice
+    if (prev == this.state.sort_by) {
       if (this.state.order == "DESC") {
         this.setState({order: "ASC"});
       } else if (this.state.order == "ASC") {
         this.setState({order: "DESC"});
       }
+    } else {
+      this.setState({order: "DESC"});
     }
 
     // Retrieve current working set
@@ -97,46 +97,23 @@ var UserBox = React.createClass({
   },
 
   componentDidMount: function() {
-    $.ajax({
-      url: this.state.url,
-      dataType: 'json',
-      cache: false,
-
-      beforeSend: function(req) {
-        req.setRequestHeader("Authorization", sessionStorage.getItem('authentication'));
-      },
-
-      success: function(data) {
-        this.setState({data: data.user, users: data.user});
-        $("#loading_users_spinner").addClass('hide');
-      }.bind(this),
-
-      error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
+    this.setState({data: this.props.data, users: this.props.data});
   },
 
   render: function() {
     return (
-      <div className="userBox">
-        <div className="row">
-          <div className=".col-lg-3 .col-lg-offset-3 .col-md-3 .col-md-offset-3 .col-sm-3 .col-sm-offset-3">
-            <h1>
-              Profiles <span style={{color:"#337ab7"}}><i id="loading_users_spinner" className="fa fa-spinner fa-pulse"></i></span>
-              <br/>
-              <small>Click on the view link next to the person's name to view the route in more detail.</small>
-            </h1>
-            <hr/>
-          </div>
-        </div>
-        <div className="row">
-          <div className=".col-lg-3 .col-lg-offset-3 .col-md-3 .col-md-offset-3 .col-sm-3 .col-sm-offset-3">
-            <UserSearch handleSearch={this.handleSearch} handleReset={this.handleReset}/>
-            <br/>
-            <UserList data={this.state.users} handleClick={this.handleSortClick}/>
-          </div>
-        </div>
+      <div className="row">
+          <UserSearch
+            handleSearch={this.handleSearch}
+            handleReset={this.handleReset}
+          />
+          <br/>
+          <UserTable
+            order={this.state.order}
+            sort_by={this.state.sort_by}
+            data={this.state.users}
+            handleClick={this.handleSortClick}
+          />
       </div>
     );
   }

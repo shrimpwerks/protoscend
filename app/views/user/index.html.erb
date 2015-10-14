@@ -1,1 +1,12 @@
-<%= react_component('UserBox') %>
+<div class="userBox">
+  <div class="row">
+    <div class="">
+      <h1>Profiles
+        <br/>
+        <small>Click on the view link next to the person's name to view the route in more detail.</small>
+      </h1>
+      <hr/>
+    </div>
+  </div>
+  <%= react_component('UserBox', { data: User.all }) %>
+</div>
