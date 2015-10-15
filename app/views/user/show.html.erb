@@ -1,1 +1,34 @@
-<%= react_component('EditUserBox') %>
+<div class="col-lg-6 col-md-6 col-sm-6 ">
+
+  <h1>View Profile
+    <div class="pull-right">
+      <%= link_to "Edit", edit_user_path(@user), { :class => "btn btn-primary" } %>
+    </div>
+  </h1>
+
+  <table class="table">
+    <tbody>
+      <tr>
+        <th><label for="user_email">Email</label></th>
+        <td><%= @user.email %></td>
+      </tr>
+      <tr>
+        <th><label for="user_fname">First Name</label></th>
+        <td><%= @user.fname %></td>
+      </tr>
+      <tr>
+        <th><label for="user_lname">Last Name</label></th>
+        <td><%= @user.lname %></td>
+      </tr>
+      <tr>
+        <th><label for="user_level">Profile Level</label></th>
+        <td><%= @user.user_level %></td>
+      </tr>
+      <tr>
+        <th><label for="user_group">Small Group</label></th>
+        <td><%= @user.small_group %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- <%= react_component('EditUserBox', {id: params[:id]}) %> -->
