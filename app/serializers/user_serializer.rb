@@ -6,7 +6,7 @@ class UserSerializer < ActiveModel::Serializer
   attributes :user_level
   attributes :small_groups_id
   attributes :hidden
-  attributes :route_count
+  attributes :routes_count
 
-  has_many :routes
+  # has_many :routes
 end
