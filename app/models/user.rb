@@ -26,29 +26,15 @@ class User < ActiveRecord::Base
     end while self.class.exists?(auth_token: auth_token)
   end
 
-  def self.list_users(params)
-    # joins('left outer join routes on routes.user_id = users.id').group(:id)
-    # .select('users.*, count(routes.id) as route_count')
-    limit(5)
+  def self.with_first_name(first_name)
+    where("users.fname LIKE ?", "%#{first_name}%")
   end
 
-  def self.search_fname(fname)
-    where("users.fname LIKE :fname", {:fname => "%#{fname}%"})
+  def self.with_last_name(last_name)
+    where("users.lname LIKE ?", "%#{last_name}%")
   end
 
-  def self.search_lname(lname)
-    where("users.lname LIKE :lname", {:lname => "%#{lname}%"})
-  end
-
-  def self.search_email(email)
-    where("users.email LIKE :email", {:email => "%#{email}%"})
-  end
-
-  def self.offset_by(params)
-    offset(params[:offset])
-  end
-
-  def self.order_by(params)
-    order(params[:sort_by].to_s + ' ' + params[:order_by].to_s)
+  def self.with_email(email)
+    where("users.email LIKE ?", "%#{email}%")
   end
 end
