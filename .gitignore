@@ -18,3 +18,5 @@
 
 # dumb stuff
 DS_Store
+
+.env
