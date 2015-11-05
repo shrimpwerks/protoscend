@@ -2,8 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.view_users tr:hover {
-    cursor: pointer !important;
+.view_users tr:hover,
+.view_users th {
+  cursor: pointer !important;
 }
 
 .pull-right {

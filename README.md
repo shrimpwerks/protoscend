@@ -1,18 +1,35 @@
-# ICCapi
-An api that serves data regarding the climbing routes available at the indoor climbing center at Oregon State University. The previous version of the full site already exists at [iccroutes](https://iccroutes.com). When this project is finished it'll replace it. This project is mostly intended to help me learn rails and react at the same time. Save your judgement. 
+## routes
+An application that serves data regarding the climbing routes available at the indoor climbing center at Oregon State University. The previous version of the full site already exists at [iccroutes](https://iccroutes.com). When this project is finished, it will replace it.
 
-## Design
-+ Backend:  [Ruby on Rails](https://github.com/rails/rails)
-+ Frontend: [React](https://github.com/facebook/react)
-+ database: MySQL
+#### Setup
+Dependencies
+- MySQL
+- Ruby (2.2.3)
+- [Heroku Toolbelt](https://toolbelt.heroku.com/)
+- [Foreman](https://github.com/ddollar/foreman)
 
-***
+Get the code
+```sh
+git clone git@github.com:skeltont/ICCapi.git
+```
 
-**Shouts out to:**
-- [active_model_serializers](https://github.com/rails-api/active_model_serializers)
-- [react-rails](https://github.com/reactjs/react-rails)
-- [devise] (https://github.com/plataformatec/devise)
+Setup your environment
+```sh
+bin/setup
+```
 
+Modify .env as needed
+```sh
+vim .env
+```
 
-### Update:
-Instead of having two discrete projects (api and client-side) I've switched to rendering the views through rails and rendering react components in those views until the api is finished and then I'll move the components over and make an entirely static client side with react-router.
+Start Foreman
+```sh
+foreman start
+```
+
+Verify that the app is up and running
+```sh
+open http://localhost:3000
+# Login using one of the profiles in db/seeds.rb
+```
