@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
   validates :auth_token, uniqueness: true
   # validates :email, uniqueness: true
   validates :fname, presence: true

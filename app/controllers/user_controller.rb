@@ -10,12 +10,30 @@ class UserController < ApplicationController
   end
 
   def show
+    @user = User.find(params[:id])
   end
 
   def new
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+
+    @user.update_attributes!(user_params)
+
+    redirect_to @user
+  end
+
   private
+
+  def user_params
+    params.require(:user).permit(:email, :fname, :lname)
+  end
+
   def sort_column
     User.column_names.include?(params[:sort]) ? params[:sort] : "id"
   end

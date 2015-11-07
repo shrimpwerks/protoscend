@@ -7,79 +7,66 @@
     </h1>
   </div>
 
-  <table class="table">
-    <tbody>
-      <tr>
-        <th>
-          <label for="user_email">Email</label>
-        </th>
-        <td>
-          <input class="form-control" name="user_email" type="text" value="<%= @user.email %>" id="user_email">
-        </td>
-      </tr>
-      <tr>
-        <th>
-          <label for="user_fname">First Name</label>
-        </th>
-        <td>
-          <input class="form-control" name="user_fname" type="text" value="<%= @user.fname %>" id="user_fname">
-        </td>
-      </tr>
-      <tr>
-        <th>
-          <label for="user_lname">Last Name</label>
-        </th>
-        <td>
-          <input class="form-control" name="user_lname" type="text" value="<%= @user.lname %>" id="user_lname">
-        </td>
-      </tr>
-      <tr>
-        <th>
-          <label for="user_level">Profile Level</label>
-        </th>
-        <td>
-          <!-- TODO: this needs to actually be a thing -->
-          <select class="form-control" name="user_level">
-            <option value="0">General</option><option value="1">Setter</option><option value="2">Staff</option><option value="3">Supervisor</option><option value="4">Route Manager</option><option value="5" selected="selected">Admin</option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <th>
-          <label for="user_group">Small Group</label>
-        </th>
-        <td>
-          <!-- TODO: this needs to actually be a thing -->
-          <select class="form-control" name="user_group">
-            <option value="none">No group assigned</option>
-            <option value="1" selected="selected">Chipotle Stampedes</option><option value="6">Twitterpatted Soliloquies</option><option value="7">Wasabi Phantoms</option><option value="8">Sketchy Intentions</option><option value="9">Volcanic Babes</option>
-          </select>
+  <%= form_for @user do |f| %>
+    <table class="table">
+      <tbody>
+        <tr>
+          <th>
+            <%= f.label :email %>
+          </th>
+          <td>
+            <%= f.email_field :email, :class => "form-control" %>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <%= f.label :fname, "First Name" %>
+          </th>
+          <td>
+            <%= f.text_field :fname, :class => "form-control" %>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <%= f.label :lname, "Last Name" %>
+          </th>
+          <td>
+            <%= f.text_field :lname, :class => "form-control" %>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <%= f.label :user_level, "Level" %>
+          </th>
+          <td>
+            <%= f.select :user_level, [['General', 0], ['Setter', 1], ['Staff', 2], ['Supervisor', 3], ['Route Manager', 4], ['Admin', 5]] %>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <%= f.label :password, "Change Password" %>
+          </th>
+          <td>
+            <%= f.password_field :password, :class => "form-control" %>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <%= f.label :password_confirmation, "Repeat Password" %>
+          </th>
+          <td>
+            <%= f.password_field :password_confirmation, :class => "form-control" %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-        </td>
-      </tr>
-      <tr>
-        <th>
-          <label for="user_password">Change Password</label>
-        </th>
-        <td>
-          <input class="form-control" name="user_password" type="password" value="" id="user_password">
-        </td>
-      </tr>
-      <tr>
-        <th>
-          <label for="user_password_confirmation">Repeat Password</label>
-        </th>
-        <td>
-          <input class="form-control" name="user_password_confirmation" type="password" value="" id="user_password_confirmation">
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div style="float:right">
-    <input type="submit" class="btn btn-primary" value="Submit!">
+    <div style="float:right">
+      <!-- <input type="submit" class="btn btn-primary" value="Submit!"> -->
+      <%= f.submit :submit, :value => "Update Profile", :class => "btn btn-primary" %>
+    </div>
+    <div style="float:left">
+      <a href=""><button type="button" class="btn btn-danger">Disable</button></a>
+    </div>
   </div>
-  <div style="float:left">
-    <a href=""><button type="button" class="btn btn-danger">Disable</button></a>
-  </div>
-</div>
+  <% end %>
