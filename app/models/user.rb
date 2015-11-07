@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
   # validates :auth_token, uniqueness: true
   # validates :email, uniqueness: true
-  # validates :fname, presence: true
-  # validates :lname, presence: true, length: { minimum: 3 }
+  validates :fname, presence: true
+  validates :lname, presence: true
   # validates :password, length: { in: 8..20 }
 
   devise :database_authenticatable, :registerable,
