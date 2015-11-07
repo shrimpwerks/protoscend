@@ -1,17 +1,6 @@
-<div class="row">
-  <div class="col-lg-9 col-md-9 col-sm-9">
-    <div class="jumbotron">
-      <h1>ICC Route Database &nbsp;<span style="color:#337ab7"><i id="loading_announcements_spinner" class="fa fa-spinner fa-pulse"></i></span></h1>
-      <%= react_component('AnnouncementBox',{url: 'http://localhost:3000/api/announcement'}) %>
-    </div>
-  </div>
-  <div class="col-lg-3 col-md-3 col-sm-3">
-    <div id="login_error_message" class="alert alert-danger" role="alert" style="display: none;">
-      Your email/password was incorrect.
-    </div>
-    <div id="routing_error_message" class="alert alert-danger" role="alert" style="display: none;">
-      Please login before navigating the site. 
-    </div>
-    <%= react_component('LoginBox') %>
-  </div>
+<div class="jumbotron">
+<h1>Routes</h1>
+<p>An application that serves data regarding the climbing routes available at the indoor climbing center at Oregon State University.</p>
+<a class="btn btn-primary btn-md" href="#" role="button">Learn more</a>
 </div>
+
