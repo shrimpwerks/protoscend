@@ -3,3 +3,12 @@
 
 @import "user";
 
+.navbar {
+  border-radius: 0;
+}
+
+.navbar-brand img {
+  height: 24px;
+  width: 24px;
+  display: inline-block;
+}
