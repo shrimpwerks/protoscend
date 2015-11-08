@@ -23,15 +23,29 @@ class UserController < ApplicationController
   def update
     @user = User.find(params[:id])
 
-    @user.update_attributes!(user_params)
+    #TODO: This needs to check for user_level.
+    @user.update_attributes!(user_level_update)
+
+    #TODO: This needs to check for user_level OR current user
+    @user.update_attributes!(user_password_update)
+
+    @user.update_attributes!(user_basic_info_update)
 
     redirect_to @user
   end
 
   private
 
-  def user_params
+  def user_basic_info_update
     params.require(:user).permit(:email, :fname, :lname)
+  end
+
+  def user_level_update
+    params.require(:user).permit(:user_level)
+  end
+
+  def user_password_update
+    params.require(:user).permit(:password)
   end
 
   def sort_column

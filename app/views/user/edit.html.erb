@@ -39,7 +39,7 @@
             <%= f.label :user_level, "Level" %>
           </th>
           <td>
-            <%= f.select :user_level, [['General', 0], ['Setter', 1], ['Staff', 2], ['Supervisor', 3], ['Route Manager', 4], ['Admin', 5]] %>
+            <%= f.select :user_level, [['General', 0], ['Setter', 1], ['Staff', 2], ['Supervisor', 3], ['Route Manager', 4], ['Admin', 5]], {}, {:class => "form-control"} %>
           </td>
         </tr>
         <tr>
@@ -66,6 +66,7 @@
       <%= f.submit :submit, :value => "Update Profile", :class => "btn btn-primary" %>
     </div>
     <div style="float:left">
+      <!-- TODO: make this actually disable a person -->
       <a href=""><button type="button" class="btn btn-danger">Disable</button></a>
     </div>
   </div>
