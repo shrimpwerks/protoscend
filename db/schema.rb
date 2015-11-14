@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150813221233) do
+ActiveRecord::Schema.define(version: 20151107212823) do
 
   create_table "announcements", force: :cascade do |t|
     t.text     "announcement", limit: 65535
@@ -93,7 +93,7 @@ ActiveRecord::Schema.define(version: 20150813221233) do
     t.string   "lname",                  limit: 255
     t.string   "email",                  limit: 255, default: "", null: false
     t.string   "encrypted_password",     limit: 255, default: "", null: false
-    t.integer  "user_level",             limit: 4
+    t.integer  "user_level",             limit: 4,   default: 1
     t.integer  "small_groups_id",        limit: 4
     t.integer  "hidden",                 limit: 4
     t.string   "reset_password_token",   limit: 255
