@@ -27,7 +27,7 @@ class UserController < ApplicationController
     @user.update_attributes!(user_level_update)
 
     #TODO: This needs to check for user_level OR current user
-    @user.update_attributes!(user_password_update)
+    @user.update_attributes!(user_password_update) if params[:user][:password].present?
 
     @user.update_attributes!(user_basic_info_update)
 

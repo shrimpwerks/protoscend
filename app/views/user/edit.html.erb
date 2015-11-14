@@ -15,7 +15,7 @@
             <%= f.label :email %>
           </th>
           <td>
-            <%= f.email_field :email, :class => "form-control" %>
+            <%= f.email_field :email, :class => "form-control", :required => true  %>
           </td>
         </tr>
         <tr>
@@ -23,7 +23,7 @@
             <%= f.label :fname, "First Name" %>
           </th>
           <td>
-            <%= f.text_field :fname, :class => "form-control" %>
+            <%= f.text_field :fname, :class => "form-control", :required => true  %>
           </td>
         </tr>
         <tr>
@@ -31,7 +31,7 @@
             <%= f.label :lname, "Last Name" %>
           </th>
           <td>
-            <%= f.text_field :lname, :class => "form-control" %>
+            <%= f.text_field :lname, :class => "form-control", :required => true  %>
           </td>
         </tr>
         <tr>
