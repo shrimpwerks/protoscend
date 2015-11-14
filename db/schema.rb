@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150811214157) do
+ActiveRecord::Schema.define(version: 20150813221233) do
 
   create_table "announcements", force: :cascade do |t|
     t.text     "announcement", limit: 65535
@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(version: 20150811214157) do
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
     t.string   "auth_token",             limit: 255, default: ""
-    t.integer  "routes_count",           limit: 4,   default: 0
+    t.integer  "route_count",            limit: 4,   default: 0
   end
 
   add_index "users", ["auth_token"], name: "index_users_on_auth_token", unique: true, using: :btree
