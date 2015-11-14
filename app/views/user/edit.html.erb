@@ -1,0 +1,73 @@
+<div class="col-lg-6 col-md-6 col-sm-6 ">
+  <div class="page-header">
+    <h1>
+      Edit Profile
+      <br>
+      <small><%= @user.email %></small>
+    </h1>
+  </div>
+
+  <%= form_for @user do |f| %>
+    <table class="table">
+      <tbody>
+        <tr>
+          <th>
+            <%= f.label :email %>
+          </th>
+          <td>
+            <%= f.email_field :email, :class => "form-control", :required => true  %>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <%= f.label :fname, "First Name" %>
+          </th>
+          <td>
+            <%= f.text_field :fname, :class => "form-control", :required => true  %>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <%= f.label :lname, "Last Name" %>
+          </th>
+          <td>
+            <%= f.text_field :lname, :class => "form-control", :required => true  %>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <%= f.label :user_level, "Level" %>
+          </th>
+          <td>
+            <%= f.select :user_level, [['General', 0], ['Setter', 1], ['Staff', 2], ['Supervisor', 3], ['Route Manager', 4], ['Admin', 5]], {}, {:class => "form-control"} %>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <%= f.label :password, "Change Password" %>
+          </th>
+          <td>
+            <%= f.password_field :password, :class => "form-control" %>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <%= f.label :password_confirmation, "Repeat Password" %>
+          </th>
+          <td>
+            <%= f.password_field :password_confirmation, :class => "form-control" %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="float:right">
+      <!-- <input type="submit" class="btn btn-primary" value="Submit!"> -->
+      <%= f.submit :submit, :value => "Update Profile", :class => "btn btn-primary" %>
+    </div>
+    <div style="float:left">
+      <!-- TODO: make this actually disable a person -->
+      <a href=""><button type="button" class="btn btn-danger">Disable</button></a>
+    </div>
+  </div>
+  <% end %>
