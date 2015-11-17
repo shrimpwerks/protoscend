@@ -2,7 +2,9 @@
 
   <h1>View Profile
     <div class="pull-right">
-      <%= link_to "Edit", edit_user_path(@user), { :class => "btn btn-primary" } %>
+      <% if policy(@user).edit? %>
+        <%= link_to "Edit", edit_user_path(@user), { :class => "btn btn-primary" } %>
+      <% end %>
     </div>
   </h1>
 
