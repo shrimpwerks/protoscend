@@ -35,7 +35,7 @@
 	      <% @routes.each do |route| %>
 	        <tr>
 						<td>
-							<%= link_to route.user.fname + " " + route.user.lname, user_path(route.user.id) %>
+							<%= link_to route.user.name, user_path(route.user.id) %>
 						</td>
 	          <td>
 	            <%= route.gym %>
@@ -82,7 +82,7 @@
 						<div class="col-sm-12 col-md-6 col-lg-6">
 							<div class="form-group">
 						    <%= label_tag :user_id, "Setter" %>
-						    <%= select_tag "user_id", options_from_collection_for_select(@setters, "id", "full_name"), :class => "form-control" %>
+						    <%= select_tag "user_id", options_from_collection_for_select(@setters, "id", "name"), :class => "form-control" %>
 						  </div>
 						</div>
 						<div class="col-sm-12 col-md-6 col-lg-6">

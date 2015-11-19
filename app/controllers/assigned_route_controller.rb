@@ -7,11 +7,10 @@ class AssignedRouteController < ApplicationController
 
   def index
     @assigned_route = AssignedRoute.new
-    @routes = AssignedRoute.joins(:user)
-    @setters = User.where('user_level > 0').order(:fname)
-    @setters.each do |setter|
-      setter.full_name = setter.fname + " " + setter.lname
-    end
+    @routes = AssignedRoute.with_users
+    @setters = User.get_setters
+
+    # TODO: change these to enums
     @gyms = {
       "McAlexander" => "McAlexander",
       "Dixon"       => "Dixon"
