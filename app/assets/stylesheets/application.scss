@@ -12,3 +12,11 @@
   width: 24px;
   display: inline-block;
 }
+
+.table__row {
+}
+
+.table__row:hover {
+  cursor: pointer;
+  background-color: #f6f7f7;
+}

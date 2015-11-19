@@ -1,56 +1,36 @@
-<h2>Users</h2>
+<header>
+  <h1 style="display:inline-block;">Routes</h1>
+  <div class="pull-right" style="margin-top: 20px;">
+    <%= form_tag user_index_path, method: "get",
+      class: "form-inline",
+      style: "display:inline-block;" do %>
 
-<div class="row">
-  <div class="col-sm-9">
-    <table class="table table-striped">
-      <thead>
-        <th><%= sortable "id", "#" %></th>
-        <th><%= sortable "fname", "First Name" %></th>
-        <th><%= sortable "lname", "Last Name" %></th>
-        <th><%= sortable "email", "Email"  %></th>
-        <th><%= sortable "user_level", "Access" %></th>
-        <th><%= sortable "routes_count", "Routes Count" %></th>
-      </thead>
-      <tbody>
-        <% @users.each do |user| %>
-          <tr>
-            <td><%= link_to user.id, user %></td>
-            <td><%= user.fname %></td>
-            <td><%= user.lname %></td>
-            <td><%= user.email %></td>
-            <td><%= user.user_level %></td>
-            <td><%= user.routes_count %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+      <%= text_field_tag "search", params[:search], class: "form-control", autofocus: true %>
+      <%= submit_tag "Search", class: "btn btn-primary" %>
+
+    <% end %>
   </div>
+</header>
 
-  <div class="col-sm-3">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Filters</h3>
-      </div>
-      <div class="panel-body">
-        <%= form_tag user_index_path, method: "get" do %>
-          <div class="form-group">
-            <%= label_tag "first_name" %>
-            <%= text_field_tag "first_name", params[:first_name], class: "form-control" %>
-          </div>
-
-          <div class="form-group">
-            <%= label_tag "last_name" %>
-            <%= text_field_tag "last_name", params[:last_name], class: "form-control" %>
-          </div>
-
-          <div class="form-group">
-            <%= label_tag "email" %>
-            <%= email_field_tag "email", params[:email], class: "form-control" %>
-          </div>
-
-          <button class="form-control btn-success" type="submit" value="Submit">Go</button>
-        <% end %>
-      </div>
-    </div>
-  </div>
+<table class="table table-striped">
+  <thead>
+    <th><%= sortable "fname", "First Name" %></th>
+    <th><%= sortable "lname", "Last Name" %></th>
+    <th><%= sortable "email", "Email"  %></th>
+    <th><%= sortable "user_level", "Access" %></th>
+    <th><%= sortable "routes_count", "Routes Count" %></th>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr class="table__row" data-url="<%= user_path(user.id) %>">
+        <td><%= highlight user.fname, params[:search] %></td>
+        <td><%= highlight user.lname, params[:search] %></td>
+        <td><%= highlight user.email, params[:search] %></td>
+        <td><%= user.user_level %></td>
+        <td><%= user.routes_count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 </div>
+

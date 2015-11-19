@@ -17,3 +17,9 @@
 //= require_tree .
 //= require jquery
 //= require bootstrap-sprockets
+
+$(document).on('ready page:load', function(event) {
+  $("[data-url]").click(function() {
+    window.document.location = $(this).data("url");
+  });
+});

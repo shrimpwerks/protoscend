@@ -3,9 +3,7 @@ class UserController < ApplicationController
 
   def index
     @users = User.where(nil)
-    @users = @users.with_first_name(params[:first_name]) if params[:first_name].present?
-    @users = @users.with_last_name(params[:last_name]) if params[:last_name].present?
-    @users = @users.with_email(params[:email]) if params[:email].present?
+    @users = @users.with_full_text_search(params[:search]) if params[:search].present?
     @users = @users.order(sort_column + " " + sort_direction)
   end
 
