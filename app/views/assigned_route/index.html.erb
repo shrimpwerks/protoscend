@@ -16,31 +16,39 @@
     <div align="center">
 			<h4>Currently Assigned Routes</h4>
 		</div>
-    <table class="table">
-      <tr>
-        <th>
-          Setter
-        </th>
-        <th>
-          Gym
-        </th>
-        <th>
-          Grade
-        </th>
-      </tr>
-      <% @routes.each do |route| %>
-        <tr>
-					<td>
-						<%= route.user.fname + " " + route.user.lname %>
-					</td>
-          <td>
-            <%= route.gym %>
-          </td>
-					<td>
-						<%= route.grade %>
-					</td>
-        </tr>
-      <% end %>
+    <table class="table table-striped">
+			<tbody>
+				<tr>
+	        <th>
+	          Setter
+	        </th>
+	        <th>
+	          Gym
+	        </th>
+	        <th>
+	          Grade
+	        </th>
+					<th>
+						Date Assigned
+					</th>
+	      </tr>
+	      <% @routes.each do |route| %>
+	        <tr>
+						<td>
+							<%= link_to route.user.fname + " " + route.user.lname, user_path(route.user.id) %>
+						</td>
+	          <td>
+	            <%= route.gym %>
+	          </td>
+						<td>
+							<%= route.grade %>
+						</td>
+						<td>
+							<%= route.created_at.strftime("%b %d, %Y") %>
+						</td>
+	        </tr>
+	      <% end %>
+			</tbody>
     </table>
   </div>
   <div class="col-sm-12 col-md-5 col-lg-5">
