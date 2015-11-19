@@ -28,4 +28,34 @@
       </tr>
     </tbody>
   </table>
+
+  <h3>Assigned Routes</h3>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>
+          Gym
+        </th>
+        <th>
+          Grade
+        </th>
+        <th>
+          Date Assigned
+        </th>
+      </tr>
+      <% @assigned_routes.each do |route| %>
+        <tr>
+          <td>
+            <%= route.gym %>
+          </td>
+          <td>
+            <%= route.grade %>
+          </td>
+          <td>
+            <%= route.created_at.strftime("%b %d, %Y") %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>

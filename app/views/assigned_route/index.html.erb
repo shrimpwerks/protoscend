@@ -1,0 +1,94 @@
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<div class="page-header">
+  		<h1>Assign Routes
+				<% if policy(@assigned_route).create? %>
+					<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#assignModal">
+		      	Assign New Route
+		    	</button>
+				<% end %>
+				<br><small>Assign a route to a setter on the left and view pending route creations to the right</small></h1>
+		</div>
+	</div>
+</div>
+<div class="row">
+  <div class="col-sm-12 col-md-7 col-lg-7">
+    <div align="center">
+			<h4>Currently Assigned Routes</h4>
+		</div>
+    <table class="table">
+      <tr>
+        <th>
+          Setter
+        </th>
+        <th>
+          Gym
+        </th>
+        <th>
+          Grade
+        </th>
+      </tr>
+      <% @routes.each do |route| %>
+        <tr>
+					<td>
+						<%= route.user.fname + " " + route.user.lname %>
+					</td>
+          <td>
+            <%= route.gym %>
+          </td>
+					<td>
+						<%= route.grade %>
+					</td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="col-sm-12 col-md-5 col-lg-5">
+  </div>
+</div>
+
+<div class="modal fade" id="assignModal" tabindex="-1" role="dialog" aria-labelledby="assignModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Assign Route</h4>
+      </div>
+      <div class="modal-body">
+				<%= form_tag("/assigned_route", method: "post") do %>
+					<div class="row">
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<div class="form-group">
+								<%= label_tag :gym, "Gym" %>
+						    <%= select_tag "gym", options_for_select(@gyms), :class => "form-control" %>
+						  </div>
+						</div>
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<div class="form-group">
+						    <%= label_tag :grade, "Grade" %>
+								<%= select_tag "grade", options_for_select(@grades), :class => "form-control" %>
+						  </div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<div class="form-group">
+						    <%= label_tag :user_id, "Setter" %>
+						    <%= select_tag "user_id", options_from_collection_for_select(@setters, "id", "full_name"), :class => "form-control" %>
+						  </div>
+						</div>
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<div class="checkbox">
+						    <label>
+									<%= check_box_tag 'notify_email', 'yes', true %> Notify with Email
+						    </label>
+						  </div>
+						</div>
+					</div>
+					<%= submit_tag "Update Profile", :class => "btn btn-success pull-right" %>
+				<% end %>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

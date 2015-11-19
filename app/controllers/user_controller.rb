@@ -13,6 +13,7 @@ class UserController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @assigned_routes = AssignedRoute.where(:user_id => params[:id], :completed => 0, :hidden => 0)
   end
 
   def new

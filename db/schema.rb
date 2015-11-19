@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151107212823) do
+ActiveRecord::Schema.define(version: 20151119002910) do
 
   create_table "announcements", force: :cascade do |t|
     t.text     "announcement", limit: 65535
@@ -20,13 +20,13 @@ ActiveRecord::Schema.define(version: 20151107212823) do
   end
 
   create_table "assigned_routes", force: :cascade do |t|
-    t.integer  "users_id",   limit: 4
+    t.integer  "user_id",    limit: 4
     t.string   "gym",        limit: 255
     t.string   "grade",      limit: 255
-    t.integer  "completed",  limit: 4
-    t.integer  "hidden",     limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "completed",  limit: 4,   default: 0
+    t.integer  "hidden",     limit: 4,   default: 0
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   create_table "available_walls", force: :cascade do |t|

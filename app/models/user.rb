@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
   has_many :routes, inverse_of: :user
   has_many :support_tickets, inverse_of: :user
 
+  attr_accessor :full_name
+
   def self.with_first_name(first_name)
     where("users.fname LIKE ?", "%#{first_name}%")
   end

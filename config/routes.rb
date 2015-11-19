@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   root to: "home#index"
   resources :register,   :only => [:index]
   resources :user        #:only => [:show, :index, :create]
-  
+  resources :assigned_route
+
 end
