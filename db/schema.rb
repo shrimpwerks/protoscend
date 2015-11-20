@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 20151119002910) do
   end
 
   create_table "routes", force: :cascade do |t|
-    t.string   "route_name",         limit: 255
+    t.string   "name",               limit: 255
     t.integer  "user_id",            limit: 4
     t.integer  "available_walls_id", limit: 4
     t.string   "location",           limit: 255
