@@ -5,13 +5,13 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  belongs_to :small_group, inverse_of: :users
-  has_many :assigned_routes, inverse_of: :user
-  has_many :comments, inverse_of: :user
-  has_many :maintenance_requests, inverse_of: :user
-  has_many :ratings, inverse_of: :user
-  has_many :routes, inverse_of: :user
-  has_many :support_tickets, inverse_of: :user
+  belongs_to :small_group
+  has_many :assigned_routes
+  has_many :comments
+  has_many :maintenance_requests
+  has_many :ratings
+  has_many :routes
+  has_many :support_tickets
 
   def name
     "#{fname} #{lname}"
@@ -21,15 +21,9 @@ class User < ActiveRecord::Base
     where('user_level > 0').order(:fname)
   end
 
-  def self.with_first_name(first_name)
-    where("users.fname LIKE ?", "%#{first_name}%")
-  end
-
-  def self.with_last_name(last_name)
-    where("users.lname LIKE ?", "%#{last_name}%")
-  end
-
-  def self.with_email(email)
-    where("users.email LIKE ?", "%#{email}%")
+  # TODO Replace with ActiveRecord #or with Rails 5
+  def self.with_full_text_search(term)
+    q = 'fname LIKE ? OR lname LIKE ? OR email LIKE ?'
+    where([q, "%#{term}%", "%#{term}%", "%#{term}%"])
   end
 end
