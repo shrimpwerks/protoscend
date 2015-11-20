@@ -13,7 +13,7 @@ class UserController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @assigned_routes = AssignedRoute.for_user(params[:id]).not_complete.not_hidden
+    @assigned_routes = @user.assigned_routes.not_complete.not_hidden
   end
 
   def new
