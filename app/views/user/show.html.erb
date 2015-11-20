@@ -2,7 +2,9 @@
 
   <h1>View Profile
     <div class="pull-right">
-      <%= link_to "Edit", edit_user_path(@user), { :class => "btn btn-primary" } %>
+      <% if policy(@user).edit? %>
+        <%= link_to "Edit", edit_user_path(@user), { :class => "btn btn-primary" } %>
+      <% end %>
     </div>
   </h1>
 
@@ -24,6 +26,36 @@
         <th><label for="user_level">Profile Level</label></th>
         <td><%= @user.user_level %></td>
       </tr>
+    </tbody>
+  </table>
+
+  <h3>Assigned Routes</h3>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>
+          Gym
+        </th>
+        <th>
+          Grade
+        </th>
+        <th>
+          Date Assigned
+        </th>
+      </tr>
+      <% @assigned_routes.each do |route| %>
+        <tr>
+          <td>
+            <%= route.gym %>
+          </td>
+          <td>
+            <%= route.grade %>
+          </td>
+          <td>
+            <%= route.created_at.strftime("%b %d, %Y") %>
+          </td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
 </div>
