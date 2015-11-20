@@ -1,6 +1,8 @@
 class UserController < ApplicationController
   helper_method :sort_column, :sort_direction
 
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   def index
     @users = User.where(nil)
     @users = @users.with_full_text_search(params[:search]) if params[:search].present?
@@ -9,6 +11,7 @@ class UserController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @assigned_routes = @user.assigned_routes.not_complete.not_hidden
   end
 
   def new
@@ -16,15 +19,19 @@ class UserController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    authorize @user
   end
 
   def update
     @user = User.find(params[:id])
+    authorize @user
 
-    #TODO: This needs to check for user_level.
+    # TODO: This needs to check for user_level.
+    # NOTE: This may be exported to an admin interface.
     @user.update_attributes!(user_level_update)
 
-    #TODO: This needs to check for user_level OR current user
+    # TODO: This needs to check for user_level OR current user
+    # NOTE: This may be exported to an admin interface
     @user.update_attributes!(user_password_update) if params[:user][:password].present?
 
     @user.update_attributes!(user_basic_info_update)
@@ -33,6 +40,12 @@ class UserController < ApplicationController
   end
 
   private
+
+  def user_not_authorized
+    flash[:error] = "You are not authorized to perform this action"
+
+    redirect_to request.referrer || root_path
+  end
 
   def user_basic_info_update
     params.require(:user).permit(:email, :fname, :lname)

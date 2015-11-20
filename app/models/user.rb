@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   belongs_to :small_group
-  # has_many :assigned_routes
+  has_many :assigned_routes
   has_many :comments
   has_many :maintenance_requests
   has_many :ratings
@@ -15,6 +15,10 @@ class User < ActiveRecord::Base
 
   def name
     "#{fname} #{lname}"
+  end
+
+  def self.get_setters
+    where('user_level > 0').order(:fname)
   end
 
   # TODO Replace with ActiveRecord #or with Rails 5

@@ -8,6 +8,8 @@ gem 'rails', '4.2.3'
 
 gem 'mysql'
 
+gem 'pundit'
+
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
