@@ -6,7 +6,7 @@ gem 'rails', '4.2.3'
 # gem 'sqlite3'
 # Use SCSS for stylesheets
 
-gem 'mysql'
+gem 'pg'
 
 gem 'pundit'
 

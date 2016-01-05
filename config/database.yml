@@ -10,7 +10,8 @@
 #   timeout: 5000
 
 default: &default
-  adapter: mysql
+  adapter: postgresql
+  encoding: unicode
   pool: 5
 
 development:
