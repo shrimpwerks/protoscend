@@ -6,8 +6,8 @@ gem 'rails', '4.2.3'
 # gem 'sqlite3'
 # Use SCSS for stylesheets
 
+gem 'puma'
 gem 'pg'
-
 gem 'pundit'
 
 gem 'bootstrap-sass', '~> 3.3.5'
