@@ -1,8 +1,6 @@
 class RoutesController < ApplicationController
   helper_method :sort_column, :sort_direction
 
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-
   def index
     @routes = Route.joins(:user).where(nil)
     @routes = @routes.with_full_text_search(params[:search]) if params[:search].present?
@@ -48,12 +46,6 @@ class RoutesController < ApplicationController
   end
 
   private
-
-  def user_not_authorized
-    flash[:error] = "You are not authorized to perform this action"
-
-    redirect_to request.referrer || root_path
-  end
 
   def route_params
     params.permit(:name, :user_id, :available_walls_id, :location, :tape_color, :grade, :route_set_date, :image_1, :image_2)
