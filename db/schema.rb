@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151119002910) do
+ActiveRecord::Schema.define(version: 20160109223530) do
 
   create_table "announcements", force: :cascade do |t|
     t.text     "announcement", limit: 65535
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20151119002910) do
   create_table "available_walls", force: :cascade do |t|
     t.string  "location",  limit: 255
     t.integer "wall_id",   limit: 4
-    t.integer "available", limit: 4
+    t.integer "available", limit: 4,   default: 1
   end
 
   create_table "comments", force: :cascade do |t|
@@ -41,6 +41,14 @@ ActiveRecord::Schema.define(version: 20151119002910) do
     t.string   "comment",    limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  create_table "grades", force: :cascade do |t|
+    t.string "grade", limit: 255
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "name", limit: 255
   end
 
   create_table "maintenance_requests", force: :cascade do |t|
@@ -70,8 +78,11 @@ ActiveRecord::Schema.define(version: 20151119002910) do
     t.string   "grade",              limit: 255
     t.date     "route_set_date"
     t.date     "expiration_date"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.string   "image_1",            limit: 255, default: ""
+    t.string   "image_2",            limit: 255, default: ""
+    t.integer  "hidden",             limit: 4,   default: 0
   end
 
   create_table "small_groups", force: :cascade do |t|

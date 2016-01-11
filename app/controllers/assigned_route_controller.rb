@@ -1,7 +1,5 @@
 class AssignedRouteController < ApplicationController
 
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-
   def show
   end
 
@@ -40,12 +38,6 @@ class AssignedRouteController < ApplicationController
   end
 
   private
-
-  def user_not_authorized
-    flash[:error] = "You are not authorized to perform this action"
-
-    redirect_to request.referrer || root_path
-  end
 
   def assigned_route_params
     params.permit(:gym, :grade, :user_id)
