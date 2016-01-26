@@ -1,35 +1,30 @@
 ## routes
-An application that serves data regarding the climbing routes available at the indoor climbing center at Oregon State University. The previous version of the full site already exists at [iccroutes](https://iccroutes.com). When this project is finished, it will replace it.
+An application for managing climbing routes at the Indoor Climbing Center at Oregon State University.
+
+The previous version of the site already at http://iccroutes.com. When this project is finished, it will replace it.
 
 #### Setup
 Dependencies
-- MySQL
-- Ruby (2.2.3)
-- [Heroku Toolbelt](https://toolbelt.heroku.com/)
+- [Postgres](http://www.postgresql.org)
+- [Ruby](https://www.ruby-lang.org/en/)
+- [Bundler](http://bundler.io)
 - [Foreman](https://github.com/ddollar/foreman)
 
-Get the code
+Getting Started
 ```sh
-git clone git@github.com:skeltont/ICCapi.git
-```
+git clone git@github.com:temporary-name/ICCapi.git
+cd ICCapi/
 
-Setup your environment
-```sh
-bin/setup
-```
+bundle install
 
-Modify .env as needed
-```sh
-vim .env
-```
+cp .sample.env .env
+vim .env # Modify for your environment
 
-Start Foreman
-```sh
+foreman run rake db:create
+foreman run rake db:schema:load
+foreman run rake db:seed
+
 foreman start
-```
 
-Verify that the app is up and running
-```sh
-open http://localhost:3000
-# Login using one of the profiles in db/seeds.rb
+open http://localhost:5000
 ```

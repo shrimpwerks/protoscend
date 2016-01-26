@@ -6,8 +6,8 @@ gem 'rails', '4.2.3'
 # gem 'sqlite3'
 # Use SCSS for stylesheets
 
-gem 'mysql'
-
+gem 'puma'
+gem 'pg'
 gem 'pundit'
 
 gem 'bootstrap-sass', '~> 3.3.5'
@@ -36,6 +36,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 group :development do
   # gem 'sqlite3'
+end
+
+group :production do
+  gem 'rails_12factor'
 end
 
 group :development, :test do
