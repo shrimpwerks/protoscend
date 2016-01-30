@@ -1,7 +1,7 @@
 <header>
   <h1 style="display:inline-block;">Users</h1>
   <div class="pull-right" style="margin-top: 20px;">
-    <%= form_tag user_index_path, method: "get",
+    <%= form_tag users_path, method: "get",
       class: "form-inline",
       style: "display:inline-block;" do %>
 
@@ -22,7 +22,7 @@
   </thead>
   <tbody>
     <% @users.each do |user| %>
-      <tr class="table__row" data-url="<%= user_path(user.id) %>">
+      <tr class="table__row" data-url="<%= user_path(user) %>">
         <td><%= highlight user.fname, params[:search] %></td>
         <td><%= highlight user.lname, params[:search] %></td>
         <td><%= highlight user.email, params[:search] %></td>
