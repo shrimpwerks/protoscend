@@ -1,4 +1,4 @@
-<div class="col-lg-6 col-md-6 col-sm-6 ">
+<div class="col-lg-6 col-md-6 col-sm-6">
 
   <h1>View Profile
     <div class="pull-right">
@@ -33,27 +33,15 @@
   <table class="table">
     <tbody>
       <tr>
-        <th>
-          Gym
-        </th>
-        <th>
-          Grade
-        </th>
-        <th>
-          Date Assigned
-        </th>
+        <th>Gym</th>
+        <th>Grade</th>
+        <th>Date Assigned</th>
       </tr>
       <% @assigned_routes.each do |route| %>
         <tr>
-          <td>
-            <%= route.gym %>
-          </td>
-          <td>
-            <%= route.grade %>
-          </td>
-          <td>
-            <%= route.created_at.strftime("%b %d, %Y") %>
-          </td>
+          <td><%= route.gym %></td>
+          <td><%= route.grade %></td>
+          <td><%= route.created_at.strftime("%b %d, %Y") %></td>
         </tr>
       <% end %>
     </tbody>
