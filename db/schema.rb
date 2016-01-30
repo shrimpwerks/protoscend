@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151231015058) do
+ActiveRecord::Schema.define(version: 20160130203832) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,26 +24,26 @@ ActiveRecord::Schema.define(version: 20151231015058) do
 
   create_table "assigned_routes", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "gym"
-    t.string   "grade"
-    t.integer  "completed",  default: 0
-    t.integer  "hidden",     default: 0
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "gym",        limit: 255
+    t.string   "grade",      limit: 255
+    t.integer  "completed",              default: 0
+    t.integer  "hidden",                 default: 0
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   create_table "available_walls", force: :cascade do |t|
-    t.string  "location"
+    t.string  "location",  limit: 255
     t.integer "wall_id"
-    t.integer "available", default: 1
+    t.integer "available",             default: 1
   end
 
   create_table "comments", force: :cascade do |t|
     t.integer  "routes_id"
     t.integer  "users_id"
-    t.string   "comment"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "comment",    limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "maintenance_requests", force: :cascade do |t|
@@ -65,58 +65,56 @@ ActiveRecord::Schema.define(version: 20151231015058) do
   end
 
   create_table "routes", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",               limit: 255
     t.integer  "user_id"
     t.integer  "available_walls_id"
-    t.string   "location"
-    t.string   "tape_color"
-    t.string   "grade"
+    t.string   "location",           limit: 255
+    t.string   "tape_color",         limit: 255
+    t.string   "grade",              limit: 255
     t.date     "route_set_date"
     t.date     "expiration_date"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.string   "image_1",            default: ""
-    t.string   "image_2",            default: ""
-    t.integer  "hidden",             default: 0
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.string   "image_1",                        default: ""
+    t.string   "image_2",                        default: ""
+    t.integer  "hidden",                         default: 0
   end
 
   create_table "small_groups", force: :cascade do |t|
-    t.string   "group_name"
+    t.string   "group_name", limit: 255
     t.integer  "hidden"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "support_tickets", force: :cascade do |t|
     t.integer  "users_id"
-    t.string   "ticket"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "ticket",     limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "fname"
-    t.string   "lname"
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.integer  "user_level",             default: 1
+    t.string   "fname",                  limit: 255
+    t.string   "lname",                  limit: 255
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.integer  "user_level",                         default: 1
     t.integer  "small_groups_id"
     t.integer  "hidden"
-    t.string   "reset_password_token"
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",                      default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "auth_token",             default: ""
-    t.integer  "routes_count",           default: 0
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.integer  "routes_count",                       default: 0
   end
 
-  add_index "users", ["auth_token"], name: "index_users_on_auth_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
