@@ -4,42 +4,57 @@ class AssignedRouteController < ApplicationController
   end
 
   def index
-    @assigned_route = AssignedRoute.new
-    @routes = AssignedRoute.with_users
+    @assigned_route = Route.new
+    @routes = Route.assigned_routes
     @setters = User.get_setters
 
-    # TODO: change these to enums
-    @gyms = {
+    @locations = {
       "McAlexander" => "McAlexander",
       "Dixon"       => "Dixon"
     }
-    @grades = {
-      "5.6"   => "5.6",
-      "5.7"   => "5.7",
-      "5.8"   => "5.8",
-      "5.9"   => "5.9",
-      "5.10-" => "5.10-",
-      "5.10"  => "5.10",
-      "5.10+" => "5.10+",
-      "5.11-" => "5.11-",
-      "5.11"  => "5.11",
-      "5.11+" => "5.11+",
-      "5.12-" => "5.12-",
-      "5.12"  => "5.12",
-      "5.12+" => "5.12+"
-    }
+    @grades = Route.grades.keys
+
+    @chart1 = [
+      {
+        name: "Active",
+        data: Route.active_routes.location('Dixon').count
+        # data: [["5.9", 10], ["5.11", 16], ["5.13", 28]]
+      },
+      {
+        name: "Inactive",
+        data: [["5.9", 24], ["5.11", 22], ["5.13", 19]]
+      },
+      {
+        name: "Assigned",
+        data: [["5.9", 20], ["5.11", 23], ["5.13", 29]]
+      }
+    ]
+
+    @chart2 = [
+      {
+        name: "Fantasy & Sci Fi",
+        data: [["2010", 10], ["2020", 16], ["2030", 28]]
+      },
+      {
+        name: "Romance",
+        data: [["2010", 24], ["2020", 22], ["2030", 19]]
+      },
+      {
+        name: "Mystery/Crime",
+        data: [["2010", 20], ["2020", 23], ["2030", 29]]
+      }
+    ]
   end
 
   def create
-    @assigned_route = AssignedRoute.new
-    authorize(@assigned_route)
-    @assigned_route = AssignedRoute.create(assigned_route_params)
+    authorize(Route.new)
+    @route = Route.assigned_routes.create(assigned_route_params)
     redirect_to action: "index"
   end
 
   private
 
   def assigned_route_params
-    params.permit(:gym, :grade, :user_id)
+    params.permit(:location, :grade, :user_id)
   end
 end

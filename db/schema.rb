@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151231015058) do
+ActiveRecord::Schema.define(version: 20160130230646) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,17 +67,17 @@ ActiveRecord::Schema.define(version: 20151231015058) do
   create_table "routes", force: :cascade do |t|
     t.string   "name"
     t.integer  "user_id"
-    t.integer  "available_walls_id"
+    t.integer  "label"
     t.string   "location"
     t.string   "tape_color"
-    t.string   "grade"
     t.date     "route_set_date"
     t.date     "expiration_date"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.string   "image_1",            default: ""
-    t.string   "image_2",            default: ""
-    t.integer  "hidden",             default: 0
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "image_1",         default: ""
+    t.string   "image_2",         default: ""
+    t.integer  "status",          default: 0
+    t.integer  "grade"
   end
 
   create_table "small_groups", force: :cascade do |t|
