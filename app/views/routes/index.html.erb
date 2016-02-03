@@ -8,11 +8,12 @@
       <%= text_field_tag "search", params[:search], class: "form-control", autofocus: true %>
       <%= submit_tag "Search", class: "btn btn-primary" %>
     <% end %>
-    <%= link_to "New route", new_route_path, class: "btn btn-success" %>
+
+    <% if policy(Route.new).new? %>
+      <%= link_to "New route", new_route_path, class: "btn btn-success" %>
+    <% end %>
   </div>
 </header>
-
-<br>
 
 <table class="table">
   <thead>
