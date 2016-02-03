@@ -30,7 +30,21 @@ class RoutesController < ApplicationController
     redirect_to action: "index"
   end
 
+  def update
+    @route = Route.find(params[:id])
+    authorize @route
+    @route.status = 0
+    @route.expiration_date = Date.strptime(params[:route][:route_set_date], "%Y-%m-%d") + 3.months
+    @route.update(complete_assigned_route)
+
+    redirect_to @route
+  end
+
   private
+
+  def complete_assigned_route
+    params.require(:route).permit(:name, :label, :tape_color, :route_set_date, :image_1, :image_2)
+  end
 
   def route_params
     params.permit(:name, :user_id, :label, :location, :tape_color, :grade, :route_set_date, :image_1, :image_2)

@@ -43,6 +43,10 @@ class Route < ActiveRecord::Base
     where(status: 0)
   end
 
+  def self.expired_routes
+    where('expiration_date < ?', Date.today.to_s)
+  end
+
   def self.with_users
     joins(:user)
   end

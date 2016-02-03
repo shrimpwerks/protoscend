@@ -17,31 +17,30 @@ class AssignedRouteController < ApplicationController
     @chart1 = [
       {
         name: "Active",
-        data: Route.active_routes.location('Dixon').count
-        # data: [["5.9", 10], ["5.11", 16], ["5.13", 28]]
+        data: Route.active_routes.location('Dixon').group(:grade).count.map { |key, value| [Route.grades.select { |gkey, gvalue| gvalue == key }.keys.first, value] }
       },
       {
-        name: "Inactive",
-        data: [["5.9", 24], ["5.11", 22], ["5.13", 19]]
+        name: "Expired",
+        data: Route.expired_routes.location('Dixon').group(:grade).count.map { |key, value| [Route.grades.select { |gkey, gvalue| gvalue == key }.keys.first, value] }
       },
       {
         name: "Assigned",
-        data: [["5.9", 20], ["5.11", 23], ["5.13", 29]]
+        data: Route.assigned_routes.location('Dixon').group(:grade).count.map { |key, value| [Route.grades.select { |gkey, gvalue| gvalue == key }.keys.first, value] }
       }
     ]
 
     @chart2 = [
       {
-        name: "Fantasy & Sci Fi",
-        data: [["2010", 10], ["2020", 16], ["2030", 28]]
+        name: "Active",
+        data: Route.active_routes.location('McAlexander').group(:grade).count.map { |key, value| [Route.grades.select { |gkey, gvalue| gvalue == key }.keys.first, value] }
       },
       {
-        name: "Romance",
-        data: [["2010", 24], ["2020", 22], ["2030", 19]]
+        name: "Expired",
+        data: Route.expired_routes.location('McAlexander').group(:grade).count.map { |key, value| [Route.grades.select { |gkey, gvalue| gvalue == key }.keys.first, value] }
       },
       {
-        name: "Mystery/Crime",
-        data: [["2010", 20], ["2020", 23], ["2030", 29]]
+        name: "Assigned",
+        data: Route.assigned_routes.location('McAlexander').group(:grade).count.map { |key, value| [Route.grades.select { |gkey, gvalue| gvalue == key }.keys.first, value] }
       }
     ]
   end
@@ -50,6 +49,11 @@ class AssignedRouteController < ApplicationController
     authorize(Route.new)
     @route = Route.assigned_routes.create(assigned_route_params)
     redirect_to action: "index"
+  end
+
+  def edit
+    @route = Route.find(params[:id])
+    authorize @route
   end
 
   private
