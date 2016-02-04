@@ -23,11 +23,18 @@ class RoutesController < ApplicationController
     @grades = Route.grades.keys
   end
 
+  def edit
+  end
+
   def create
     @route = Route.new
     authorize(@route)
-    @route = Route.create(route_params)
-    redirect_to action: "index"
+    @route.expiration_date = Date.strptime(params[:route][:route_set_date], "%Y-%m-%d") + 3.months
+    if @route = Route.create(route_params)
+      redirect_to action: "index"
+    else
+      render "new"
+    end
   end
 
   def update
@@ -35,14 +42,16 @@ class RoutesController < ApplicationController
     authorize @route
     @route.status = 0
     @route.expiration_date = Date.strptime(params[:route][:route_set_date], "%Y-%m-%d") + 3.months
-    @route.update(complete_assigned_route)
-
-    redirect_to @route
+    if @route.update(assigned_route_params)
+      redirect_to @route
+    else
+      render "edit"
+    end
   end
 
   private
 
-  def complete_assigned_route
+  def assigned_route_params
     params.require(:route).permit(:name, :label, :tape_color, :route_set_date, :image_1, :image_2)
   end
 

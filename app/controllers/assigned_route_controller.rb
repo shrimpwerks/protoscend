@@ -47,8 +47,11 @@ class AssignedRouteController < ApplicationController
 
   def create
     authorize(Route.new)
-    @route = Route.assigned_routes.create(assigned_route_params)
-    redirect_to action: "index"
+    if @route = Route.assigned_routes.create(assigned_route_params)
+      redirect_to action: "index"
+    else
+      render "index"
+    end
   end
 
   def edit
