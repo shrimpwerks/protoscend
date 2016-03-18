@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160130230646) do
+ActiveRecord::Schema.define(version: 20160318210350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,13 +80,6 @@ ActiveRecord::Schema.define(version: 20160130230646) do
     t.integer  "grade"
   end
 
-  create_table "small_groups", force: :cascade do |t|
-    t.string   "group_name"
-    t.integer  "hidden"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "support_tickets", force: :cascade do |t|
     t.integer  "users_id"
     t.string   "ticket"
@@ -95,12 +88,11 @@ ActiveRecord::Schema.define(version: 20160130230646) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "fname"
-    t.string   "lname"
+    t.string   "first_name"
+    t.string   "last_name"
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
-    t.integer  "user_level",             default: 1
-    t.integer  "small_groups_id"
+    t.integer  "role",                   default: 1
     t.integer  "hidden"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"

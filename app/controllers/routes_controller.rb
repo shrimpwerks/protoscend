@@ -15,7 +15,7 @@ class RoutesController < ApplicationController
   def new
     @route = Route.new
     authorize @route
-    @setters = User.get_setters
+    @setters = User.setters
     @locations = {
       "McAlexander" => "McAlexander",
       "Dixon"       => "Dixon"
@@ -60,7 +60,7 @@ class RoutesController < ApplicationController
   end
 
   def sort_column
-    whitelist = %w(name users.fname location tape_color
+    whitelist = %w(name users.first_name location tape_color
       grade route_set_date expiration_date)
     whitelist.include?(params[:sort]) ? params[:sort] : "name"
   end

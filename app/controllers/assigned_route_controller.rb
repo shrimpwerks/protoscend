@@ -6,7 +6,7 @@ class AssignedRouteController < ApplicationController
   def index
     @assigned_route = Route.new
     @routes = Route.assigned_routes
-    @setters = User.get_setters
+    @setters = User.setters
 
     @locations = {
       "McAlexander" => "McAlexander",

@@ -26,7 +26,7 @@ class UsersController < ApplicationController
 
     # TODO: This needs to check for user_level.
     # NOTE: This may be exported to an admin interface.
-    @user.update_attributes!(user_level_update)
+    @user.update_attributes!(user_role_update)
 
     # TODO: This needs to check for user_level OR current user
     # NOTE: This may be exported to an admin interface
@@ -40,11 +40,11 @@ class UsersController < ApplicationController
   private
 
   def user_basic_info_update
-    params.require(:user).permit(:email, :fname, :lname)
+    params.require(:user).permit(:email, :first_name, :last_name)
   end
 
-  def user_level_update
-    params.require(:user).permit(:user_level)
+  def user_role_update
+    params.require(:user).permit(:role)
   end
 
   def user_password_update
