@@ -1,9 +1,9 @@
 class User < ActiveRecord::Base
-  validates :fname, presence: true
-  validates :lname, presence: true
+  validates :first_name, presence: true
+  validates :last_name, presence: true
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+    :recoverable, :rememberable, :trackable, :validatable
 
   belongs_to :small_group
   has_many :assigned_routes
@@ -13,17 +13,26 @@ class User < ActiveRecord::Base
   has_many :routes
   has_many :support_tickets
 
+  enum role: {
+    :'Public'        => 0,
+    :'Setter'        => 1, 
+    :'Employee'      => 2, 
+    :'Supervisor'    => 3, 
+    :'Manager'       => 4, 
+    :'Administrator' => 5
+  }
+
   def name
-    "#{fname} #{lname}"
+    "#{first_name} #{last_name}"
   end
 
   def self.get_setters
-    where('user_level > 0').order(:fname)
+    where('role > 0').order(:first_name)
   end
 
   # TODO Replace with ActiveRecord #or with Rails 5
   def self.with_full_text_search(term)
-    q = 'fname LIKE ? OR lname LIKE ? OR email LIKE ?'
+    q = 'first_name LIKE ? OR last_name LIKE ? OR email LIKE ?'
     where([q, "%#{term}%", "%#{term}%", "%#{term}%"])
   end
 end

@@ -7,7 +7,7 @@ class AssignedRoutePolicy < ApplicationPolicy
   end
 
   def create?
-    @current_user.user_level > 2
+    @current_user.role > 2
   end
 
   def edit?
