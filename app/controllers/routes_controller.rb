@@ -15,7 +15,7 @@ class RoutesController < ApplicationController
   def new
     @route = Route.new
     authorize @route
-    @setters = User.get_setters
+    @setters = User.setters
     @locations = {
       "McAlexander" => "McAlexander",
       "Dixon"       => "Dixon"

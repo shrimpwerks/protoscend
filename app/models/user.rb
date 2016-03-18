@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :trackable, :validatable
 
-  belongs_to :small_group
   has_many :assigned_routes
   has_many :comments
   has_many :maintenance_requests
@@ -26,8 +25,8 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def self.get_setters
-    where('role > 0').order(:first_name)
+  def self.setters
+    where('role <> 0').order(:first_name)
   end
 
   # TODO Replace with ActiveRecord #or with Rails 5
