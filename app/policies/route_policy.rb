@@ -13,4 +13,12 @@ class RoutePolicy < ApplicationPolicy
   def create?
     @current_user.user_level > 0
   end
+
+  def edit?
+    @current_user.id == @route.user_id
+  end
+
+  def update?
+    @current_user.id == @route.user_id
+  end
 end

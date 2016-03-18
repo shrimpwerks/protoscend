@@ -4,42 +4,64 @@ class AssignedRouteController < ApplicationController
   end
 
   def index
-    @assigned_route = AssignedRoute.new
-    @routes = AssignedRoute.with_users
+    @assigned_route = Route.new
+    @routes = Route.assigned_routes
     @setters = User.get_setters
 
-    # TODO: change these to enums
-    @gyms = {
+    @locations = {
       "McAlexander" => "McAlexander",
       "Dixon"       => "Dixon"
     }
-    @grades = {
-      "5.6"   => "5.6",
-      "5.7"   => "5.7",
-      "5.8"   => "5.8",
-      "5.9"   => "5.9",
-      "5.10-" => "5.10-",
-      "5.10"  => "5.10",
-      "5.10+" => "5.10+",
-      "5.11-" => "5.11-",
-      "5.11"  => "5.11",
-      "5.11+" => "5.11+",
-      "5.12-" => "5.12-",
-      "5.12"  => "5.12",
-      "5.12+" => "5.12+"
-    }
+    @grades = Route.grades.keys
+
+    @chart1 = [
+      {
+        name: "Active",
+        data: Route.active_routes.location('Dixon').group(:grade).count.map { |key, value| [Route.grades.select { |gkey, gvalue| gvalue == key }.keys.first, value] }
+      },
+      {
+        name: "Expired",
+        data: Route.expired_routes.location('Dixon').group(:grade).count.map { |key, value| [Route.grades.select { |gkey, gvalue| gvalue == key }.keys.first, value] }
+      },
+      {
+        name: "Assigned",
+        data: Route.assigned_routes.location('Dixon').group(:grade).count.map { |key, value| [Route.grades.select { |gkey, gvalue| gvalue == key }.keys.first, value] }
+      }
+    ]
+
+    @chart2 = [
+      {
+        name: "Active",
+        data: Route.active_routes.location('McAlexander').group(:grade).count.map { |key, value| [Route.grades.select { |gkey, gvalue| gvalue == key }.keys.first, value] }
+      },
+      {
+        name: "Expired",
+        data: Route.expired_routes.location('McAlexander').group(:grade).count.map { |key, value| [Route.grades.select { |gkey, gvalue| gvalue == key }.keys.first, value] }
+      },
+      {
+        name: "Assigned",
+        data: Route.assigned_routes.location('McAlexander').group(:grade).count.map { |key, value| [Route.grades.select { |gkey, gvalue| gvalue == key }.keys.first, value] }
+      }
+    ]
   end
 
   def create
-    @assigned_route = AssignedRoute.new
-    authorize(@assigned_route)
-    @assigned_route = AssignedRoute.create(assigned_route_params)
-    redirect_to action: "index"
+    authorize(Route.new)
+    if @route = Route.assigned_routes.create(assigned_route_params)
+      redirect_to action: "index"
+    else
+      render "index"
+    end
+  end
+
+  def edit
+    @route = Route.find(params[:id])
+    authorize @route
   end
 
   private
 
   def assigned_route_params
-    params.permit(:gym, :grade, :user_id)
+    params.permit(:location, :grade, :user_id)
   end
 end

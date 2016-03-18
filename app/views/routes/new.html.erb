@@ -16,10 +16,10 @@
           </div>
           <br>
           <!-- <label for="InputName">ID</label> -->
-          <%= label_tag :available_walls_id, "ID" %>
+          <%= label_tag :label, "ID" %>
           <div class="input-group">
             <!-- <input type="text" class="form-control" name="username" placeholder="Enter Username" required> -->
-            <%= select_tag "available_walls_id", options_from_collection_for_select(@available_walls, "id", "wall_id"), :class => "form-control", :required => true %>
+            <%= number_field_tag "label", nil, :class => "form-control", :required => true, :placeholder => "", :required => true  %>
             <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
           </div>
           <br>

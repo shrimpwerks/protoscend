@@ -33,15 +33,27 @@
   <table class="table">
     <tbody>
       <tr>
-        <th>Gym</th>
-        <th>Grade</th>
-        <th>Date Assigned</th>
+        <th>
+          Location
+        </th>
+        <th>
+          Grade
+        </th>
+        <th>
+          Date Assigned
+        </th>
       </tr>
       <% @assigned_routes.each do |route| %>
         <tr>
-          <td><%= route.gym %></td>
-          <td><%= route.grade %></td>
-          <td><%= route.created_at.strftime("%b %d, %Y") %></td>
+          <td>
+            <%= route.location %>
+          </td>
+          <td>
+            <%= route.grade %>
+          </td>
+          <td>
+            <%= route.created_at.strftime("%b %d, %Y") %>
+          </td>
         </tr>
       <% end %>
     </tbody>

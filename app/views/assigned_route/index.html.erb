@@ -1,18 +1,27 @@
 <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-		<div class="page-header">
+		<div>
   		<h1>Assign Routes
 				<% if policy(@assigned_route).create? %>
 					<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#assignModal">
 		      	Assign New Route
 		    	</button>
-				<% end %>
-				<br><small>Assign a route to a setter on the left and view pending route creations to the right</small></h1>
+				<% end %></h1>
 		</div>
 	</div>
 </div>
 <div class="row">
-  <div class="col-sm-12 col-md-7 col-lg-7">
+	<div class="col-sm-12 col-md-12 col-lg-12">
+		<div class="col-sm-6 col-md-6 col-lg-6">
+			<%= bar_chart @chart1, stacked: true %>
+		</div>
+		<div class="col-sm-6 col-md-6 col-lg-6">
+			<%= bar_chart @chart2, stacked: true %>
+		</div>
+	</div>
+</div>
+<div class="row">
+  <div class="col-sm-12 col-md-12 col-lg-12">
     <div align="center">
 			<h4>Currently Assigned Routes</h4>
 		</div>
@@ -33,12 +42,13 @@
 					</th>
 	      </tr>
 	      <% @routes.each do |route| %>
-	        <tr>
+	        <tr class="table__row" data-url="<%= edit_assigned_route_path(route.id) %>">
 						<td>
-							<%= link_to route.user.name, user_path(route.user.id) %>
+							<!-- <%= link_to route.user.name, user_path(route.user.id) %> -->
+							<%= route.user.name %>
 						</td>
 	          <td>
-	            <%= route.gym %>
+	            <%= route.location %>
 	          </td>
 						<td>
 							<%= route.grade %>
@@ -67,8 +77,8 @@
 					<div class="row">
 						<div class="col-sm-12 col-md-6 col-lg-6">
 							<div class="form-group">
-								<%= label_tag :gym, "Gym" %>
-						    <%= select_tag "gym", options_for_select(@gyms), :class => "form-control" %>
+								<%= label_tag :location, "Location" %>
+						    <%= select_tag "location", options_for_select(@locations), :class => "form-control" %>
 						  </div>
 						</div>
 						<div class="col-sm-12 col-md-6 col-lg-6">
@@ -93,7 +103,7 @@
 						  </div>
 						</div>
 					</div>
-					<%= submit_tag "Update Profile", :class => "btn btn-success pull-right" %>
+					<%= submit_tag "Assign Route", :class => "btn btn-success pull-right" %>
 				<% end %>
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
       </div>
