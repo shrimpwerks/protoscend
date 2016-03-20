@@ -27,7 +27,7 @@ class Route < ActiveRecord::Base
 
   # TODO Replace with ActiveRecord #or with Rails 5
   def self.with_full_text_search(term)
-    q = 'name LIKE ? OR users.fname LIKE ? OR users.lname LIKE ? OR tape_color LIKE ?'
+    q = 'name LIKE ? OR users.first_name LIKE ? OR users.last_name LIKE ? OR tape_color LIKE ?'
     joins(:user).where([q, "%#{term}%", "%#{term}%", "%#{term}%", "%#{term}%"])
   end
 

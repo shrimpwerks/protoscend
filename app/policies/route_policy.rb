@@ -7,11 +7,11 @@ class RoutePolicy < ApplicationPolicy
   end
 
   def new?
-    @current_user.user_level > 0
+    @current_user.role != "Public"
   end
 
   def create?
-    @current_user.user_level > 0
+    @current_user.role != "Public"
   end
 
   def edit?
