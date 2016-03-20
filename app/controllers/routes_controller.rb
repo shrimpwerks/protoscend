@@ -9,7 +9,9 @@ class RoutesController < ApplicationController
   end
 
   def show
-    @route = Route.find(params[:id])
+    @route = Route.includes(comments: :user).find(params[:id])
+    @comment = Comment.new
+    @comments = @route.comments.most_recent
   end
 
   def new
