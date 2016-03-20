@@ -9,5 +9,5 @@ Rails.application.routes.draw do
   resources :routes do
     resources :comments
   end
-  resources :assigned_route
+  resources :assigned_routes
 end

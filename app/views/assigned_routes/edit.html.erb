@@ -11,7 +11,8 @@
     <dd><%= @route.location %></dd>
   </dl>
 </div>
-<%= form_for @route do |f| %>
+
+<%= form_for @route, :url => url_for(:controller => 'assigned_routes', :action => 'update', :params => {id: @route.id}) do |f| %>
   <div class="col-sm-12 col-md-12 col-lg-offset-2 col-lg-8">
     <div class="form-group">
       <div class="row">
