@@ -1,2 +1,91 @@
-<h1><%= @route.name %></h1>
-Set by: <b><%= @route.user.name %></b>
+<h1><%= @route.name %>
+  <div class="pull-right">
+    <% if policy(@route).edit? %>
+      <%= link_to "Edit", edit_route_path(@route), { :class => "btn btn-primary" } %>
+    <% end %>
+  </div>
+</h1>
+<div class="row">
+  <div class="col-lg-4 col-md-4 col-sm-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Route Info</h3>
+      </div>
+      <table class="table">
+        <tbody>
+          <tr>
+            <th><label for="route_setter">Setter</label></th>
+            <td><%= @route.user.name %></td>
+          </tr>
+          <tr>
+            <th><label for="route_label">Route ID</label></th>
+            <td><%= @route.label %></td>
+          </tr>
+          <tr>
+            <th><label for="route_grade">Grade</label></th>
+            <td><%= @route.grade %></td>
+          </tr>
+          <tr>
+            <th><label for="route_tape_color">Tape Color</label></th>
+            <td><%= @route.tape_color %></td>
+          </tr>
+          <tr>
+            <th><label for="route_location">Location</label></th>
+            <td><%= @route.location %></td>
+          </tr>
+          <tr>
+            <th><label for="route_set_date">Set Date</label></th>
+            <td><%= @route.route_set_date.strftime("%b %d, %Y") %></td>
+          </tr>
+          <tr>
+            <th><label for="route_expiration_date">Expiration Date</label></th>
+            <td><%= @route.expiration_date.strftime("%b %d, %Y") %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-4">
+    <div class="well well-lg">
+      PICTURE 1
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-4">
+    <div class="well well-lg">
+      PICTURE 2
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-offset-4 col-md-offset-4 col-sm-offset-4 col-lg-8 col-md-8 col-sm-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Comments</h3>
+      </div>
+      <div class="list-group">
+        <div class="list-group-item">
+            <p class="list-group-item-text">
+              <%= form_for([@route, @comment], method: "post") do |f| %>
+                <%= f.text_area :comment, cols: 40, rows: 3, placeholder: "Leave a comment", class: "form-control comment-box" %>
+                <input type="submit" name="submit" id="comment_submit" value="Submit" class="btn btn-primary comment-submit" disabled="true">
+              <% end %>
+            </p>
+          </div>
+          <% @comments.each do |comment| %>
+            <div class="list-group-item">
+              <h4 class="list-group-item-heading">
+                <%= comment.user.name %>
+                <small>
+                  <%= comment.created_at.strftime("%I:%M %p - %b %d, %Y") %>
+                </small>
+              </h4>
+              <p class="list-group-item-text">
+              <%= comment.comment %>
+              </p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

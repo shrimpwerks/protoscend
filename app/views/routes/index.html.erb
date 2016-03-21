@@ -32,8 +32,8 @@
         <td><%= highlight route.user.name, params[:search] %></td>
         <td><%= highlight route.location, params[:search] %></td>
         <td><%= highlight route.tape_color, params[:search] %></td>
-        <td><%= route.route_set_date %></td>
-        <td><%= route.expiration_date %></td>
+        <td><%= route.route_set_date.strftime("%b %d, %Y") %></td>
+        <td><%= route.expiration_date.strftime("%b %d, %Y") %></td>
         <td><%= route.grade %></td>
       </tr>
     <% end %>

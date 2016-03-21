@@ -1,4 +1,4 @@
-class AssignedRouteController < ApplicationController
+class AssignedRoutesController < ApplicationController
 
   def show
   end
@@ -47,7 +47,7 @@ class AssignedRouteController < ApplicationController
 
   def create
     authorize(Route.new)
-    if @route = Route.assigned_routes.create(assigned_route_params)
+    if @route = Route.assigned_routes.create(create_assigned_route_params)
       redirect_to action: "index"
     else
       render "index"
@@ -59,9 +59,26 @@ class AssignedRouteController < ApplicationController
     authorize @route
   end
 
+  def update
+    @route = Route.find(params[:id])
+    authorize @route
+    @route.status = 0
+    @route.expiration_date = Date.strptime(params[:route][:route_set_date], "%Y-%m-%d") + 3.months
+
+    if @route.update(complete_assigned_route_params)
+      redirect_to @route
+    else
+      render "edit"
+    end
+  end
+
   private
 
-  def assigned_route_params
+  def create_assigned_route_params
     params.permit(:location, :grade, :user_id)
+  end
+
+  def complete_assigned_route_params
+    params.require(:route).permit(:name, :label, :tape_color, :route_set_date, :image_1, :image_2)
   end
 end

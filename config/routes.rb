@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   root to: "home#index"
   resources :users
-  resources :routes
-  resources :assigned_route
+  resources :routes do
+    resources :comments
+  end
+  resources :assigned_routes
 end

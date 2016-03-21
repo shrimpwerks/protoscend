@@ -9,28 +9,31 @@ class RoutesController < ApplicationController
   end
 
   def show
-    @route = Route.find(params[:id])
+    @route = Route.includes(comments: :user).find(params[:id])
+    @comment = Comment.new
+    @comments = @route.comments.most_recent
   end
 
   def new
     @route = Route.new
     authorize @route
     @setters = User.setters
-    @locations = {
-      "McAlexander" => "McAlexander",
-      "Dixon"       => "Dixon"
-    }
     @grades = Route.grades.keys
+    @locations = Route.locations.keys
   end
 
   def edit
+    @route = Route.find(params[:id])
+    @setters = User.setters
+    @grades = Route.grades.keys
+    @locations = Route.locations.keys
   end
 
   def create
     @route = Route.new
     authorize(@route)
     @route.expiration_date = Date.strptime(params[:route][:route_set_date], "%Y-%m-%d") + 3.months
-    if @route = Route.create(route_params)
+    if @route = Route.create(create_route_params)
       redirect_to action: "index"
     else
       render "new"
@@ -40,9 +43,7 @@ class RoutesController < ApplicationController
   def update
     @route = Route.find(params[:id])
     authorize @route
-    @route.status = 0
-    @route.expiration_date = Date.strptime(params[:route][:route_set_date], "%Y-%m-%d") + 3.months
-    if @route.update(assigned_route_params)
+    if @route.update(update_route_params)
       redirect_to @route
     else
       render "edit"
@@ -51,11 +52,11 @@ class RoutesController < ApplicationController
 
   private
 
-  def assigned_route_params
-    params.require(:route).permit(:name, :label, :tape_color, :route_set_date, :image_1, :image_2)
+  def update_route_params
+    params.require(:route).permit(:name, :user_id, :label, :location, :tape_color, :grade, :route_set_date, :image_1, :image_2)
   end
 
-  def route_params
+  def create_route_params
     params.permit(:name, :user_id, :label, :location, :tape_color, :grade, :route_set_date, :image_1, :image_2)
   end
 
