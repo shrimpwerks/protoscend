@@ -1,5 +1,6 @@
 class RoutesController < ApplicationController
   helper_method :sort_column, :sort_direction
+  before_action :set_route, only: [:edit, :update]
 
   def index
     @routes = Route.joins(:user).where(nil)
@@ -16,24 +17,24 @@ class RoutesController < ApplicationController
 
   def new
     @route = Route.new
+    @route.route_set_date = Date.today
     authorize @route
     @setters = User.setters
-    @grades = Route.grades.keys
-    @locations = Route.locations.keys
   end
 
   def edit
-    @route = Route.find(params[:id])
     @setters = User.setters
-    @grades = Route.grades.keys
-    @locations = Route.locations.keys
   end
 
   def create
-    @route = Route.new
+    @route = Route.new(route_params)
     authorize(@route)
-    @route.expiration_date = Date.strptime(params[:route][:route_set_date], "%Y-%m-%d") + 3.months
-    if @route = Route.create(create_route_params)
+
+    # FIXME This can fail if :route_set_date is invalid
+    @route.expiration_date = 
+      Date.strptime(params[:route][:route_set_date], "%Y-%m-%d") + 3.months
+
+    if @route.save
       redirect_to action: "index"
     else
       render "new"
@@ -41,9 +42,8 @@ class RoutesController < ApplicationController
   end
 
   def update
-    @route = Route.find(params[:id])
     authorize @route
-    if @route.update(update_route_params)
+    if @route.update(route_params)
       redirect_to @route
     else
       render "edit"
@@ -52,17 +52,17 @@ class RoutesController < ApplicationController
 
   private
 
-  def update_route_params
-    params.require(:route).permit(:name, :user_id, :label, :location, :tape_color, :grade, :route_set_date, :image_1, :image_2)
+  def set_route
+    @route = Route.find(params[:id])
   end
 
-  def create_route_params
-    params.permit(:name, :user_id, :label, :location, :tape_color, :grade, :route_set_date, :image_1, :image_2)
+  def route_params
+    params.require(:route).permit(:name, :user_id, :label, :location, :tape_color, 
+                                  :grade, :route_set_date, :image_1, :image_2)
   end
 
   def sort_column
-    whitelist = %w(name users.first_name location tape_color
-      grade route_set_date expiration_date)
+    whitelist = %w(name users.first_name location tape_color grade route_set_date expiration_date)
     whitelist.include?(params[:sort]) ? params[:sort] : "name"
   end
 
