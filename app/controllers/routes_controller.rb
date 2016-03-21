@@ -19,20 +19,14 @@ class RoutesController < ApplicationController
     authorize @route
     @setters = User.setters
     @grades = Route.grades.keys
-    @locations = {
-      "McAlexander" => "McAlexander",
-      "Dixon"       => "Dixon"
-    }
+    @locations = Route.locations.keys
   end
 
   def edit
     @route = Route.find(params[:id])
     @setters = User.setters
     @grades = Route.grades.keys
-    @locations = {
-      "McAlexander" => "McAlexander",
-      "Dixon"       => "Dixon"
-    }
+    @locations = Route.locations.keys
   end
 
   def create

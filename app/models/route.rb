@@ -25,6 +25,11 @@ class Route < ActiveRecord::Base
     :"5.13"  => 13
   }
 
+  enum location: {
+    "McAlexander" => "McAlexander",
+    "Dixon"       => "Dixon"
+  }
+
   # TODO Replace with ActiveRecord #or with Rails 5
   def self.with_full_text_search(term)
     q = 'name LIKE ? OR users.first_name LIKE ? OR users.last_name LIKE ? OR tape_color LIKE ?'

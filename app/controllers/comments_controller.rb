@@ -4,11 +4,13 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = Comment.new
-    ## @HACK: this feels like a hack, so I will come back to this.
-    params[:comment][:route_id] = params[:route_id]
-    params[:comment][:user_id] = current_user.id
-    if @comment = Comment.create(comment_params)
+    @comment = Comment.new(comment_params)
+    @comment.user_id = current_user.id
+    @comment.route_id = params[:route_id]
+    if @comment.save
+      redirect_to request.referer
+    else
+      flash[:danger] = "Couldn't save your comment"
       redirect_to request.referer
     end
   end

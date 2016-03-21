@@ -1,4 +1,5 @@
 class Comment < ActiveRecord::Base
+  validates_presence_of :comment
 
   belongs_to :route, inverse_of: :comments
   belongs_to :user, inverse_of: :comments
