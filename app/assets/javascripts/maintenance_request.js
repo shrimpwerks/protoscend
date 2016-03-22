@@ -10,8 +10,8 @@ var ready = function(e) {
   $("#maintenance_requests_list tbody tr td").each(function() {
     var str = $(this).text();
 
-    if (str.length > 90) {
-      $(this).html(str.substring(0, 86) + " ...");
+    if (str.length > 80) {
+      $(this).html(str.substring(0, 76) + " ...");
     }
   });
 };

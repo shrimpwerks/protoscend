@@ -28,7 +28,7 @@ class MaintenanceRequestsController < ApplicationController
   end
 
   def create_request_params
-    params.require(:maintenance_request).permit(:type, :priority, :reason, :route_id)
+    params.require(:maintenance_request).permit(:issue, :priority, :reason, :route_id)
   end
 
   def sort_column

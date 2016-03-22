@@ -14,7 +14,8 @@
   <tbody>
     <% @requests.each do |request| %>
       <tr class="table__row">
-        <td><%= request.route.name %></td>
+        <td id=""><%= request.route.name %></td>
+        <td><%= request.user.name %></td>
         <td><%= request.issue %></td>
         <td><%= request.reason %></td>
         <td><%= request.priority %></td>
