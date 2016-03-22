@@ -1,9 +1,9 @@
 class MaintenanceRequestsController < ApplicationController
-  protect_from_forgery with: :exception
-  respond_to :json
+  helper_method :sort_column, :sort_direction
 
   def index
-    @requests = MaintenanceRequest.where(nil)
+    @requests = MaintenanceRequest.joins(:user).joins(:route).where(nil)
+    @requests = @requests.order(sort_column + " " + sort_direction)
   end
 
   def new
@@ -28,6 +28,15 @@ class MaintenanceRequestsController < ApplicationController
   end
 
   def create_request_params
-    params.require(:maintenance_request).permit(:type, :priority, :reason, :route_id)
+    params.require(:maintenance_request).permit(:issue, :priority, :reason, :route_id)
+  end
+
+  def sort_column
+    whitelist = %w(routes.name users.first_name issue reason priority created_at)
+    whitelist.include?(params[:sort]) ? params[:sort] : "name"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
   end
 end
