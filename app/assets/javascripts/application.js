@@ -14,9 +14,8 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require components
-//= require_tree .
-//= require jquery
 //= require bootstrap-sprockets
+//= require_tree .
 
 $(document).on('ready page:load', function(event) {
   $("[data-url]").click(function() {
