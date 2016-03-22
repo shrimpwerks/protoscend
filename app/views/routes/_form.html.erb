@@ -46,9 +46,9 @@
         <%= f.date_field :route_set_date, class: "form-control", placeholder: "YYYY-MM-DD", required: true  %>
       </div>
 
-      <!-- 
+      <!--
         NOTE: consider making a migration to change 'tape_color' to 'color' in the db. since some
-        gyms may not use tape, but just the holds themselves. 
+        gyms may not use tape, but just the holds themselves.
       -->
       <div class="form-group">
         <%= f.label :tape_color, "Color" %>
@@ -79,6 +79,5 @@
 
   <div class="form-group">
     <%= f.submit nil, class: "btn btn-primary" %>
-  </div> 
+  </div>
 <% end %>
-

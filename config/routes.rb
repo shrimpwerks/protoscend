@@ -10,4 +10,5 @@ Rails.application.routes.draw do
     resources :comments
   end
   resources :assigned_routes
+  resources :maintenance_requests
 end

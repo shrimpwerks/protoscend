@@ -1,0 +1,70 @@
+<div class="col-sm-8 col-sm-offset-2">
+  <h1>New Maintenance Request</h1>
+  <% if @request.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@request.errors.count, "error") %> prohibited this request from being saved:
+      </h2>
+      <ul>
+        <% @request.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form_for @request, method: "post" do |f| %>
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="form-group">
+          <%= f.label :route_id, "Route" %>
+          <%= f.select :route_id, @routes.collect {|p| [ p.name, p.id ] }, {}, :class => "form-control", :required => true %>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <%= f.label :issue %>
+        <div class="form-group">
+          <label class="radio-inline">
+            <%= f.radio_button :issue, "0" %> Missing Tape
+          </label>
+          <label class="radio-inline">
+            <%= f.radio_button :issue, "1" %> Spinning Hold
+          </label>
+          <label class="radio-inline">
+            <%= f.radio_button :issue, "2" %> Missing Label
+          </label>
+          <label class="radio-inline">
+            <%= f.radio_button :issue, "3" %> Other
+          </label>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <%= f.label :priority %>
+        <div class="form-group">
+          <label class="radio-inline">
+            <%= f.radio_button :priority, "0" %> Low
+          </label>
+          <label class="radio-inline">
+            <%= f.radio_button :priority, "1" %> Normal
+          </label>
+          <label class="radio-inline">
+            <%= f.radio_button :priority, "2" %> High
+          </label>
+        </div>
+      </div>
+      <div class="col-sm-8">
+        <%= f.label :reason %>
+        <%= f.text_area :reason, cols: 40, rows: 3, placeholder: "Describe the issue", class: "form-control maintenance-desc" %>
+      </div>
+    </div>
+
+    <br>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <%= f.submit nil, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
