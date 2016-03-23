@@ -1,4 +1,7 @@
 <header>
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
   <h1 style="display:inline-block;">Routes</h1>
 
   <div class="pull-right" style="margin-top: 20px;">

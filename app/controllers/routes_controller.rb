@@ -1,6 +1,7 @@
 class RoutesController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_action :set_route, only: [:edit, :update]
+  before_action :new_route, only: [:new]
 
   def index
     @routes = Route.joins(:user).where(nil)
@@ -17,9 +18,8 @@ class RoutesController < ApplicationController
   end
 
   def new
-    @route = Route.new
-    @route.route_set_date = Date.today
     authorize @route
+    @route.route_set_date = Date.today
     @setters = User.setters
   end
 
@@ -29,6 +29,8 @@ class RoutesController < ApplicationController
 
   def create
     @route = Route.new(route_params)
+    ## @HACK: need for render new to work.
+    @setters = User.setters
     authorize(@route)
 
     # FIXME This can fail if :route_set_date is invalid
@@ -36,22 +38,31 @@ class RoutesController < ApplicationController
       Date.strptime(params[:route][:route_set_date], "%Y-%m-%d") + 3.months
 
     if @route.save
+      flash[:success] = "Successfully created route listing."
       redirect_to action: "index"
     else
-      render "new"
+      flash[:danger] = "Could not create route listing."
+      # redirect_to request.referer
+      render :new
     end
   end
 
   def update
     authorize @route
     if @route.update(route_params)
+      flash[:success] = "Successfully modified and saved route."
       redirect_to @route
     else
-      render "edit"
+      flash[:danger] = "Could not modify route information."
+      redirect_to action "edit"
     end
   end
 
   private
+
+  def new_route
+    @route = Route.new
+  end
 
   def set_route
     @route = Route.find(params[:id])

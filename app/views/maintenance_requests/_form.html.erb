@@ -1,8 +1,7 @@
-<% if @request.errors.any? %>
-  <div id="error_explanation">
-    <h2>
-      <%= pluralize(@request.errors.count, "error") %> prohibited this request from being saved:
-    </h2>
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>">
+    <b><%= value %></b><br>
+    <%= pluralize(@request.errors.count, "error") %> prohibited this request from being saved:
     <ul>
       <% @request.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -11,7 +10,7 @@
   </div>
 <% end %>
 
-<%= form_for @request, method: "post" do |f| %>
+<%= form_for @request do |f| %>
   <div class="row">
     <div class="col-sm-8">
       <div class="form-group">

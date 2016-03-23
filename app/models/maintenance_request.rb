@@ -1,6 +1,9 @@
 class MaintenanceRequest < ActiveRecord::Base
+  validates_presence_of :route_id
+  validates_presence_of :issue
+  validates_presence_of :priority
+  validates_presence_of :reason
 
-  # associations
   belongs_to :route, inverse_of: :maintenance_requests
   belongs_to :user, inverse_of: :maintenance_requests
 

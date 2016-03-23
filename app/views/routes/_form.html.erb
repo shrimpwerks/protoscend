@@ -1,8 +1,7 @@
-<% if @route.errors.any? %>
-  <div id="error_explanation">
-    <h2>
-      <%= pluralize(@route.errors.count, "error") %> prohibited this route from being saved:
-    </h2>
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>">
+    <b><%= value %></b><br>
+    <%= pluralize(@route.errors.count, "error") %> prohibited this route from being saved:
     <ul>
       <% @route.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -11,7 +10,7 @@
   </div>
 <% end %>
 
-<%= form_for @route, method: "post" do |f| %>
+<%= form_for @route do |f| %>
   <div class="row">
     <div class="col-sm-6">
       <div class="form-group">

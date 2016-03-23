@@ -1,3 +1,6 @@
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
 <h1><%= @route.name %>
   <div class="pull-right">
     <% if policy(@request).new? %>
