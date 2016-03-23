@@ -13,4 +13,9 @@ class MaintenanceRequestPolicy < ApplicationPolicy
   def create?
     @current_user.role != "Public"
   end
+
+  def edit?
+    # consider checking for supervisor or above?
+    @current_user.id == @request.user_id
+  end
 end

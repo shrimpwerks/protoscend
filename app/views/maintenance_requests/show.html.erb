@@ -1,0 +1,35 @@
+<div class="col-sm-8 col-sm-offset-2">
+  <h1><%= @request.route.name %>
+    <div class="pull-right">
+      <% if policy(@request).edit? %>
+        <%= link_to "Edit", edit_maintenance_request_path(@request), { :class => "btn btn-primary" } %>
+      <% end %>
+    </div>
+  </h1>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Maintenance</h3>
+    </div>
+    <table class="table">
+      <tbody>
+        <tr>
+          <th><label for="user_id">Inquirer</label></th>
+          <td><%= @request.user.name %></td>
+        </tr>
+        <tr>
+          <th><label for="issue">Issue</label></th>
+          <td><%= @request.issue %></td>
+        </tr>
+        <tr>
+          <th><label for="priority">Priority</label></th>
+          <td><%= @request.priority %></td>
+        </tr>
+        <tr>
+          <th><label for="reason">Reason</label></th>
+          <td><%= @request.reason %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <%= link_to 'Maintenance Complete', resolve_maintenance_request_path(@request), class: "btn btn-success" %>
+</div>

@@ -1,7 +1,4 @@
-<header>
-  <h1 style="display:inline-block;">Maintenance Requests</h1>
-</header>
-
+<h1 style="display:inline-block;">Maintenance Requests</h1>
 <table class="table" id="maintenance_requests_list">
   <thead>
     <th><%= sortable "routes.name", "Route" %></th>
@@ -13,11 +10,11 @@
   </thead>
   <tbody>
     <% @requests.each do |request| %>
-      <tr class="table__row">
-        <td id=""><%= request.route.name %></td>
+      <tr class="table__row" data-url="<%= maintenance_request_path(request.id) %>">
+        <td><%= request.route.name %></td>
         <td><%= request.user.name %></td>
         <td><%= request.issue %></td>
-        <td><%= request.reason %></td>
+        <td><%= request.reason[0..36] + " ..." %></td>
         <td><%= request.priority %></td>
         <td><%= request.created_at.strftime("%b %d, %Y") %></td>
       </tr>

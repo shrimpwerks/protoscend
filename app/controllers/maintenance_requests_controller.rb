@@ -2,8 +2,18 @@ class MaintenanceRequestsController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @requests = MaintenanceRequest.joins(:user).joins(:route).where(nil)
+    @requests = MaintenanceRequest.joins(:user, :route).all
     @requests = @requests.order(sort_column + " " + sort_direction)
+    @requests = @requests.not_resolved
+  end
+
+  def show
+    @request = MaintenanceRequest.find(params[:id])
+  end
+
+  def edit
+    @routes = Route.order("name ASC").active_routes
+    @request = MaintenanceRequest.find(params[:id])
   end
 
   def new
@@ -18,6 +28,16 @@ class MaintenanceRequestsController < ApplicationController
       redirect_to controller: 'routes', action: 'show', id: params[:maintenance_request][:route_id]
     else
       render "new"
+    end
+  end
+
+  def resolve
+    @request = MaintenanceRequest.find(params[:id])
+    @request.resolved = 1
+    if @request.save
+      redirect_to action: "index"
+    else
+      redirect_to request.referer
     end
   end
 
