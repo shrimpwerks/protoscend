@@ -10,9 +10,24 @@ var ready = function(e) {
   $("#maintenance_requests_list tbody tr td").each(function() {
     var str = $(this).text();
 
-    if (str.length > 80) {
-      $(this).html(str.substring(0, 76) + " ...");
+    if (str.length > 40) {
+      $(this).html(str.substring(0, 36) + " ...");
     }
+  });
+
+  // show the user how many characters they've used in their description.
+  // if ($('#maintenance_request_reason').val().length > 1) {
+  //   $('#maintenance_request_submit').prop('disabled', false);
+  // }
+
+  $('#maintenance_request_reason').keyup(function() {
+    var count = $(this).val().length;
+    if (count > 0 && count < 501) {
+      $('#maintenance_request_submit').prop('disabled', false);
+    } else {
+      $('#maintenance_request_submit').prop('disabled', true);
+    }
+    $("#maintenance_reason_char_count").html("( " + count + " / 500 )");
   });
 };
 

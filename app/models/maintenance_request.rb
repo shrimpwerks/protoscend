@@ -17,4 +17,10 @@ class MaintenanceRequest < ActiveRecord::Base
     :"High" => 2
   }
 
+  private
+
+  def self.not_resolved
+    where(resolved: 0)
+  end
+
 end
