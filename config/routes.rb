@@ -10,4 +10,9 @@ Rails.application.routes.draw do
     resources :comments
   end
   resources :assigned_routes
+  resources :maintenance_requests do
+    member do
+      get :resolve
+    end
+  end
 end

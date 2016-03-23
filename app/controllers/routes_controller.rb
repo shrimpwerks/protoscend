@@ -11,6 +11,7 @@ class RoutesController < ApplicationController
 
   def show
     @route = Route.includes(comments: :user).find(params[:id])
+    @request = MaintenanceRequest.new
     @comment = Comment.new
     @comments = @route.comments.most_recent
   end
@@ -31,7 +32,7 @@ class RoutesController < ApplicationController
     authorize(@route)
 
     # FIXME This can fail if :route_set_date is invalid
-    @route.expiration_date = 
+    @route.expiration_date =
       Date.strptime(params[:route][:route_set_date], "%Y-%m-%d") + 3.months
 
     if @route.save
@@ -57,7 +58,7 @@ class RoutesController < ApplicationController
   end
 
   def route_params
-    params.require(:route).permit(:name, :user_id, :label, :location, :tape_color, 
+    params.require(:route).permit(:name, :user_id, :label, :location, :tape_color,
                                   :grade, :route_set_date, :image_1, :image_2)
   end
 
