@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160318210350) do
+ActiveRecord::Schema.define(version: 20160322185638) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,13 +47,14 @@ ActiveRecord::Schema.define(version: 20160318210350) do
   end
 
   create_table "maintenance_requests", force: :cascade do |t|
-    t.integer  "routes_id"
-    t.integer  "users_id"
+    t.integer  "route_id"
+    t.integer  "user_id"
     t.string   "reason",     limit: 500
     t.integer  "resolved",               default: 0
-    t.integer  "priority"
+    t.integer  "priority",               default: 0
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
+    t.integer  "issue",                  default: 3
   end
 
   create_table "ratings", force: :cascade do |t|

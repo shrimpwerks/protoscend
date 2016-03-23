@@ -1,5 +1,8 @@
 <h1><%= @route.name %>
   <div class="pull-right">
+    <% if policy(@request).new? %>
+      <%= link_to "Maintenance", new_maintenance_request_path(:route_id => @route.id), { :class => "btn btn-warning"} %>
+    <% end %>
     <% if policy(@route).edit? %>
       <%= link_to "Edit", edit_route_path(@route), { :class => "btn btn-primary" } %>
     <% end %>

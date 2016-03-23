@@ -14,10 +14,10 @@ class User < ActiveRecord::Base
 
   enum role: {
     :'Public'        => 0,
-    :'Setter'        => 1, 
-    :'Employee'      => 2, 
-    :'Supervisor'    => 3, 
-    :'Manager'       => 4, 
+    :'Setter'        => 1,
+    :'Employee'      => 2,
+    :'Supervisor'    => 3,
+    :'Manager'       => 4,
     :'Administrator' => 5
   }
 
