@@ -1,5 +1,4 @@
 class Route < ActiveRecord::Base
-  validates :label, uniqueness: {message: "ID is already taken by another route."}
 
   belongs_to :user, counter_cache: true
   has_many :comments

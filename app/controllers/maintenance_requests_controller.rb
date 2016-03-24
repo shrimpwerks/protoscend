@@ -1,8 +1,8 @@
 class MaintenanceRequestsController < ApplicationController
   helper_method :sort_column, :sort_direction
+  before_action :set_routes, only: [:update, :new, :create, :edit]
   before_action :set_request, only: [:edit, :update, :resolve, :show]
   before_action :new_request, only: [:new, :create, :index]
-  before_action :authorize_request
 
   def index
     @requests = MaintenanceRequest.joins(:user, :route).all
@@ -14,11 +14,9 @@ class MaintenanceRequestsController < ApplicationController
   end
 
   def edit
-    @routes = Route.order("name ASC").active_routes
   end
 
   def update
-    @routes = Route.order("name ASC").active_routes
     if @request.update(request_params)
       flash[:success] = "Successfully modified and saved maintenance request."
       redirect_to @request
@@ -30,11 +28,9 @@ class MaintenanceRequestsController < ApplicationController
 
   def new
     @request = MaintenanceRequest.new(new_request_params)
-    @routes = Route.order("name ASC").active_routes
   end
 
   def create
-    @routes = Route.order("name ASC").active_routes
     @request = MaintenanceRequest.new(request_params)
     @request.user_id = current_user.id
     if @request.save
@@ -61,14 +57,16 @@ class MaintenanceRequestsController < ApplicationController
 
   def new_request
     @request = MaintenanceRequest.new
+    authorize @request
   end
 
   def set_request
     @request = MaintenanceRequest.find(params[:id])
+    authorize @request
   end
 
-  def authorize_request
-    authorize @request
+  def set_routes
+    @routes = Route.order("name ASC").active_routes
   end
 
   def new_request_params

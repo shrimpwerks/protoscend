@@ -7,7 +7,7 @@ class AssignedRoutePolicy < ApplicationPolicy
   end
 
   def create?
-    @current_user.role > 2
+    @current_user.role != "Public"
   end
 
   def edit?

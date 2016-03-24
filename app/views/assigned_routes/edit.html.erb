@@ -1,6 +1,17 @@
 <div class="col-sm-12 col-md-12 col-lg-offset-2 col-lg-8">
     <h1>Complete Assigned Route</h1>
 </div>
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>">
+    <b><%= value %></b><br>
+    <%= pluralize(@request.errors.count, "error") %> prohibited this request from being saved:
+    <ul>
+      <% @request.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 <div class="col-sm-12 col-md-12 col-lg-offset-1 col-lg-8">
   <dl class="dl-horizontal">
     <dt>Setter</dt>
