@@ -15,6 +15,7 @@
 //= require turbolinks
 //= require components
 //= require bootstrap-sprockets
+//= require jquery-bar-rating
 //= require_tree .
 
 $(document).on('ready page:load', function(event) {

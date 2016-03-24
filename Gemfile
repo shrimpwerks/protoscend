@@ -39,6 +39,10 @@ gem 'chartkick'
 # gem 'furatto'
 # gem 'simple_form'
 
+source 'https://rails-assets.tenex.tech' do
+  gem 'rails-assets-jquery-bar-rating', '1.1.3'
+end
+
 group :development do
   # gem 'sqlite3'
 end
