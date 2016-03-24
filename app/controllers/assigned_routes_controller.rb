@@ -1,4 +1,6 @@
 class AssignedRoutesController < ApplicationController
+  before_action :set_route, only: [:edit, :update]
+  before_action :new_route, only: [:create, :index]
 
   def show
   end
@@ -46,33 +48,51 @@ class AssignedRoutesController < ApplicationController
   end
 
   def create
-    authorize(Route.new)
-    if @route = Route.assigned_routes.create(create_assigned_route_params)
+    @route = AssignedRouteForm.new(Route.new(create_assigned_route_params))
+    @route.status = 1
+    if @route.validate(params[:route])
+      @route.save
+      flash[:success] = "Successfully assigned route."
       redirect_to action: "index"
     else
-      render "index"
+      flash[:danger] = "Could not assign route."
+      puts @route.errors
+      redirect_to request.referer
     end
   end
 
   def edit
-    @route = Route.find(params[:id])
-    authorize @route
+    @route.route_set_date = Date.today
   end
 
   def update
-    @route = Route.find(params[:id])
-    authorize @route
+    @route.update(complete_assigned_route_params)
+    @route = RouteForm.new(@route)
+
     @route.status = 0
     @route.expiration_date = Date.strptime(params[:route][:route_set_date], "%Y-%m-%d") + 3.months
 
-    if @route.update(complete_assigned_route_params)
+    if @route.validate(params[:route])
+      @route.save
+      flash[:success] = "Successfully completed assigned route."
       redirect_to @route
     else
+      flash[:danger] = "Could not complete route assignment."
       render "edit"
     end
   end
 
   private
+
+  def new_route
+    @route = Route.new
+    authorize @route
+  end
+
+  def set_route
+    @route = Route.find(params[:id])
+    authorize @route
+  end
 
   def create_assigned_route_params
     params.permit(:location, :grade, :user_id)

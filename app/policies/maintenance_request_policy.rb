@@ -6,6 +6,14 @@ class MaintenanceRequestPolicy < ApplicationPolicy
     @request = request
   end
 
+  def index?
+    @current_user.role != "Public"
+  end
+
+  def show?
+    @current_user.role != "Public"
+  end
+
   def new?
     @current_user.role != "Public"
   end
@@ -17,5 +25,14 @@ class MaintenanceRequestPolicy < ApplicationPolicy
   def edit?
     # consider checking for supervisor or above?
     @current_user.id == @request.user_id
+  end
+
+  def update?
+    # consider checking for supervisor or above?
+    @current_user.id == @request.user_id
+  end
+
+  def resolve?
+    @current_user.role != "Public"
   end
 end

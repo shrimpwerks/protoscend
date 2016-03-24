@@ -1,0 +1,10 @@
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>">
+    <%= pluralize(@route.errors.count, "error") %> prohibited this route from being saved:
+    <ul>
+      <% @route.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
