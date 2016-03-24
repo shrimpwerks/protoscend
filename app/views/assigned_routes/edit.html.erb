@@ -1,18 +1,8 @@
-<div class="col-sm-12 col-md-12 col-lg-offset-2 col-lg-8">
+<%= render "flash" %>
+<div class="col-sm-8 col-sm-offset-2">
     <h1>Complete Assigned Route</h1>
 </div>
-<% flash.each do |key, value| %>
-  <div class="alert alert-<%= key %>">
-    <b><%= value %></b><br>
-    <%= pluralize(@request.errors.count, "error") %> prohibited this request from being saved:
-    <ul>
-      <% @request.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-<div class="col-sm-12 col-md-12 col-lg-offset-1 col-lg-8">
+<div class="col-sm-8 col-sm-offset-1">
   <dl class="dl-horizontal">
     <dt>Setter</dt>
     <dd><%= @route.user.name %></dd>
@@ -24,62 +14,52 @@
 </div>
 
 <%= form_for @route, :url => url_for(:controller => 'assigned_routes', :action => 'update', :params => {id: @route.id}) do |f| %>
-  <div class="col-sm-12 col-md-12 col-lg-offset-2 col-lg-8">
+  <div class="col-sm-8 col-sm-offset-2">
     <div class="form-group">
       <div class="row">
-        <div class="col-sm-6 col-md-6 col-lg-6">
-          <%= f.label :name, "Route Name" %>
-          <div class="input-group">
-            <%= f.text_field :name, :class => "form-control", :required => true %>
-            <span class="input-group-addon"><span class="glyphicon glyphicon-triangle-left"></span></span>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <%= f.label :name %>
+            <%= f.text_field :name, class: "form-control", placeholder: "Keep it clean...", required: true  %>
           </div>
-          <br>
-          <%= f.label :label, "ID" %>
-          <div class="input-group">
-            <%= f.number_field :label, :class => "form-control", :required => true %>
-            <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+          <div class="form-group">
+            <%= f.label :label, "Id" %>
+            <%= f.number_field :label, class: "form-control", placeholder: "", required: true  %>
           </div>
-          <br>
         </div>
-        <div class="col-sm-6 col-md-6 col-lg-6">
-          <%= f.label :route_set_date, "Date Set" %>
-          <div class="input-group">
-            <%= f.text_field :route_set_date, :class => "form-control", :placeholder => "YYYY-MM-DD", :required => true %>
-            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <%= f.label :route_set_date, "Date Set" %>
+            <%= f.date_field :route_set_date, class: "form-control", placeholder: "YYYY-MM-DD", required: true  %>
           </div>
-          <br>
         </div>
-        <div class="col-sm-6 col-md-6 col-lg-6">
-          <%= f.label :tape_color, "Color" %>
-          <div class="input-group">
-            <%= f.text_field :tape_color, :class => "form-control", :required => true %>
-            <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <%= f.label :tape_color, "Color" %>
+            <%= f.text_field :tape_color, class: "form-control", placeholder: "Red, Blue, etc...", required: true  %>
           </div>
-          <br><br>
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-6 col-md-6 col-lg-6">
-          <%= f.label :image_1, "Image #1" %>
-          <div class="input-group">
-            <%= f.file_field :image_1, :class => "form-control", :required => true %>
-            <span class="input-group-addon"><span class="glyphicon glyphicon-picture"></span></span>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <%= f.label :image_1, "Image #1" %>
+            <%= f.file_field :image_1, class: 'form-control', required: true  %>
           </div>
-          <br>
         </div>
-        <div class="col-sm-6 col-md-6 col-lg-6">
-          <%= f.label :image_2, "Image #2" %>
-          <div class="input-group">
-            <%= f.file_field :image_2, :class => "form-control", :required => true %>
-            <span class="input-group-addon"><span class="glyphicon glyphicon-picture"></span></span>
+
+        <div class="col-sm-6">
+          <div class="form-group">
+            <%= f.label :image_2, "Image #2" %>
+            <%= f.file_field :image_2, class: 'form-control', required: true  %>
           </div>
-          <br>
         </div>
       </div>
+
     </div>
     <div class="row">
       <div class="form-group">
-        <%= f.submit :submit, :value => "Submit", :class => "btn btn-success pull-right" %>
+        <%= f.submit :submit, :value => "Complete Route", :class => "btn btn-success pull-right" %>
       </div>
     </div>
   </div>

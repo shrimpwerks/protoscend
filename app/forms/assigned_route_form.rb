@@ -1,7 +1,4 @@
 class AssignedRouteForm < Reform::Form
-  # include DSL
-  # include Reform::Form::ActiveModel
-
   property :user_id
   property :location
   property :grade

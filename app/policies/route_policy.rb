@@ -6,6 +6,12 @@ class RoutePolicy < ApplicationPolicy
     @route = route
   end
 
+  # only needed for assigned routes
+  def index?
+    puts 'got here'
+    @current_user.role != "Public"
+  end
+
   def new?
     @current_user.role != "Public"
   end

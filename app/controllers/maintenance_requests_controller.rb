@@ -35,7 +35,7 @@ class MaintenanceRequestsController < ApplicationController
     @request.user_id = current_user.id
     if @request.save
       flash[:success] = "Successfully submitted maintenance request."
-      redirect_to controller: 'routes', action: 'show', id: params[:maintenance_request][:route_id]
+      redirect_to route_path(@request.route_id)
     else
       flash[:danger] = "Could not submit maintenance request."
       render :new

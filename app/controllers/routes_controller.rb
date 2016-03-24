@@ -32,7 +32,8 @@ class RoutesController < ApplicationController
     @route.expiration_date =
       Date.strptime(params[:route][:route_set_date], "%Y-%m-%d") + 3.months
 
-    if @route.save
+    if @route.validate(params[:route])
+      @route.save
       flash[:success] = "Successfully created route listing."
       redirect_to action: "index"
     else
@@ -44,8 +45,9 @@ class RoutesController < ApplicationController
   def update
     @route.update(route_params)
     @route = RouteForm.new(@route)
-    
-    if @route.save
+
+    if @route.validate(params[:route])
+      @route.save
       flash[:success] = "Successfully modified and saved route."
       redirect_to @route
     else

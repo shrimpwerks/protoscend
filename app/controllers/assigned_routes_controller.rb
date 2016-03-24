@@ -1,6 +1,6 @@
 class AssignedRoutesController < ApplicationController
   before_action :set_route, only: [:edit, :update]
-  before_action :new_route, only: [:create]
+  before_action :new_route, only: [:create, :index]
 
   def show
   end
@@ -48,28 +48,32 @@ class AssignedRoutesController < ApplicationController
   end
 
   def create
-    # @route = Route.new(create_assigned_route_params)
     @route = AssignedRouteForm.new(Route.new(create_assigned_route_params))
     @route.status = 1
-    if @route.save
+    if @route.validate(params[:route])
+      @route.save
       flash[:success] = "Successfully assigned route."
       redirect_to action: "index"
     else
       flash[:danger] = "Could not assign route."
+      puts @route.errors
       redirect_to request.referer
     end
   end
 
   def edit
+    @route.route_set_date = Date.today
   end
 
   def update
     @route.update(complete_assigned_route_params)
     @route = RouteForm.new(@route)
+
     @route.status = 0
     @route.expiration_date = Date.strptime(params[:route][:route_set_date], "%Y-%m-%d") + 3.months
 
-    if @route.save
+    if @route.validate(params[:route])
+      @route.save
       flash[:success] = "Successfully completed assigned route."
       redirect_to @route
     else
