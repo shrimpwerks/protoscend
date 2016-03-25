@@ -44,6 +44,22 @@
             <th><label for="route_expiration_date">Expiration Date</label></th>
             <td><%= @route.expiration_date.strftime("%b %d, %Y") %></td>
           </tr>
+          <tr>
+            <th><label for="rating">Overall Rating</label></th>
+            <td>
+              <% if @rating == 0 %>
+                <i>not yet rated</i>
+              <% else %>
+                <select id="route_show_rating" data-rating="<%= @rating %>">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              <% end %>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -60,7 +76,34 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-lg-offset-4 col-md-offset-4 col-sm-offset-4 col-lg-8 col-md-8 col-sm-8">
+  <div class="col-lg-4 col-md-4 col-sm-4">
+    <% if user_signed_in? %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Rate it!</h3>
+        </div>
+        <div class="list-group">
+          <div class="list-group-item">
+            <div class="col-sm-6">
+              <select id="route_set_rating" data-rating="<%= @user_rating == nil ? 1 : @user_rating.rating %>">
+                <option value="1"><%= @route.id %></option>
+                <option value="2"><%= @route.id %></option>
+                <option value="3"><%= @route.id %></option>
+                <option value="4"><%= @route.id %></option>
+                <option value="5"><%= @route.id %></option>
+              </select>
+            </div>
+            <div class="col-sm-6">
+              <div id="rating_description"><i><%= @user_rating == nil ? "not yet rated" : "your rating" %></i></div>
+            </div>
+            <br>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <!-- <div class="col-lg-offset-4 col-md-offset-4 col-sm-offset-4 col-lg-8 col-md-8 col-sm-8"> -->
+  <div class="col-lg-8 col-md-8 col-sm-8">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Comments</h3>

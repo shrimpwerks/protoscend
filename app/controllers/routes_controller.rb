@@ -16,6 +16,9 @@ class RoutesController < ApplicationController
     @request = MaintenanceRequest.new
     @comment = Comment.new
     @comments = @route.comments.most_recent
+
+    @user_rating = Rating.get_user_rating(@route.id, current_user.id)
+    @rating = Rating.get_rating(@route.id)
   end
 
   def new
