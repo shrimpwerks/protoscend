@@ -21,14 +21,14 @@ Route.create! name: 'Best Route', user_id: 2, \
               location: 'Dixon', tape_color: 'Red', grade: '5.10', \
               route_set_date: '2015-05-05', expiration_date: '2015-08-05'
 
-Rating.create! routes_id: 1, users_id: 1, rating: 5
-Rating.create! routes_id: 2, users_id: 2, rating: 4
-Rating.create! routes_id: 1, users_id: 4, rating: 3
+Rating.create! route_id: 1, user_id: 1, rating: 5
+Rating.create! route_id: 2, user_id: 2, rating: 4
+Rating.create! route_id: 1, user_id: 4, rating: 3
 
 Announcement.create! announcement: 'hey look everybody, i\'m announcing this!!1'
 
-MaintenanceRequest.create! routes_id: 1, users_id: 1, reason: 'spinner in the middle', resolved: 0, priority: 1
+MaintenanceRequest.create! route_id: 1, user_id: 1, reason: 'spinner in the middle', status: 0, priority: 1, issue: 3
 
-Comment.create! routes_id: 1, users_id: 1, comment: 'excellent route, brochacho'
+Comment.create! route_id: 1, user_id: 1, comment: 'excellent route, brochacho'
 
-SupportTicket.create! users_id: 1, ticket: 'i had a bad experience with the site and I choose to not elaborate.'
+SupportTicket.create! user_id: 1, ticket: 'i had a bad experience with the site and I choose to not elaborate.'

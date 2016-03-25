@@ -11,8 +11,16 @@ class AssignedRoutePolicy < ApplicationPolicy
   end
 
   def edit?
+    # Supervisors and up, or the owner of the route
+    (@current_user.role != "Public" and @current_user.role != "Setter" and
+     @current_user.role != "Employee") or
+     @current_user.id == @route.user_id
   end
 
   def update?
+    # Supervisors and up, or the owner of the route
+    (@current_user.role != "Public" and @current_user.role != "Setter" and
+     @current_user.role != "Employee") or
+     @current_user.id == @route.user_id
   end
 end

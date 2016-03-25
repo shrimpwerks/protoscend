@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160324215905) do
+ActiveRecord::Schema.define(version: 20160325201126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20160324215905) do
     t.integer  "route_id"
     t.integer  "user_id"
     t.string   "reason",     limit: 500
-    t.integer  "resolved",               default: 0
+    t.integer  "status",                 default: 0
     t.integer  "priority",               default: 0
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false

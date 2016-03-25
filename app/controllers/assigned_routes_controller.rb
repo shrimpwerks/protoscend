@@ -1,5 +1,5 @@
 class AssignedRoutesController < ApplicationController
-  before_action :set_route, only: [:edit, :update]
+  before_action :set_route, only: [:edit, :update, :destroy]
   before_action :new_route, only: [:create, :index]
 
   def show
@@ -79,6 +79,17 @@ class AssignedRoutesController < ApplicationController
     else
       flash[:danger] = "Could not complete route assignment."
       render "edit"
+    end
+  end
+
+  def destroy
+    @route.status = "inactive"
+    if @route.save
+      flash[:success] = "Successfully disabled route."
+      redirect_to action: "index"
+    else
+      flash[:danger] = "Could not disable route."
+      render :show
     end
   end
 

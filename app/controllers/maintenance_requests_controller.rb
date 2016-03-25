@@ -1,7 +1,7 @@
 class MaintenanceRequestsController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_action :set_routes, only: [:update, :new, :create, :edit]
-  before_action :set_request, only: [:edit, :update, :resolve, :show]
+  before_action :set_request, only: [:edit, :update, :resolve, :show, :destroy]
   before_action :new_request, only: [:new, :create, :index]
 
   def index
@@ -43,7 +43,7 @@ class MaintenanceRequestsController < ApplicationController
   end
 
   def resolve
-    @request.resolved = 1
+    @request.status = "resolved"
     if @request.save
       flash[:success] = "Successfully resolved maintenance request."
       redirect_to action: "index"
@@ -52,6 +52,18 @@ class MaintenanceRequestsController < ApplicationController
       render :show
     end
   end
+
+  def destroy
+    @request.status = "canceled"
+    if @request.save
+      flash[:success] = "Successfully disabled request."
+      redirect_to action: "index"
+    else
+      flash[:danger] = "Could not disable request."
+      render :show
+    end
+  end
+
 
   private
 

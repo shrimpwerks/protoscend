@@ -1,5 +1,5 @@
 class MaintenanceRequestPolicy < ApplicationPolicy
-  attr_reader :route, :record
+  attr_reader :request, :record
 
   def initialize(current_user, request)
     @current_user = current_user
@@ -23,16 +23,27 @@ class MaintenanceRequestPolicy < ApplicationPolicy
   end
 
   def edit?
-    # consider checking for supervisor or above?
-    @current_user.id == @request.user_id
+    # Supervisors and up, or the owner of the request
+    (@current_user.role != "Public" and @current_user.role != "Setter" and
+     @current_user.role != "Employee") or
+     @current_user.id == @request.user_id
   end
 
   def update?
-    # consider checking for supervisor or above?
-    @current_user.id == @request.user_id
+    # Supervisors and up, or the owner of the request
+    (@current_user.role != "Public" and @current_user.role != "Setter" and
+     @current_user.role != "Employee") or
+     @current_user.id == @request.user_id
   end
 
   def resolve?
     @current_user.role != "Public"
+  end
+
+  def destroy?
+    # Supervisors and up, or the owner of the request
+    (@current_user.role != "Public" and @current_user.role != "Setter" and
+     @current_user.role != "Employee") or
+     @current_user.id == @request.user_id
   end
 end

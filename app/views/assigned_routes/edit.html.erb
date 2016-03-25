@@ -1,6 +1,11 @@
 <%= render "flash" %>
 <div class="col-sm-8 col-sm-offset-2">
-    <h1>Complete Assigned Route</h1>
+    <h1>
+      Complete Assigned Route
+      <% if policy(@route).destroy? %>
+        <%= link_to "Remove Assignment", assigned_route_path(@route.id), class: "btn btn-danger pull-right", method: :delete, data: { :confirm => "Are you sure you'd like to remove this assignment?" } %>
+      <% end %>
+    </h1>
 </div>
 <div class="col-sm-8 col-sm-offset-1">
   <dl class="dl-horizontal">

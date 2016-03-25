@@ -1,6 +1,9 @@
 <div class="col-sm-8 col-sm-offset-2">
   <h1><%= @request.route.name %>
     <div class="pull-right">
+      <% if policy(@request).destroy? %>
+        <%= link_to "Cancel", @request, class: "btn btn-danger", method: :delete, data: { :confirm => "Are you sure you'd like to disable request?" } %>
+      <% end %>
       <% if policy(@request).edit? %>
         <%= link_to "Edit", edit_maintenance_request_path(@request), { :class => "btn btn-primary" } %>
       <% end %>

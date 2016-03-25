@@ -7,6 +7,7 @@ class CommentPolicy < ApplicationPolicy
   end
 
   def create?
+    @current_user.role != "Public" and
     @current_user.id === @comment.user_id
   end
 end

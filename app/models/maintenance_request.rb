@@ -20,10 +20,12 @@ class MaintenanceRequest < ActiveRecord::Base
     :"High" => 2
   }
 
+  enum status: {unresolved: 0, resolved: 1, canceled: 2}
+
   private
 
   def self.not_resolved
-    where(resolved: 0)
+    where(status: "unresolved")
   end
 
 end

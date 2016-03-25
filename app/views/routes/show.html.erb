@@ -6,6 +6,9 @@
     <% if policy(@route).edit? %>
       <%= link_to "Edit", edit_route_path(@route), { :class => "btn btn-primary" } %>
     <% end %>
+    <% if policy(@route).destroy? %>
+      <%= link_to "Disable", @route, class: "btn btn-danger", method: :delete, data: { :confirm => "Are you sure you'd like to disable route \""+@route.name+"\"?" } %>
+    <% end %>
   </div>
 </h1>
 <div class="row">
