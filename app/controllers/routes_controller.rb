@@ -1,6 +1,6 @@
 class RoutesController < ApplicationController
   helper_method :sort_column, :sort_direction
-  before_action :set_route, only: [:edit, :update]
+  before_action :set_route, only: [:edit, :update, :destroy]
   before_action :new_route, only: [:new, :create]
   before_action :set_setters, only: [:new, :edit, :create, :update]
 
@@ -56,6 +56,17 @@ class RoutesController < ApplicationController
     else
       flash[:danger] = "Could not modify route information."
       render :edit
+    end
+  end
+
+  def destroy
+    @route.status = "inactive"
+    if @route.save
+      flash[:success] = "Successfully disabled route."
+      redirect_to action: "index"
+    else
+      flash[:danger] = "Could not disable route."
+      render :show
     end
   end
 

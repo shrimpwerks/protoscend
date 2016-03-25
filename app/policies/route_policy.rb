@@ -8,7 +8,6 @@ class RoutePolicy < ApplicationPolicy
 
   # only needed for assigned routes
   def index?
-    puts 'got here'
     @current_user.role != "Public"
   end
 
@@ -21,10 +20,22 @@ class RoutePolicy < ApplicationPolicy
   end
 
   def edit?
-    @current_user.id == @route.user_id
+    # Supervisors and up, or the owner of the route
+    (@current_user.role != "Public" and @current_user.role != "Setter" and
+     @current_user.role != "Employee") or
+     @current_user.id == @route.user_id
   end
 
   def update?
-    @current_user.id == @route.user_id
+    # Supervisors and up, or the owner of the route
+    (@current_user.role != "Public" and @current_user.role != "Setter" and
+     @current_user.role != "Employee") or
+     @current_user.id == @route.user_id
+  end
+
+  def destroy?
+    (@current_user.role != "Public" and @current_user.role != "Setter" and
+     @current_user.role != "Employee") or
+     @current_user.id == @route.user_id
   end
 end
