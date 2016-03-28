@@ -1,12 +1,15 @@
 class Route < ActiveRecord::Base
 
+  before_create do
+    self.expiration_date = self.route_set_date + 3.months
+  end
+
   belongs_to :user, counter_cache: true
   has_many :comments
   has_many :maintenance_requests
   has_many :ratings
 
   enum status: {active: 0, assigned: 1, inactive: 2}
-
   enum grade: {
     :"5.6"   => 0,
     :"5.7"   => 1,
@@ -23,7 +26,6 @@ class Route < ActiveRecord::Base
     :"5.12+" => 12,
     :"5.13"  => 13
   }
-
   enum location: {
     "McAlexander" => "McAlexander",
     "Dixon"       => "Dixon"
@@ -51,11 +53,4 @@ class Route < ActiveRecord::Base
     where('expiration_date < ?', Date.today.to_s)
   end
 
-  def self.with_users
-    joins(:user)
-  end
-
-  def self.for_user(id)
-    where :user_id => id
-  end
 end
