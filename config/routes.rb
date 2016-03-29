@@ -16,4 +16,5 @@ Rails.application.routes.draw do
       get :resolve
     end
   end
+  resources :announcements
 end

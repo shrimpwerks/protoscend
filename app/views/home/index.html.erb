@@ -1,6 +1,14 @@
 <div class="jumbotron">
-<h1>Protoscend</h1>
-<p>An application that serves data regarding the climbing routes available at the indoor climbing center at Oregon State University.</p>
-<a class="btn btn-primary btn-md" href="#" role="button">Learn more</a>
+  <h1>Announcements</h1>
+  <!-- <p>An application that serves data regarding the climbing routes available at the indoor climbing center at Oregon State University.</p> -->
+  <% @announcements.each do |a| %>
+    <h3>
+      <%= a.subject %><br>
+      <small><%= a.reveal_date.strftime("%b %d, %Y") %></small>
+    </h3>
+    <p>
+    <%= a.body %>
+    </p>
+    <br>
+  <% end %>
 </div>
-

@@ -25,7 +25,12 @@ Rating.create! route_id: 1, user_id: 1, rating: 5
 Rating.create! route_id: 2, user_id: 2, rating: 4
 Rating.create! route_id: 1, user_id: 4, rating: 3
 
-Announcement.create! announcement: 'hey look everybody, i\'m announcing this!!1'
+Announcement.create! body: 'hey look everybody, i\'m announcing this!!1', \
+                     created_at: '2015-05-05', updated_at: '2015-05-05', expires_at: '2016-03-29', \
+                     subject: 'First announcement', user_id: 1, reveal_date: '2016-03-25'
+Announcement.create! body: 'testpenis', \
+                    created_at: '2015-05-23', updated_at: '2015-05-23', expires_at: '2016-04-11', \
+                    subject: 'Second announcement', user_id: 1, reveal_date: '2016-03-26'
 
 MaintenanceRequest.create! route_id: 1, user_id: 1, reason: 'spinner in the middle', status: 0, priority: 1, issue: 3
 
