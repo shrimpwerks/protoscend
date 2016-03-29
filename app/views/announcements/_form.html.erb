@@ -1,0 +1,28 @@
+<%= form_for @announcement do |f| %>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="form-group">
+        <div class="form-group">
+          <%= f.label :subject, "Subject" %>
+          <%= f.text_field :subject, class: "form-control", placeholder: "Subject", required: true  %>
+        </div>
+        <div class="form-group">
+          <%= f.label :body, "Body" %>
+          <%= f.text_area :body, class: "form-control", placeholder: "Body", required: true  %>
+        </div>
+        <div class="form-group">
+          <%= f.label :reveal_date, "Reveal Date" %>
+          <%= f.date_field :reveal_date, class: "form-control", placeholder: "YYYY-MM-DD", required: true  %>
+        </div>
+        <div class="form-group">
+          <%= f.label :expires_at, "Expiration Date" %>
+          <%= f.date_field :expires_at, class: "form-control", placeholder: "YYYY-MM-DD", required: true  %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-primary pull-left">
+  </div>
+
+<% end %>

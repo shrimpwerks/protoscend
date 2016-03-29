@@ -11,16 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160325201126) do
+ActiveRecord::Schema.define(version: 20160326002411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "announcements", force: :cascade do |t|
-    t.text     "announcement"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.text     "body"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.datetime "expires_at"
+    t.string   "subject"
+    t.integer  "status",      default: 0
+    t.integer  "user_id"
+    t.datetime "reveal_date"
   end
+
+  add_index "announcements", ["user_id"], name: "index_announcements_on_user_id", using: :btree
 
   create_table "assigned_routes", force: :cascade do |t|
     t.integer  "user_id"
@@ -106,6 +113,7 @@ ActiveRecord::Schema.define(version: 20160325201126) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.integer  "routes_count",           default: 0
+    t.integer  "announcements_count",    default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
