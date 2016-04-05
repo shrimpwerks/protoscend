@@ -10,6 +10,9 @@ gem 'puma'
 gem 'pg'
 gem 'pundit'
 
+gem 'aws-sdk'
+gem "paperclip"
+
 gem 'reform'
 gem 'reform-rails'
 

@@ -21,7 +21,7 @@ class RoutesController < ApplicationController
 
   def new
     authorize Route.new
-    @form = RouteForm.new(Route.new)
+    @form = RouteForm.new
   end
 
   def edit
@@ -30,11 +30,9 @@ class RoutesController < ApplicationController
 
   def create
     authorize Route.new
-    @form = RouteForm.new(Route.new)
+    @form = RouteForm.new
 
-    if @form.validate(params[:route])
-      @form.expiration_date = @form.route_set_date.to_date + 3.months
-      @form.save
+    if @form.submit(route_params)
       flash[:success] = "Successfully created route."
       redirect_to action: :index
     else
@@ -45,8 +43,7 @@ class RoutesController < ApplicationController
   def update
     @form = RouteForm.new(@route)
 
-    if @form.validate(params[:route])
-      @form.save
+    if @form.submit(route_params)
       flash[:success] = "Successfully updated route."
       redirect_to @form
     else
@@ -66,6 +63,13 @@ class RoutesController < ApplicationController
   end
 
   private
+
+  def route_params
+    params.require(:route).permit(
+      :name, :user_id, :label, :location, :tape_color, :route_set_date, :status, 
+      :grade, :image_1, :image_2
+    )
+  end
 
   def find_setters
     @setters = User.setters
