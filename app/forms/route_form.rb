@@ -8,6 +8,7 @@ class RouteForm < Reform::Form
   property :location
   property :tape_color
   property :route_set_date
+  property :expiration_date
   property :status
   property :grade
 
@@ -21,12 +22,13 @@ class RouteForm < Reform::Form
   validates :grade, presence: true
   validates_uniqueness_of :label
 
-  def route_set_date
-    super || Date.today
-  end
-
   # property :image_1
   # property :image_2
   # validates :image_1, presence: true
   # validates :image_2, presence: true
+
+  def route_set_date
+    super || Date.today
+  end
+
 end
