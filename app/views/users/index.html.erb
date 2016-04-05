@@ -12,25 +12,26 @@
   </div>
 </header>
 
-<table class="table">
-  <thead>
-    <th><%= sortable "first_name", "First Name" %></th>
-    <th><%= sortable "last_name", "Last Name" %></th>
-    <th><%= sortable "email", "Email"  %></th>
-    <th><%= sortable "role", "Role" %></th>
-    <th><%= sortable "routes_count", "Routes Count" %></th>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
-      <tr class="table__row" data-url="<%= user_path(user) %>">
-        <td><%= highlight user.first_name, params[:search] %></td>
-        <td><%= highlight user.last_name, params[:search] %></td>
-        <td><%= highlight user.email, params[:search] %></td>
-        <td><%= user.role %></td>
-        <td><%= user.routes_count %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <th><%= sortable "first_name", "First Name" %></th>
+      <th><%= sortable "last_name", "Last Name" %></th>
+      <th><%= sortable "email", "Email"  %></th>
+      <th><%= sortable "role", "Role" %></th>
+      <th><%= sortable "routes_count", "Routes Count" %></th>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr class="table__row" data-url="<%= user_path(user) %>">
+          <td><%= highlight user.first_name, params[:search] %></td>
+          <td><%= highlight user.last_name, params[:search] %></td>
+          <td><%= highlight user.email, params[:search] %></td>
+          <td><%= user.role %></td>
+          <td><%= user.routes_count %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 
