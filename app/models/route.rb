@@ -1,9 +1,5 @@
 class Route < ActiveRecord::Base
 
-  before_create do
-    self.expiration_date = self.route_set_date + 3.months
-  end
-
   belongs_to :user, counter_cache: true
   has_many :comments
   has_many :maintenance_requests

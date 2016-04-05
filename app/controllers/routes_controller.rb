@@ -33,6 +33,7 @@ class RoutesController < ApplicationController
     @form = RouteForm.new(Route.new)
 
     if @form.validate(params[:route])
+      @form.expiration_date = @form.route_set_date.to_date + 3.months
       @form.save
       flash[:success] = "Successfully created route."
       redirect_to action: :index
