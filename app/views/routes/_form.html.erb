@@ -1,4 +1,4 @@
-<%= form_for @form do |f| %>
+<%= form_for @form, html: { multipart: true } do |f| %>
   <div class="row">
     <div class="col-sm-6">
       <div class="form-group">
@@ -34,8 +34,8 @@
       </div>
 
       <!--
-      NOTE: consider making a migration to change 'tape_color' to 'color' in the db. since some
-      gyms may not use tape, but just the holds themselves.
+        NOTE: consider making a migration to change 'tape_color' to 'color' in the db. since some
+        gyms may not use tape, but just the holds themselves.
       -->
       <div class="form-group">
         <%= f.label :tape_color, "Color" %>
@@ -44,27 +44,29 @@
     </div>
   </div>
 
-  <!--
-  <br>
-
   <div class="row">
     <div class="col-sm-6">
       <div class="form-group">
-        <%= f.label :image_1, "Image #1" %>
-        <%= f.file_field :image_1, class: 'form-control' %>
+        <%= f.label :image_1 %>
+        <%= f.file_field :image_1, class: "form-control" %>
+        <% if @form.image_1.present? %>
+          <br>
+          <%= image_tag @form.image_1.url, class: "img-responsive" %>
+        <% end %>
       </div>
     </div>
 
     <div class="col-sm-6">
       <div class="form-group">
-        <%= f.label :image_2, "Image #2" %>
-        <%= f.file_field :image_2, class: 'form-control'  %>
+        <%= f.label :image_2 %>
+        <%= f.file_field :image_2, class: "form-control" %>
+        <% if @form.image_2.present? %>
+          <br>
+          <%= image_tag @form.image_2.url, class: "img-responsive" %>
+        <% end %>
       </div>
     </div>
   </div>
-
-  <br>
-  -->
 
   <div class="form-group">
     <%= f.submit nil, class: "btn btn-primary" %>

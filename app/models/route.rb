@@ -1,5 +1,10 @@
 class Route < ActiveRecord::Base
 
+  has_attached_file :image_1, source_file_options: { all: '-auto-orient' }, styles: { original: "" }
+  has_attached_file :image_2, source_file_options: { all: '-auto-orient' }, styles: { original: "" }
+  validates_attachment :image_1, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
+  validates_attachment :image_2, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
+
   belongs_to :user, counter_cache: true
   has_many :comments
   has_many :maintenance_requests
