@@ -1,111 +1,86 @@
+<h1>
+	Assign Routes
+
+	<% if policy(@assigned_route).create? %>
+		<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#assign-route-modal">
+			Assign New Route
+		</button>
+	<% end %>
+</h1>
+
 <div class="row">
-	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-		<div>
-  		<h1>Assign Routes
-				<% if policy(@assigned_route).create? %>
-					<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#assignModal">
-		      	Assign New Route
-		    	</button>
-				<% end %></h1>
-		</div>
-	</div>
-</div>
-<div class="row">
-	<div class="col-sm-12 col-md-12 col-lg-12">
-		<div class="col-sm-6 col-md-6 col-lg-6">
-			<%= bar_chart @chart1, stacked: true %>
-		</div>
-		<div class="col-sm-6 col-md-6 col-lg-6">
-			<%= bar_chart @chart2, stacked: true %>
-		</div>
-	</div>
-</div>
-<div class="row">
-  <div class="col-sm-12 col-md-12 col-lg-12">
-    <div align="center">
-			<h4>Currently Assigned Routes</h4>
-		</div>
-    <table class="table table-striped">
-			<tbody>
-				<tr>
-	        <th>
-	          Setter
-	        </th>
-	        <th>
-	          Gym
-	        </th>
-	        <th>
-	          Grade
-	        </th>
-					<th>
-						Date Assigned
-					</th>
-	      </tr>
-	      <% @routes.each do |route| %>
-	        <tr class="table__row" data-url="<%= edit_assigned_route_path(route.id) %>">
-						<td>
-							<!-- <%= link_to route.user.name, user_path(route.user.id) %> -->
-							<%= route.user.name %>
-						</td>
-	          <td>
-	            <%= route.location %>
-	          </td>
-						<td>
-							<%= route.grade %>
-						</td>
-						<td>
-							<%= route.created_at.strftime("%b %d, %Y") %>
-						</td>
-	        </tr>
-	      <% end %>
-			</tbody>
-    </table>
-  </div>
-  <div class="col-sm-12 col-md-5 col-lg-5">
-  </div>
+	<div class="col-sm-6"><%= bar_chart routes_chart_path(location: "Dixon"), stacked: true %></div>
+	<div class="col-sm-6"><%= bar_chart routes_chart_path(location: "McAlexander"), stacked: true %></div>
 </div>
 
-<div class="modal fade" id="assignModal" tabindex="-1" role="dialog" aria-labelledby="assignModalLabel">
+<br>
+
+<h4>Currently Assigned Routes</h4>
+
+<table class="table table-hover">
+	<thead>
+    <th>Setter</th>
+    <th>Gym</th>
+    <th>Grade</th>
+		<th>Date Assigned</th>
+  </thead>
+	<tbody>
+    <% @assigned_routes.each do |route| %>
+      <tr class="table__row" data-url="<%= edit_assigned_route_path(route) %>">
+				<td><%= route.user.name %></td>
+        <td><%= route.location %></td>
+				<td><%= route.grade %></td>
+				<td><%= route.created_at.strftime("%b %d, %Y") %></td>
+      </tr>
+    <% end %>
+	</tbody>
+</table>
+
+<div class="modal fade" id="assign-route-modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
         <h4 class="modal-title" id="myModalLabel">Assign Route</h4>
       </div>
+
       <div class="modal-body">
-				<%= form_for @assigned_route, :url => url_for(:controller => 'assigned_routes', :action => 'create') do |f| %>
-					<div class="row">
-						<div class="col-sm-12 col-md-6 col-lg-6">
-							<div class="form-group">
-				        <%= f.label :location %>
-				        <%= f.select :location, Route.locations.keys, { include_blank: true }, class: "form-control", required: true %>
-				      </div>
-						</div>
-						<div class="col-sm-12 col-md-6 col-lg-6">
-							<div class="form-group">
-				        <%= f.label :grade %>
-				        <%= f.select :grade, Route.grades.keys, { include_blank: true }, class: "form-control", required: true %>
-				      </div>
+				<%= form_for @assigned_route, url: assigned_routes_path do |f| %>
+
+					<div class="form-group">
+						<%= f.label :user_id, "Setter" %>
+						<%= f.select :user_id, @setters.collect {|p| [ p.name, p.id ] }, {},
+							class: "form-control", required: true %>
+					</div>
+
+					<!--
+					<div class="form-group">
+						<div class="checkbox">
+							<label>
+								<%= check_box_tag 'notify_email', 'yes', true %> Notify with Email
+							</label>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-sm-12 col-md-6 col-lg-6">
-							<div class="form-group">
-				        <%= f.label :user_id, "Setter" %>
-				        <%= f.select :user_id, @setters.collect {|p| [ p.name, p.id ] }, {}, :class => "form-control", :required => true %>
-				      </div>
-						</div>
-						<div class="col-sm-12 col-md-6 col-lg-6">
-							<div class="checkbox">
-						    <label>
-									<%= check_box_tag 'notify_email', 'yes', true %> Notify with Email
-						    </label>
-						  </div>
-						</div>
-					</div>
-					<%= submit_tag "Assign Route", :class => "btn btn-success pull-right" %>
+					-->
+
+					<div class="form-group">
+		        <%= f.label :location %>
+		        <%= f.select :location, Route.locations.keys, { include_blank: true },
+							class: "form-control", required: true %>
+		      </div>
+
+					<div class="form-group">
+		        <%= f.label :grade %>
+		        <%= f.select :grade, Route.grades.keys, { include_blank: true },
+							class: "form-control", required: true %>
+		      </div>
+
+					<%= f.submit "Submit", class: "btn btn-success" %>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
 				<% end %>
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>

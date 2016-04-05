@@ -1,71 +1,81 @@
-<%= render "flash" %>
 <div class="col-sm-8 col-sm-offset-2">
-    <h1>
-      Complete Assigned Route
-      <% if policy(@route).destroy? %>
-        <%= link_to "Remove Assignment", assigned_route_path(@route.id), class: "btn btn-danger pull-right", method: :delete, data: { :confirm => "Are you sure you'd like to remove this assignment?" } %>
-      <% end %>
-    </h1>
-</div>
-<div class="col-sm-8 col-sm-offset-1">
-  <dl class="dl-horizontal">
-    <dt>Setter</dt>
-    <dd><%= @route.user.name %></dd>
-    <dt>Grade</dt>
-    <dd><%= @route.grade %></dd>
-    <dt>Location</dt>
-    <dd><%= @route.location %></dd>
-  </dl>
-</div>
+  <h1>Complete Assigned Route</h1>
 
-<%= form_for @route, :url => url_for(:controller => 'assigned_routes', :action => 'update', :params => {id: @route.id}) do |f| %>
-  <div class="col-sm-8 col-sm-offset-2">
-    <div class="form-group">
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="form-group">
-            <%= f.label :name %>
-            <%= f.text_field :name, class: "form-control", placeholder: "Keep it clean...", required: true  %>
-          </div>
-          <div class="form-group">
-            <%= f.label :label, "Id" %>
-            <%= f.number_field :label, class: "form-control", placeholder: "", required: true  %>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="form-group">
-            <%= f.label :route_set_date, "Date Set" %>
-            <%= f.date_field :route_set_date, class: "form-control", placeholder: "YYYY-MM-DD", required: true  %>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="form-group">
-            <%= f.label :tape_color, "Color" %>
-            <%= f.text_field :tape_color, class: "form-control", placeholder: "Red, Blue, etc...", required: true  %>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="form-group">
-            <%= f.label :image_1, "Image #1" %>
-            <%= f.file_field :image_1, class: 'form-control', required: true  %>
-          </div>
-        </div>
+  <%= form_errors_for @form %>
 
-        <div class="col-sm-6">
-          <div class="form-group">
-            <%= f.label :image_2, "Image #2" %>
-            <%= f.file_field :image_2, class: 'form-control', required: true  %>
-          </div>
-        </div>
-      </div>
+  <%= form_for @form, url: assigned_route_path(@form) do |f| %>
 
-    </div>
     <div class="row">
-      <div class="form-group">
-        <%= f.submit :submit, :value => "Complete Route", :class => "btn btn-success pull-right" %>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <%= f.label :user_id, "Setter" %>
+          <%= f.select :user_id, User.setters.collect {|p| [ p.name, p.id ] }, {}, class: "form-control", disabled: true %>
+        </div>
+        <div class="form-group">
+          <%= f.label :grade %>
+          <%= f.text_field :grade, class: "form-control", disabled: true  %>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <%= f.label :location %>
+          <%= f.text_field :location, class: "form-control", disabled: true  %>
+        </div>
       </div>
     </div>
-  </div>
-<% end %>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <%= f.label :name %>
+          <%= f.text_field :name, class: "form-control", placeholder: "Keep it clean...", required: true  %>
+        </div>
+        <div class="form-group">
+          <%= f.label :label %>
+          <%= f.number_field :label, class: "form-control", required: true  %>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group">
+          <%= f.label :route_set_date, "Date Set" %>
+          <%= f.date_field :route_set_date, class: "form-control", required: true, value: @form.route_set_date  %>
+        </div>
+        <div class="form-group">
+          <%= f.label :tape_color, "Color" %>
+          <%= f.text_field :tape_color, class: "form-control", placeholder: "Red, Blue, etc...", required: true  %>
+        </div>
+      </div>
+    </div>
+
+    <!--
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <%= f.label :image_1, "Image #1" %>
+          <%= f.file_field :image_1, class: 'form-control'  %>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group">
+          <%= f.label :image_2, "Image #2" %>
+          <%= f.file_field :image_2, class: 'form-control'  %>
+        </div>
+      </div>
+    </div>
+    -->
+
+    <div class="form-group">
+      <%= f.submit :submit, value: "Complete Route", class: "btn btn-success" %>
+
+      <% if policy(@route).destroy? %>
+        <%= link_to "Remove Assignment", assigned_route_path(@route),
+          class: "btn btn-danger", method: :delete,
+          data: { confirm: "Are you sure you'd like to remove this assignment?" }
+        %>
+      <% end %>
+    </div>
+
+  <% end %>
+</div>

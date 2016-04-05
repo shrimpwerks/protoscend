@@ -1,89 +1,56 @@
 class AssignedRoutesController < ApplicationController
-  before_action :set_route, only: [:edit, :update, :destroy]
-  before_action :new_route, only: [:create, :index]
-
-  def show
-  end
 
   def index
     @assigned_route = Route.new
-    @routes = Route.assigned_routes
+    @assigned_routes = Route.assigned_routes
     @setters = User.setters
-
-    @locations = {
-      "McAlexander" => "McAlexander",
-      "Dixon"       => "Dixon"
-    }
-    @grades = Route.grades.keys
-
-    @chart1 = [
-      {
-        name: "Active",
-        data: Route.active_routes.location('Dixon').group(:grade).count.map { |key, value| [Route.grades.select { |gkey, gvalue| gvalue == key }.keys.first, value] }
-      },
-      {
-        name: "Expired",
-        data: Route.expired_routes.location('Dixon').group(:grade).count.map { |key, value| [Route.grades.select { |gkey, gvalue| gvalue == key }.keys.first, value] }
-      },
-      {
-        name: "Assigned",
-        data: Route.assigned_routes.location('Dixon').group(:grade).count.map { |key, value| [Route.grades.select { |gkey, gvalue| gvalue == key }.keys.first, value] }
-      }
-    ]
-
-    @chart2 = [
-      {
-        name: "Active",
-        data: Route.active_routes.location('McAlexander').group(:grade).count.map { |key, value| [Route.grades.select { |gkey, gvalue| gvalue == key }.keys.first, value] }
-      },
-      {
-        name: "Expired",
-        data: Route.expired_routes.location('McAlexander').group(:grade).count.map { |key, value| [Route.grades.select { |gkey, gvalue| gvalue == key }.keys.first, value] }
-      },
-      {
-        name: "Assigned",
-        data: Route.assigned_routes.location('McAlexander').group(:grade).count.map { |key, value| [Route.grades.select { |gkey, gvalue| gvalue == key }.keys.first, value] }
-      }
-    ]
   end
 
   def create
-    @route = AssignedRouteForm.new(Route.new(create_assigned_route_params))
-    @route.status = 1
-    if @route.validate(params[:route])
-      @route.save
+    authorize Route.new
+    @form = AssignedRouteForm.new(Route.new)
+
+    if @form.validate(params[:route])
+      @form.status = 1
+      @form.save
       flash[:success] = "Successfully assigned route."
-      redirect_to action: "index"
+      redirect_to action: :index
     else
       flash[:danger] = "Could not assign route."
-      puts @route.errors
       redirect_to request.referer
     end
   end
 
+  def show
+  end
+
   def edit
-    @route.route_set_date = Date.today
+    @route = Route.find(params[:id])
+    authorize @route
+    @form = RouteForm.new(@route)
   end
 
   def update
-    @route.update(complete_assigned_route_params)
-    @route = RouteForm.new(@route)
+    @route = Route.find(params[:id])
+    authorize @route
+    @form = RouteForm.new(@route)
 
-    @route.status = 0
-    @route.expiration_date = Date.strptime(params[:route][:route_set_date], "%Y-%m-%d") + 3.months
-
-    if @route.validate(params[:route])
-      @route.save
+    if @form.validate(params[:route])
+      @form.status = 0
+      @form.expiration_date = @form.route_set_date.to_date + 3.months
+      @form.save
       flash[:success] = "Successfully completed assigned route."
       redirect_to @route
     else
-      flash[:danger] = "Could not complete route assignment."
-      render "edit"
+      render :edit
     end
   end
 
   def destroy
+    @route = Route.find(params[:id])
+    authorize @route
     @route.status = "inactive"
+
     if @route.save
       flash[:success] = "Successfully disabled route."
       redirect_to action: "index"
@@ -93,23 +60,4 @@ class AssignedRoutesController < ApplicationController
     end
   end
 
-  private
-
-  def new_route
-    @route = Route.new
-    authorize @route
-  end
-
-  def set_route
-    @route = Route.find(params[:id])
-    authorize @route
-  end
-
-  def create_assigned_route_params
-    params.permit(:location, :grade, :user_id)
-  end
-
-  def complete_assigned_route_params
-    params.require(:route).permit(:name, :label, :tape_color, :route_set_date, :image_1, :image_2)
-  end
 end
