@@ -5,7 +5,7 @@ class RouteForm
 
   delegate :id, :name, :user_id, :label, :location, :tape_color, :route_set_date, \
     :expiration_date, :status, :grade, :image_1, :image_2, to: :route
- 
+
   validates :name, presence: true
   validates :user_id, presence: true
   validates :label, presence: true, unique_label: true
@@ -20,7 +20,7 @@ class RouteForm
   end
 
   def initialize(route = nil)
-    self.route = route || Route.new(route_set_date: Date.today) 
+    self.route = route || Route.new(route_set_date: Date.today)
   end
 
   def persisted?
@@ -30,9 +30,9 @@ class RouteForm
   def submit(params)
     self.route.attributes = params
     if valid?
-      self.route.expiration_date = 
+      self.route.expiration_date =
         self.route.route_set_date.to_date + 3.months if self.route.new_record?
-      self.route.save!
+      self.route.save
       true
     else
       false
