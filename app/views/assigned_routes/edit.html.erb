@@ -21,6 +21,10 @@
           <%= f.label :location %>
           <%= f.text_field :location, class: "form-control", disabled: true  %>
         </div>
+        <div class="form-group">
+          <%= f.label :route_set_date, "Date Set" %>
+          <%= f.date_field :route_set_date, class: "form-control", required: true, value: @form.route_set_date  %>
+        </div>
       </div>
     </div>
 
@@ -37,17 +41,19 @@
       </div>
 
       <div class="col-sm-6">
-        <div class="form-group">
-          <%= f.label :route_set_date, "Date Set" %>
-          <%= f.date_field :route_set_date, class: "form-control", required: true, value: @form.route_set_date  %>
-        </div>
+
         <div class="form-group">
           <%= f.label :tape_color, "Color" %>
           <%= f.text_field :tape_color, class: "form-control", placeholder: "Red, Blue, etc...", required: true  %>
         </div>
+        <div class="form-group">
+          <%= f.label :description %>
+          <%= f.text_area :description, class: "form-control description-box", rows: 3, placeholder: "Tell us a little about it!", required: true %>
+        </div>
       </div>
     </div>
 
+    <!-- @TODO  -->
     <!--
     <div class="row">
       <div class="col-sm-6">

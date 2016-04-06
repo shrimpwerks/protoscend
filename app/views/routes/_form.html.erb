@@ -41,6 +41,11 @@
         <%= f.label :tape_color, "Color" %>
         <%= f.text_field :tape_color, class: "form-control", placeholder: "Red, Blue, etc...", required: true  %>
       </div>
+
+      <div class="form-group">
+        <%= f.label :description %>
+        <%= f.text_area :description, class: "form-control description-box", rows: 3, placeholder: "Tell us a little about it!", required: true %>
+      </div>
     </div>
   </div>
 

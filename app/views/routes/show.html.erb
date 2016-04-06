@@ -65,6 +65,15 @@
               <% end %>
             </td>
           </tr>
+          <tr>
+            <td colspan="2">
+              <% if @route.description %>
+                <%= @route.description %>
+              <% else %>
+                <i>No description provided</i>
+              <% end %>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -104,7 +113,7 @@
       </div>
     <% end %>
   </div>
-  
+
   <div class="col-lg-8 col-md-8 col-sm-8">
     <div class="panel panel-default">
       <div class="panel-heading">
