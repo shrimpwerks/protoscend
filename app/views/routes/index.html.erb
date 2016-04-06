@@ -1,31 +1,36 @@
-<header>
-  <h1 style="display:inline-block;">Routes</h1>
+<h1>Routes</h1>
 
-  <div class="pull-right" style="margin-top: 20px;">
-    <%= form_tag routes_path, method: "get",
-      class: "form-inline",
-      style: "display:inline-block;" do %>
-      <%= text_field_tag "search", params[:search], class: "form-control", autofocus: true %>
-      <%= submit_tag "Search", class: "btn btn-primary" %>
-    <% end %>
+<div class="row">
+  <%= form_tag routes_path, method: "get", class: "form-inline col-xs-6" do %>
+    <div class="input-group pull-left">
+      <div class="input-group-addon">
+        <span class="glyphicon glyphicon-search"></span>
+      </div>
+      <%= text_field_tag "search", params[:search], class: "form-control", placeholder: "Search routes" %>
+    </div>
+  <% end %>
 
-    <% if policy(Route.new).new? %>
+  <% if policy(Route.new).new? %>
+    <div class="col-xs-3 pull-right">
       <%= link_to "New route", new_route_path, class: "btn btn-success" %>
-    <% end %>
-  </div>
-</header>
+    </div>
+  <% end %>
+</div>
+
+<br>
+
 
 <div class="table-responsive">
   <table class="table">
     <thead>
-      <th><%= sortable "name", "Name" %></th>
-      <th><%= sortable "label", "Label" %></th>
-      <th><%= sortable "users.first_name", "Setter" %></th>
-      <th><%= sortable "location" %></th>
-      <th><%= sortable "tape_color", "Color" %></th>
-      <th><%= sortable "route_set_date", "Set Date" %></th>
-      <th><%= sortable "expiration_date" %></th>
-      <th><%= sortable "grade" %></th>
+      <%= sortable_header "name", "Name" %>
+      <%= sortable_header "label", "Label" %>
+      <%= sortable_header "users.first_name", "Setter" %>
+      <%= sortable_header "location" %>
+      <%= sortable_header "tape_color", "Color" %>
+      <%= sortable_header "route_set_date", "Set Date" %>
+      <%= sortable_header "expiration_date" %>
+      <%= sortable_header "grade" %>
     </thead>
     <tbody>
       <% @routes.each do |route| %>
