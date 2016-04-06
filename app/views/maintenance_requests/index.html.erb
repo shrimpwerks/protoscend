@@ -1,16 +1,19 @@
-<h1 style="display:inline-block;">Maintenance Requests</h1>
-<table class="table" id="maintenance_requests_list">
+<h1>Maintenance Requests</h1>
+
+<table class="table">
   <thead>
-    <th><%= sortable "routes.name", "Route" %></th>
-    <th><%= sortable "users.first_name", "Reporter" %></th>
-    <th><%= sortable "issue" %></th>
-    <th><%= sortable "reason" %></th>
-    <th><%= sortable "priority" %></th>
-    <th><%= sortable "created_at", "Date" %></th>
+    <%= sortable_header "id", "#" %>
+    <%= sortable_header "routes.name", "Route" %>
+    <%= sortable_header "users.first_name", "Reporter" %>
+    <%= sortable_header "issue" %>
+    <%= sortable_header "reason" %>
+    <%= sortable_header "priority" %>
+    <%= sortable_header "created_at", "Date" %>
   </thead>
   <tbody>
     <% @requests.each do |request| %>
-      <tr class="table__row" data-url="<%= maintenance_request_path(request.id) %>">
+      <tr>
+        <td><%= link_to request.id, maintenance_request_path(request.id) %></td>
         <td><%= request.route.name %></td>
         <td><%= request.user.name %></td>
         <td><%= request.issue %></td>
