@@ -27,6 +27,7 @@ class AssignedRoutesController < ApplicationController
   def edit
     @route = Route.find(params[:id])
     authorize @route
+    @route.route_set_date = Date.today
     @form = RouteForm.new(@route)
   end
 
@@ -35,10 +36,7 @@ class AssignedRoutesController < ApplicationController
     authorize @route
     @form = RouteForm.new(@route)
 
-    if @form.validate(params[:route])
-      @form.status = 0
-      @form.expiration_date = @form.route_set_date.to_date + 3.months
-      @form.save
+    if @form.submit(route_params)
       flash[:success] = "Successfully completed assigned route."
       redirect_to @route
     else
@@ -58,6 +56,15 @@ class AssignedRoutesController < ApplicationController
       flash[:danger] = "Could not disable route."
       render :show
     end
+  end
+
+  private
+
+  def route_params
+    params.require(:route).permit(
+      :name, :user_id, :label, :location, :tape_color, :route_set_date, :status,
+      :grade, :description, :image_1, :image_2
+    )
   end
 
 end
