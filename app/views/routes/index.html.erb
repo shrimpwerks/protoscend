@@ -37,7 +37,7 @@
         <tr>
           <td><%= link_to highlight(route.name, params[:search]), route %></td>
           <td><%= highlight route.label.to_s, params[:search] %></td>
-          <td><%= highlight route.user.name, params[:search] %></td>
+          <td><%= link_to highlight(route.user.name, params[:search]), route.user %></td>
           <td><%= highlight route.location, params[:search] %></td>
           <td><%= highlight route.tape_color, params[:search] %></td>
           <td><%= route.route_set_date.strftime("%b %d, %Y") %></td>
