@@ -19,6 +19,7 @@
   <table class="table">
     <thead>
       <th><%= sortable "name", "Name" %></th>
+      <th><%= sortable "label", "Label" %></th>
       <th><%= sortable "users.first_name", "Setter" %></th>
       <th><%= sortable "location" %></th>
       <th><%= sortable "tape_color", "Color" %></th>
@@ -28,8 +29,9 @@
     </thead>
     <tbody>
       <% @routes.each do |route| %>
-        <tr class="table__row" data-url="<%= route_path(route.id) %>">
-          <td><%= highlight route.name, params[:search] %></td>
+        <tr>
+          <td><%= link_to highlight(route.name, params[:search]), route %></td>
+          <td><%= highlight route.label.to_s, params[:search] %></td>
           <td><%= highlight route.user.name, params[:search] %></td>
           <td><%= highlight route.location, params[:search] %></td>
           <td><%= highlight route.tape_color, params[:search] %></td>
