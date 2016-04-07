@@ -90,8 +90,8 @@ class MaintenanceRequestsController < ApplicationController
   end
 
   def sort_column
-    whitelist = %w(routes.name users.first_name issue reason priority created_at)
-    whitelist.include?(params[:sort]) ? params[:sort] : "name"
+    whitelist = %w(id routes.name users.first_name issue reason priority created_at)
+    whitelist.include?(params[:sort]) ? params[:sort] : "id"
   end
 
   def sort_direction

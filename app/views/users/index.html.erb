@@ -1,24 +1,25 @@
-<header>
-  <h1 style="display:inline-block;">Users</h1>
-  <div class="pull-right" style="margin-top: 20px;">
-    <%= form_tag users_path, method: "get",
-      class: "form-inline",
-      style: "display:inline-block;" do %>
+<h1>Users</h1>
 
-      <%= text_field_tag "search", params[:search], class: "form-control", autofocus: true %>
-      <%= submit_tag "Search", class: "btn btn-primary" %>
+<div class="row">
+  <%= form_tag users_path, method: "get", class: "form-inline col-xs-6" do %>
+    <div class="input-group pull-left">
+      <div class="input-group-addon">
+        <span class="glyphicon glyphicon-search"></span>
+      </div>
+      <%= text_field_tag "search", params[:search], class: "form-control", placeholder: "Search users" %>
+    </div>
+  <% end %>
+</div>
 
-    <% end %>
-  </div>
-</header>
+<br>
 
 <div class="table-responsive">
   <table class="table">
     <thead>
-      <th><%= sortable "first_name", "Name" %></th>
-      <th><%= sortable "email", "Email"  %></th>
-      <th><%= sortable "role", "Role" %></th>
-      <th><%= sortable "routes_count", "Routes Count" %></th>
+      <%= sortable_header "first_name", "Name" %>
+      <%= sortable_header "email", "Email"  %>
+      <%= sortable_header "role", "Role" %>
+      <%= sortable_header "routes_count", "Routes Count" %>
     </thead>
     <tbody>
       <% @users.each do |user| %>
