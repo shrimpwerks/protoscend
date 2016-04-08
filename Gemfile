@@ -10,6 +10,7 @@ gem 'rails', '4.2.3'
 gem 'puma'
 gem 'pg'
 gem 'pundit'
+gem 'kaminari'
 
 gem 'aws-sdk'
 gem "paperclip"

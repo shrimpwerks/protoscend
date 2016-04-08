@@ -7,6 +7,7 @@ class RoutesController < ApplicationController
     @routes = Route.joins(:user).active_routes
     @routes = @routes.with_full_text_search(params[:search]) if params[:search].present?
     @routes = @routes.order(sort_column + " " + sort_direction)
+    @routes = @routes.page(params[:page])
   end
 
   def show
