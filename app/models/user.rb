@@ -10,7 +10,6 @@ class User < ActiveRecord::Base
   has_many :maintenance_requests
   has_many :ratings
   has_many :routes
-  has_many :support_tickets
 
   enum role: {
     :'Public'        => 0,
