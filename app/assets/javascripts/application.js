@@ -18,7 +18,7 @@
 //= require jquery-bar-rating
 //= require_tree .
 
-$(document).on('ready page:load', function(event) {
+$(document).on('ready turbolinks:load', function(event) {
   $("[data-url]").click(function() {
     window.document.location = $(this).data("url");
   });
