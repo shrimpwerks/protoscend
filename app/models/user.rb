@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
 
   # TODO Replace with ActiveRecord #or with Rails 5
   def self.with_full_text_search(term)
-    q = 'first_name LIKE ? OR last_name LIKE ? OR email LIKE ?'
+    q = 'first_name ILIKE ? OR last_name ILIKE ? OR email ILIKE ?'
     where([q, "%#{term}%", "%#{term}%", "%#{term}%"])
   end
 end
