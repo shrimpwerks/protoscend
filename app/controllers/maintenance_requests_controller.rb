@@ -8,6 +8,7 @@ class MaintenanceRequestsController < ApplicationController
     @requests = MaintenanceRequest.joins(:user, :route).all
     @requests = @requests.order(sort_column + " " + sort_direction)
     @requests = @requests.not_resolved
+    @requests = @requests.page(params[:page])
   end
 
   def show
