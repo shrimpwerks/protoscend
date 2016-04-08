@@ -1,4 +1,5 @@
 class AssignedRoutesController < ApplicationController
+  before_action :set_route, only: [:edit, :update, :destroy]
 
   def index
     @assigned_route = Route.new
@@ -8,11 +9,9 @@ class AssignedRoutesController < ApplicationController
 
   def create
     authorize Route.new
-    @form = AssignedRouteForm.new(Route.new)
+    @form = AssignedRouteForm.new
 
-    if @form.validate(params[:route])
-      @form.status = 1
-      @form.save
+    if @form.submit(assigned_route_params)
       flash[:success] = "Successfully assigned route."
       redirect_to action: :index
     else
@@ -25,14 +24,11 @@ class AssignedRoutesController < ApplicationController
   end
 
   def edit
-    @route = Route.find(params[:id])
     authorize @route
-    @route.route_set_date = Date.today
     @form = RouteForm.new(@route)
   end
 
   def update
-    @route = Route.find(params[:id])
     authorize @route
     @form = RouteForm.new(@route)
 
@@ -45,7 +41,6 @@ class AssignedRoutesController < ApplicationController
   end
 
   def destroy
-    @route = Route.find(params[:id])
     authorize @route
     @route.status = "inactive"
 
@@ -60,11 +55,18 @@ class AssignedRoutesController < ApplicationController
 
   private
 
+  def assigned_route_params
+    params.require(:route).permit(:user_id, :location, :grade)
+  end
+
   def route_params
-    params.require(:route).permit(
-      :name, :user_id, :label, :location, :tape_color, :route_set_date, :status,
-      :grade, :description, :image_1, :image_2
-    )
+    route_attributes = %i(name user_id label location tape_color route_set_date
+                          status grade description image_1 image_2)
+    params.require(:route).permit(*route_attributes)
+  end
+
+  def set_route
+    @route = Route.find(params[:id])
   end
 
 end
