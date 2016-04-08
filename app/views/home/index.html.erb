@@ -1,14 +1,50 @@
-<div class="jumbotron">
-  <h1>Announcements</h1>
-  <!-- <p>An application that serves data regarding the climbing routes available at the indoor climbing center at Oregon State University.</p> -->
-  <% @announcements.each do |a| %>
-    <h3>
-      <%= a.subject %><br>
-      <small><%= a.reveal_date.strftime("%b %d, %Y") %></small>
-    </h3>
-    <p>
-    <%= a.body %>
-    </p>
-    <br>
-  <% end %>
+
+<header id="carousel" class="carousel slide" data-ride="carousel">
+	<!-- Indicators -->
+	<ol class="carousel-indicators">
+		<li data-target="#carousel" data-slide-to="0" class=""></li>
+		<li data-target="#carousel" data-slide-to="1" class="active"></li>
+		<li data-target="#carousel" data-slide-to="2" class=""></li>
+	</ol>
+	<!-- Wrapper for slides -->
+	<div class="carousel-inner" role="listbox">
+		<div class="item">
+      <%= image_tag "carousel-1.png", class: "fill" %>
+		</div>
+		<div class="item active">
+      <%= image_tag "carousel-2.png", class: "fill" %>
+		</div>
+		<div class="item">
+      <%= image_tag "carousel-3.png", class: "fill" %>
+		</div>
+	</div>
+</header>
+
+<h1>Oregon State Indoor Climbing Center</h1>
+
+<div class="row">
+  <div class="col-sm-4">
+    <h3>Announcements</h3>
+    <% @announcements.each do |announcement| %>
+      <div class="media">
+        <div class="media-body">
+          <h4 class="media-heading">
+            <%= announcement.subject %>
+            <small><%= announcement.reveal_date.strftime("%b %d, %Y") %></small>
+          </h4>
+          <%= announcement.body %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="col-sm-4">
+    <h3>Top Routes</h3>
+
+  </div>
+
+  <div class="col-sm-4">
+    <h3>New Routes</h3>
+
+  </div>
 </div>
