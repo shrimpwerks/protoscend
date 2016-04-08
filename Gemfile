@@ -8,6 +8,9 @@ gem 'puma'
 gem 'pg'
 gem 'pundit'
 gem 'devise'
+
+gem 'kaminari'
+
 gem 'aws-sdk'
 gem 'paperclip'
 gem 'chartkick'

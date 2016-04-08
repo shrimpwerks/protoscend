@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160406173343) do
+ActiveRecord::Schema.define(version: 20160408163950) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,12 +37,6 @@ ActiveRecord::Schema.define(version: 20160406173343) do
     t.integer  "hidden",     default: 0
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-  end
-
-  create_table "available_walls", force: :cascade do |t|
-    t.string  "location"
-    t.integer "wall_id"
-    t.integer "available", default: 1
   end
 
   create_table "comments", force: :cascade do |t|
