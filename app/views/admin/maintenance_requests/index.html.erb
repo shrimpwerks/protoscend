@@ -38,8 +38,8 @@
       <% @requests.each do |request| %>
         <tr>
           <td><%= link_to request.id, [:admin, request] %></td>
-          <td><%= highlight request.route.name, params[:search] %></td>
-          <td><%= highlight request.user.name, params[:search] %></td>
+          <td><%= link_to highlight(request.route.name, params[:search]), [:admin, request.route] %></td>
+          <td><%= link_to highlight(request.user.name, params[:search]), [:admin, request.user] %></td>
           <td><%= request.issue %></td>
           <td><%= highlight truncate(request.reason, length: 36), params[:search] %></td>
           <td><%= request.priority %></td>
