@@ -1,0 +1,49 @@
+<h1>Announcements</h1>
+
+<div class="row">
+  <div class="col-xs-8">
+    <%= form_tag admin_announcements_path, method: :get, class: "form-inline pull-left" do %>
+      <div class="input-group">
+        <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+        <%= text_field_tag "search", params[:search], class: "form-control",
+          placeholder: "Search announcements" %>
+      </div>
+    <% end %>
+  </div>
+
+  <% if policy(Announcement).new? %>
+    <div class="col-xs-4">
+      <%= link_to "New Announcement", new_admin_announcement_path,
+        class: "btn btn-success pull-right" %>
+    </div>
+  <% end %>
+</div>
+
+<br>
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <%= sortable_header "subject", "Subject" %>
+      <%= sortable_header "body", "Body" %>
+      <%= sortable_header "users.first_name", "Author"  %>
+      <%= sortable_header "reveal_date", "Reveals At" %>
+      <%= sortable_header "expires_at", "Expires At" %>
+      <%= sortable_header "created_at", "Created At" %>
+      <%= sortable_header "updated_at", "Updated At" %>
+    </thead>
+    <tbody>
+      <% @announcements.each do |a| %>
+        <tr>
+          <td><%= link_to highlight(a.subject, params[:search]), admin_announcement_path(a) %></td>
+          <td><%= highlight a.body, params[:search] %></td>
+          <td><%= link_to highlight(a.user.name, params[:search]), admin_user_path(a.user) %></td>
+          <td><%= a.reveal_date.strftime("%b %d, %Y") %></td>
+          <td><%= a.expires_at.strftime("%b %d, %Y") %></td>
+          <td><%= a.created_at.strftime("%b %d, %Y") %></td>
+          <td><%= a.updated_at.strftime("%b %d, %Y") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

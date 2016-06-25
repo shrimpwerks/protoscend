@@ -2,15 +2,21 @@
 
 <div class="row">
   <div class="col-xs-8">
-    <%= form_tag routes_path, method: "get", class: "form-inline pull-left" do %>
+    <%= form_tag admin_routes_path, method: :get, class: "form-inline pull-left" do %>
       <div class="input-group">
-        <div class="input-group-addon">
-          <span class="glyphicon glyphicon-search"></span>
-        </div>
-        <%= text_field_tag "search", params[:search], class: "form-control", placeholder: "Search routes" %>
+        <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+        <%= text_field_tag "search", params[:search], class: "form-control",
+          placeholder: "Search routes" %>
       </div>
     <% end %>
   </div>
+
+  <% if policy(Route).new? %>
+    <div class="col-xs-4">
+      <%= link_to "New route", new_admin_route_path,
+        class: "btn btn-success pull-right" %>
+    </div>
+  <% end %>
 </div>
 
 <br>
@@ -30,9 +36,9 @@
     <tbody>
       <% @routes.each do |route| %>
         <tr>
-          <td><%= link_to highlight(route.name, params[:search]), route %></td>
+          <td><%= link_to highlight(route.name, params[:search]), admin_route_path(route) %></td>
           <td><%= highlight route.label.to_s, params[:search] %></td>
-          <td><%= link_to highlight(route.user.name, params[:search]), route.user %></td>
+          <td><%= link_to highlight(route.user.name, params[:search]), admin_user_path(route.user) %></td>
           <td><%= highlight route.location, params[:search] %></td>
           <td><%= highlight route.tape_color, params[:search] %></td>
           <td><%= route.route_set_date.strftime("%b %d, %Y") %></td>

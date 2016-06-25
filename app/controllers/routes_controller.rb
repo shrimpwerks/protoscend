@@ -20,57 +20,7 @@ class RoutesController < ApplicationController
     @rating = Rating.get_rating(@route.id)
   end
 
-  def new
-    authorize Route.new
-    @form = RouteForm.new
-  end
-
-  def edit
-    @form = RouteForm.new(@route)
-  end
-
-  def create
-    authorize Route.new
-    @form = RouteForm.new
-
-    if @form.submit(route_params)
-      flash[:success] = "Successfully created route."
-      redirect_to action: :index
-    else
-      render :new
-    end
-  end
-
-  def update
-    @form = RouteForm.new(@route)
-
-    if @form.submit(route_params)
-      flash[:success] = "Successfully updated route."
-      redirect_to @form
-    else
-      render :edit
-    end
-  end
-
-  def destroy
-    @route.status = "inactive"
-    if @route.save
-      flash[:success] = "Successfully disabled route."
-      redirect_to action: "index"
-    else
-      flash[:danger] = "Could not disable route."
-      render :show
-    end
-  end
-
   private
-
-  def route_params
-    params.require(:route).permit(
-      :name, :user_id, :label, :location, :tape_color, :route_set_date, :status,
-      :grade, :description, :image_1, :image_2
-    )
-  end
 
   def find_setters
     @setters = User.setters
