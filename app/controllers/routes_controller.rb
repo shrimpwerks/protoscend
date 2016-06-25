@@ -16,7 +16,7 @@ class RoutesController < ApplicationController
     @comment = Comment.new
     @comments = @route.comments.most_recent
 
-    @user_rating = Rating.get_user_rating(@route.id, current_user.id)
+    @user_rating = Rating.get_user_rating(@route.id, current_user.id) if user_signed_in?
     @rating = Rating.get_rating(@route.id)
   end
 
