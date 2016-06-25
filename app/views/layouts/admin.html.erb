@@ -28,15 +28,26 @@
         <div class="collapse navbar-collapse" id="collapse-nav-target">
           <ul class="nav navbar-nav">
             <% if user_signed_in? %>
-              <li><%= link_to "Users", admin_users_path %></li>
-              <li><%= link_to "Routes", admin_routes_path %></li>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  Records <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to "Users", admin_users_path %></li>
+                  <li><%= link_to "Routes", admin_routes_path %></li>
+                  <li><%= link_to "Announcements", admin_announcements_path %></li>
+                  <li><%= link_to "Maintenance", admin_maintenance_requests_path %></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  Reports <span class="caret"></span>
+                </a>
                 <ul class="dropdown-menu">
                   <li><%= link_to "Assigned Routes", admin_assigned_routes_path %></li>
-                  <li><a href="#">Expiring Routes</a></li>
-                  <li><%= link_to "Maintenance", admin_maintenance_requests_path %></li>
-                  <li><%= link_to "Announcements", admin_announcements_path %></li>
+                  <!--
+                  <li><%#= link_to "Expiring Routes", admin_expiring_routes_path %></li>
+                  -->
                 </ul>
               </li>
             <% end %>
