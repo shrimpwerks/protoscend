@@ -1,14 +1,14 @@
 module Admin
   class AnnouncementsController < ApplicationController
-    before_action :set_announcement, only: [:edit, :update, :destroy]
+    helper_method :sort_column, :sort_direction
+    before_action :set_announcement, only: [:show, :edit, :update, :destroy]
     before_action :new_announcement, only: [:new, :create, :index]
 
-    def show
-      redirect_to action: "index"
-    end
-
     def index
-      @announcements = Announcement.active_announcements.not_expired.order(reveal_date: :desc)
+      @announcements = Announcement.joins(:user).active_announcements.not_expired.order(reveal_date: :desc)
+      @announcements = @announcements.with_full_text_search(params[:search]) if params[:search].present?
+      @announcements = @announcements.order(sort_column + " " + sort_direction)
+      @announcements = @announcements.page(params[:page])
     end
 
     def new
@@ -27,6 +27,9 @@ module Admin
       end
     end
 
+    def show
+    end
+
     def edit
     end
 
@@ -40,6 +43,7 @@ module Admin
         render :edit
       end
     end
+
     def destroy
       @announcement.status = "inactive"
       if @announcement.save
@@ -68,5 +72,13 @@ module Admin
                                            :user_id, :reveal_date)
     end
 
+    def sort_column
+      whitelist = %w(subject users.first_name body reveal_date expires_at created_at updated_at)
+      whitelist.include?(params[:sort]) ? params[:sort] : "subject"
+    end
+
+    def sort_direction
+      %w(asc desc).include?(params[:direction]) ? params[:direction] : "asc"
+    end
   end
 end

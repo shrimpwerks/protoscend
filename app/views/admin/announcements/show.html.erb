@@ -1,1 +1,42 @@
-<h1>Show todo</h1>
+<div class="col-sm-8 col-sm-offset-2">
+  <h1><%= @announcement.subject %></h1>
+
+  <% if policy(@announcement).edit? %>
+    <%= link_to "Edit", edit_admin_announcement_path(@announcement),
+      class: "btn btn-success" %>
+  <% end %>
+
+  <br>
+  <br>
+
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <%= @announcement.body %>
+    </div>
+    <table class="table">
+      <tbody>
+        <tr>
+          <th><label for="">Author</label></th>
+          <td><%= @announcement.user.name %></td>
+        </tr>
+        <tr>
+          <th><label for="">Reveals At</label></th>
+          <td><%= @announcement.reveal_date %></td>
+        </tr>
+        <tr>
+          <th><label for="">Expires At</label></th>
+          <td><%= @announcement.expires_at %></td>
+        </tr>
+        <tr>
+          <th><label for="">Created At</label></th>
+          <td><%= @announcement.created_at %></td>
+        </tr>
+        <tr>
+          <th><label for="">Updated At</label></th>
+          <td><%= @announcement.updated_at %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

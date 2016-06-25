@@ -1,55 +1,49 @@
-<header>
-  <h1 style="display:inline-block;">Announcements</h1>
-  <% if policy(@announcements).new? %>
-    <div class="pull-right" style="margin-top: 20px;">
-      <%= link_to "New Announcement", new_admin_announcement_path, class: "btn btn-success" %>
+<h1>Announcements</h1>
+
+<div class="row">
+  <div class="col-xs-8">
+    <%= form_tag admin_announcements_path, method: :get, class: "form-inline pull-left" do %>
+      <div class="input-group">
+        <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+        <%= text_field_tag "search", params[:search], class: "form-control",
+          placeholder: "Search announcements" %>
+      </div>
+    <% end %>
+  </div>
+
+  <% if policy(Announcement).new? %>
+    <div class="col-xs-4">
+      <%= link_to "New Announcement", new_admin_announcement_path,
+        class: "btn btn-success pull-right" %>
     </div>
   <% end %>
-</header>
-<% @announcements.each do |a| %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <div class="panel-title">
-        <b><%= a.subject %></b>
-        <div class="pull-right">
-          <small>Created: <%= a.created_at.strftime("%b %d, %Y") %>, by <%= a.user.name %></small>
-        </div>
-      </div>
-    </div>
-    <div class="panel-body">
-      <div class="text-left">
-        <%= a.body %>
-      </div>
-      <br>
-      <!-- Displays date related information about announcement -->
-      <div class="row" style="display: flex;">
-        <div class="col-xs-6 text-left">
-          <!-- Show date announcement will be revealed if greater than today's date -->
-          <% if a.reveal_date > Date.today %>
-            <div>
-              <small>Reveals: <%= a.reveal_date.strftime("%b %d, %Y") %></small>
-            </div>
-          <% end %>
-          <!-- Show date updated if announcement has ever been updated -->
-          <% if a.updated_at != a.created_at%>
-            <div>
-              <small>Updated: <%= a.updated_at.strftime("%b %d, %Y") %></small>
-            </div>
-          <% end %>
-          <!-- Expiration date -->
-          <div>
-            <small>Expires: <%= a.expires_at.strftime("%b %d, %Y") %></small>
-          </div>
-        </div>
-        <!-- Edit -->
-        <% if policy(@announcements).edit? %>
-          <div class="col-xs-6 text-right">
-            <div class="announcement-edit">
-                <%= link_to "Edit", edit_admin_announcement_path(a.id), class: "btn btn-primary" %>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-<% end %>
+</div>
+
+<br>
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <%= sortable_header "subject", "Subject" %>
+      <%= sortable_header "body", "Body" %>
+      <%= sortable_header "users.first_name", "Author"  %>
+      <%= sortable_header "reveal_date", "Reveals At" %>
+      <%= sortable_header "expires_at", "Expires At" %>
+      <%= sortable_header "created_at", "Created At" %>
+      <%= sortable_header "updated_at", "Updated At" %>
+    </thead>
+    <tbody>
+      <% @announcements.each do |a| %>
+        <tr>
+          <td><%= link_to highlight(a.subject, params[:search]), admin_announcement_path(a) %></td>
+          <td><%= highlight a.body, params[:search] %></td>
+          <td><%= link_to highlight(a.user.name, params[:search]), admin_user_path(a.user) %></td>
+          <td><%= a.reveal_date.strftime("%b %d, %Y") %></td>
+          <td><%= a.expires_at.strftime("%b %d, %Y") %></td>
+          <td><%= a.created_at.strftime("%b %d, %Y") %></td>
+          <td><%= a.updated_at.strftime("%b %d, %Y") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
