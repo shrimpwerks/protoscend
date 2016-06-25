@@ -1,55 +1,31 @@
-<%= form_for @request do |f| %>
-  <div class="row">
-    <div class="col-sm-8">
-      <div class="form-group">
-        <%= f.label :route_id, "Route" %>
-        <%= f.select :route_id, @routes.collect {|p| [ p.name, p.id ] }, {}, :class => "form-control", :required => true %>
-      </div>
-    </div>
-    <div class="col-sm-12">
-      <div class="form-group">
-        <%= f.label :issue %>
-        <label class="radio-inline">
-          <%= f.radio_button :issue, "Missing Tape" %> Missing Tape
-        </label>
-        <label class="radio-inline">
-          <%= f.radio_button :issue, "Spinning Hold" %> Spinning Hold
-        </label>
-        <label class="radio-inline">
-          <%= f.radio_button :issue, "Missing Label" %> Missing Label
-        </label>
-        <label class="radio-inline">
-          <%= f.radio_button :issue, "Other" %> Other
-        </label>
-      </div>
-    </div>
-    <div class="col-sm-12">
-      <div class="form-group">
-        <%= f.label :priority %>
-        <label class="radio-inline">
-          <%= f.radio_button :priority, "Low" %> Low
-        </label>
-        <label class="radio-inline">
-          <%= f.radio_button :priority, "Normal" %> Normal
-        </label>
-        <label class="radio-inline">
-          <%= f.radio_button :priority, "High" %> High
-        </label>
-      </div>
-    </div>
-    <div class="col-sm-8">
-      <%= f.label :reason %>
-      <small id="maintenance_reason_char_count"></small>
-      <%= f.text_area :reason, cols: 40, rows: 3, placeholder: "Describe the issue", class: "form-control maintenance-desc" %>
-    </div>
+<%= form_for [:admin, @request] do |f| %>
+  <div class="form-group">
+    <%= f.label :route_id, "Route" %>
+    <%= f.select :route_id, @routes.collect {|p| [ p.name, p.id ] }, {}, :class => "form-control", :required => true %>
   </div>
 
-  <br>
-  <div class="row">
-    <div class="col-sm-6">
-      <div class="form-group">
-        <%= f.submit nil, class: "btn btn-primary", id: "maintenance_request_submit", disabled: @request.reason == nil ? true : false %>
-      </div>
-    </div>
+  <div class="form-group">
+    <%= f.label :issue %>
+    <div class="radio"><label><%= f.radio_button :issue, "Missing Tape" %> Missing Tape</label></div>
+    <div class="radio"><label><%= f.radio_button :issue, "Spinning Hold" %> Spinning Hold</label></div>
+    <div class="radio"><label><%= f.radio_button :issue, "Missing Label" %> Missing Label</label></div>
+    <div class="radio"><label><%= f.radio_button :issue, "Other" %> Other</label></div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :priority %>
+    <div class="radio"><label><%= f.radio_button :priority, "Low" %> Low</label></div>
+    <div class="radio"><label><%= f.radio_button :priority, "Normal" %> Normal</label></div>
+    <div class="radio"><label><%= f.radio_button :priority, "High" %> High</label></div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :reason %>
+    <small id="maintenance_reason_char_count"></small>
+    <%= f.text_area :reason, cols: 40, rows: 3, placeholder: "Describe the issue", class: "form-control maintenance-desc" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit nil, class: "btn btn-primary", id: "maintenance_request_submit", disabled: @request.reason == nil ? true : false %>
   </div>
 <% end %>
