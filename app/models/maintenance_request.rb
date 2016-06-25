@@ -28,4 +28,10 @@ class MaintenanceRequest < ActiveRecord::Base
     where(status: "unresolved")
   end
 
+  # TODO Replace with ActiveRecord #or with Rails 5
+  def self.with_full_text_search(term)
+    q = 'routes.name ILIKE ? OR users.first_name ILIKE ? OR users.last_name ILIKE ? OR reason ILIKE ?'
+    joins(:user).where([q, "%#{term}%", "%#{term}%", "%#{term}%", "%#{term}%"])
+  end
+
 end

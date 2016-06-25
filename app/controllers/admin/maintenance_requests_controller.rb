@@ -7,6 +7,7 @@ module Admin
 
     def index
       @requests = MaintenanceRequest.joins(:user, :route).all
+      @requests = @requests.with_full_text_search(params[:search]) if params[:search].present?
       @requests = @requests.order(sort_column + " " + sort_direction)
       @requests = @requests.not_resolved
       @requests = @requests.page(params[:page])
@@ -66,7 +67,6 @@ module Admin
       end
     end
 
-
     private
 
     def new_request
@@ -92,7 +92,7 @@ module Admin
     end
 
     def sort_column
-      whitelist = %w(id routes.name users.first_name issue reason priority created_at)
+      whitelist = %w(id routes.name users.first_name issue reason priority created_at updated_at)
       whitelist.include?(params[:sort]) ? params[:sort] : "id"
     end
 

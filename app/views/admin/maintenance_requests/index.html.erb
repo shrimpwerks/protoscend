@@ -1,28 +1,55 @@
 <h1>Maintenance Requests</h1>
 
-<table class="table">
-  <thead>
-    <%= sortable_header "id", "#" %>
-    <%= sortable_header "routes.name", "Route" %>
-    <%= sortable_header "users.first_name", "Reporter" %>
-    <%= sortable_header "issue" %>
-    <%= sortable_header "reason" %>
-    <%= sortable_header "priority" %>
-    <%= sortable_header "created_at", "Date" %>
-  </thead>
-  <tbody>
-    <% @requests.each do |request| %>
-      <tr>
-        <td><%= link_to request.id, maintenance_request_path(request.id) %></td>
-        <td><%= request.route.name %></td>
-        <td><%= request.user.name %></td>
-        <td><%= request.issue %></td>
-        <td><%= request.reason[0..36] + " ..." %></td>
-        <td><%= request.priority %></td>
-        <td><%= request.created_at.strftime("%b %d, %Y") %></td>
-      </tr>
+<div class="row">
+  <div class="col-xs-8">
+    <%= form_tag admin_maintenance_requests_path, method: :get,
+      class: "form-inline pull-left" do %>
+      <div class="input-group">
+        <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+        <%= text_field_tag "search", params[:search], class: "form-control",
+          placeholder: "Search maintenance requests" %>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  </div>
+
+  <% if policy(MaintenanceRequest).new? %>
+    <div class="col-xs-4">
+      <%= link_to "New maintenance request", new_admin_maintenance_request_path,
+        class: "btn btn-success pull-right" %>
+    </div>
+  <% end %>
+</div>
+
+<br>
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <%= sortable_header "id", "Id" %>
+      <%= sortable_header "routes.name", "Route" %>
+      <%= sortable_header "users.first_name", "Reporter" %>
+      <%= sortable_header "issue" %>
+      <%= sortable_header "reason" %>
+      <%= sortable_header "priority" %>
+      <%= sortable_header "created_at", "Created At" %>
+      <%= sortable_header "updated_at", "Updated At" %>
+    </thead>
+    <tbody>
+      <% @requests.each do |request| %>
+        <tr>
+          <td><%= link_to request.id, [:admin, request] %></td>
+          <td><%= link_to highlight(request.route.name, params[:search]), [:admin, request.route] %></td>
+          <td><%= link_to highlight(request.user.name, params[:search]), [:admin, request.user] %></td>
+          <td><%= request.issue %></td>
+          <td><%= highlight truncate(request.reason, length: 36), params[:search] %></td>
+          <td><%= request.priority %></td>
+          <td><%= request.created_at.strftime("%b %d, %Y") %></td>
+          <td><%= request.updated_at.strftime("%b %d, %Y") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
 <%= paginate @requests %>
+
