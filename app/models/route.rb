@@ -50,6 +50,10 @@ class Route < ActiveRecord::Base
     where(status: 0)
   end
 
+  def self.expiring
+    where('expiration_date < ?', 2.weeks.from_now.to_s)
+  end
+
   def self.expired_routes
     where('expiration_date < ?', Date.today.to_s)
   end

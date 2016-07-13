@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resources :comments
     end
     resources :assigned_routes
+    resources :expiring_routes
     resources :ratings
     resources :maintenance_requests do
       member do
