@@ -58,4 +58,20 @@ class Route < ActiveRecord::Base
     where('expiration_date < ?', Date.today.to_s)
   end
 
+  def self.newest_routes
+    where(status: 0)
+    .order(created_at: :desc)
+    .take(10)
+  end
+
+  def self.top_routes
+    select("routes.*, AVG(ratings.rating) as rating, COUNT(ratings.rating) as rating_count")
+    .joins("LEFT OUTER JOIN ratings ON ratings.route_id = routes.id AND ratings.rating IS NOT NULL")
+    .where(status: 0)
+    .where.not(ratings: { rating: nil })
+    .group("routes.id")
+    .order("rating desc, rating_count desc")
+    .take(10)
+  end
+
 end

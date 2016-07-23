@@ -108,7 +108,8 @@
         <h3 class="panel-title">Comments</h3>
       </div>
       <div class="list-group">
-        <div class="list-group-item">
+        <% if user_signed_in? %>
+          <div class="list-group-item">
             <p class="list-group-item-text">
               <%= form_for([@route, @comment], method: "post") do |f| %>
                 <%= f.text_area :comment, cols: 40, rows: 3, placeholder: "Leave a comment", class: "form-control comment-box" %>
@@ -116,19 +117,20 @@
               <% end %>
             </p>
           </div>
-          <% @comments.each do |comment| %>
-            <div class="list-group-item">
-              <h4 class="list-group-item-heading">
-                <%= comment.user.name %>
-                <small>
-                  <%= comment.created_at.strftime("%I:%M %p - %b %d, %Y") %>
-                </small>
-              </h4>
-              <p class="list-group-item-text">
-              <%= comment.comment %>
-              </p>
-            </div>
-          <% end %>
+        <% end %>
+        <% @comments.each do |comment| %>
+          <div class="list-group-item">
+            <h4 class="list-group-item-heading">
+              <%= comment.user.name %>
+              <small>
+                <%= comment.created_at.strftime("%I:%M %p - %b %d, %Y") %>
+              </small>
+            </h4>
+            <p class="list-group-item-text">
+            <%= comment.comment %>
+            </p>
+          </div>
+        <% end %>
         </div>
       </div>
     </div>

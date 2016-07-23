@@ -6,6 +6,15 @@ $(document).on('ready turbolinks:load', function(event) {
     readonly: true,
   });
 
+  $('.top_routes_rating').each(function() {
+    $(this).barrating({
+      theme: 'bootstrap-stars',
+      readonly: true,
+    });
+    rating = $(this).data().rating;
+    $(this).barrating('set',parseInt(rating));
+  });
+
   if ($('#route_show_rating').data() !== undefined) {
     rating = $('#route_show_rating').data().rating;
   }
