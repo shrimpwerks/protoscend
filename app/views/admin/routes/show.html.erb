@@ -80,8 +80,16 @@
   </div>
 
   <div class="col-sm-8">
-    <%= image_tag @route.image_1.url, class: "col-sm-6 img-responsive" %>
-    <%= image_tag @route.image_2.url, class: "col-sm-6 img-responsive" %>
+    <% if @route.image_1.file? %>
+      <%= image_tag @route.image_1.url, class: "col-sm-6 img-responsive" %>
+    <% else %>
+      <small class="col-sm-6">no image available!</small>
+    <% end %>
+    <% if @route.image_2.file? %>
+      <%= image_tag @route.image_2.url, class: "col-sm-6 img-responsive" %>
+    <% else %>
+      <small class="col-sm-6">no image available!</small>
+    <% end %>
   </div>
 
 </div>
