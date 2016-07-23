@@ -1,0 +1,37 @@
+<h1>Expiring Routes</h1>
+
+<br>
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <%= sortable_header "name", "Name" %>
+      <%= sortable_header "label", "Label" %>
+      <%= sortable_header "users.first_name", "Setter" %>
+      <%= sortable_header "location" %>
+      <%= sortable_header "tape_color", "Color" %>
+      <%= sortable_header "route_set_date", "Set Date" %>
+      <%= sortable_header "expiration_date" %>
+      <%= sortable_header "grade" %>
+    </thead>
+    <tbody>
+      <% @routes.each do |route| %>
+      <%
+        # need to assign a class based on expiration date
+      %>
+        <tr class="<%= route.expiration_date < Date.today ? 'danger' : '' %>">
+          <td><%= link_to highlight(route.name, params[:search]), [:admin, route] %></td>
+          <td><%= highlight route.label.to_s, params[:search] %></td>
+          <td><%= link_to highlight(route.user.name, params[:search]), [:admin, route.user] %></td>
+          <td><%= highlight route.location, params[:search] %></td>
+          <td><%= highlight route.tape_color, params[:search] %></td>
+          <td><%= route.route_set_date.strftime("%b %d, %Y") %></td>
+          <td><%= route.expiration_date.strftime("%b %d, %Y") %></td>
+          <td><%= route.grade %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @routes %>
