@@ -47,7 +47,7 @@ module Admin
 
       if @form.submit(route_params)
         flash[:success] = "Successfully updated route."
-        redirect_to @form
+        redirect_to [:admin, @form]
       else
         render :edit
       end
