@@ -40,11 +40,35 @@
 
   <div class="col-sm-4">
     <h3>Top Routes</h3>
-
+		<ul class="list-group">
+			<% @top_routes.each do |route| %>
+				<li class="list-group-item">
+					<%= link_to route.name, route %>
+					<div class="pull-right">
+						<select class="top_routes_rating" data-rating="<%= route.rating %>">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
+					</div>
+				</li>
+			<% end %>
+		</ul>
   </div>
 
   <div class="col-sm-4">
-    <h3>New Routes</h3>
-
+    <h3>Newest Routes</h3>
+		<ul class="list-group">
+			<% @newest_routes.each do |route| %>
+				<li class="list-group-item">
+					<%= link_to route.name, route %>
+					<div class="pull-right">
+						<%= route.created_at.strftime("%b %d, %Y") %>
+					</div>
+				</li>
+			<% end %>
+		</ul>
   </div>
 </div>
