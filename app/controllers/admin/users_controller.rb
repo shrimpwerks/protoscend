@@ -5,7 +5,7 @@ module Admin
     def index
       @user = User.new
       authorize @user
-      
+
       @users = User.where(nil)
       @users = @users.with_full_text_search(params[:search]) if params[:search].present?
       @users = @users.order(sort_column + " " + sort_direction)
@@ -29,31 +29,15 @@ module Admin
       @user = User.find(params[:id])
       authorize @user
 
-      # TODO: This needs to check for user_level.
-      # NOTE: This may be exported to an admin interface.
-      @user.update_attributes!(user_role_update)
+      @user.update_attributes!(user_params)
 
-      # TODO: This needs to check for user_level OR current user
-      # NOTE: This may be exported to an admin interface
-      @user.update_attributes!(user_password_update) if params[:user][:password].present?
-
-      @user.update_attributes!(user_basic_info_update)
-
-      redirect_to @user
+      redirect_to action: "index"
     end
 
     private
 
-    def user_basic_info_update
-      params.require(:user).permit(:email, :first_name, :last_name)
-    end
-
-    def user_role_update
-      params.require(:user).permit(:role)
-    end
-
-    def user_password_update
-      params.require(:user).permit(:password)
+    def user_params
+      params.require(:user).permit(:first_name, :last_name, :email, :role)
     end
 
     def sort_column

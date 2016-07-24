@@ -1,0 +1,26 @@
+<%= form_for [:admin, @user], html: { multipart: true } do |f| %>
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+      <h2>Edit User</h2>
+      <div class="form-group">
+        <%= f.label :first_name %>
+        <%= f.text_field :first_name, class: "form-control", required: true  %>
+      </div>
+      <div class="form-group">
+        <%= f.label :last_name %><br />
+        <%= f.text_field :last_name, autofocus: true, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :role %><br />
+        <%= f.select :role, User.roles.keys, { include_blank: true }, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.submit "Update", class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+<% end %>
