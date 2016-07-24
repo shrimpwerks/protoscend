@@ -3,6 +3,9 @@ module Admin
     helper_method :sort_column, :sort_direction
 
     def index
+      @user = User.new
+      authorize @user
+      
       @users = User.where(nil)
       @users = @users.with_full_text_search(params[:search]) if params[:search].present?
       @users = @users.order(sort_column + " " + sort_direction)
