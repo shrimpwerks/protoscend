@@ -17,9 +17,6 @@ module Admin
       @assigned_routes = @user.routes.assigned_routes
     end
 
-    def new
-    end
-
     def edit
       @user = User.find(params[:id])
       authorize @user
@@ -31,7 +28,7 @@ module Admin
 
       @user.update_attributes!(user_params)
 
-      redirect_to action: "index"
+      redirect_to controller: "admin/users", action: "index"
     end
 
     private

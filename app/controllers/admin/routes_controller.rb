@@ -36,7 +36,7 @@ module Admin
 
       if @form.submit(route_params)
         flash[:success] = "Successfully created route."
-        redirect_to action: :index
+        redirect_to controller: "admin/routes", action: "index"
       else
         render :new
       end
@@ -57,7 +57,7 @@ module Admin
       @route.status = "inactive"
       if @route.save
         flash[:success] = "Successfully disabled route."
-        redirect_to action: "index"
+        redirect_to controller: "admin/routes", action: "index"
       else
         flash[:danger] = "Could not disable route."
         render :show
