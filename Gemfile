@@ -10,6 +10,7 @@ gem 'pundit'
 gem 'devise'
 gem 'kaminari'
 gem 'aws-sdk'
+gem 'postmark-rails', '~> 0.13.0'
 gem 'paperclip'
 gem 'chartkick'
 

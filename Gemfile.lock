@@ -125,6 +125,12 @@ GEM
       mime-types
       mimemagic (~> 0.3.0)
     pg (0.18.4)
+    postmark (1.8.1)
+      json
+      rake
+    postmark-rails (0.13.0)
+      actionmailer (>= 3.0.0)
+      postmark (~> 1.8.0)
     puma (2.16.0)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
@@ -232,6 +238,7 @@ DEPENDENCIES
   kaminari
   paperclip
   pg
+  postmark-rails (~> 0.13.0)
   puma
   pundit
   rails (= 4.2.3)
