@@ -23,7 +23,8 @@ gem 'turbolinks', '~> 5.0.0.beta'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-source 'https://rails-assets.tenex.tech' do
+
+source 'https://rails-assets.org' do
   gem 'rails-assets-jquery-bar-rating', '1.1.3'
 end
 
