@@ -21,7 +21,7 @@ module Admin
       @announcement.user_id = current_user.id
 
       if @announcement.save
-        redirect_to action: "index"
+        redirect_to controller: "admin/announcements", action: "index"
       else
         render "new"
       end
@@ -37,7 +37,7 @@ module Admin
       @announcement.update(announcement_params)
       if @announcement.save
         flash[:success] = "Successfully modified and saved announcement."
-        redirect_to action: "index"
+        redirect_to controller: "admin/announcements", action: "index"
       else
         flash[:danger] = "Could not modify announcement information."
         render :edit
@@ -48,7 +48,7 @@ module Admin
       @announcement.status = "inactive"
       if @announcement.save
         flash[:success] = "Successfully disabled announcement."
-        redirect_to action: "index"
+        redirect_to controller: "admin/announcements", action: "index"
       else
         flash[:danger] = "Could not disable announcement."
         render :show
