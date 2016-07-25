@@ -55,6 +55,7 @@ module Admin
 
     def destroy
       @route.status = "inactive"
+      @route.label = nil
       if @route.save
         flash[:success] = "Successfully disabled route."
         redirect_to controller: "admin/routes", action: "index"
