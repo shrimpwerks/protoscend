@@ -10,23 +10,22 @@ class ApplicationController < ActionController::Base
   unless Rails.application.config.consider_all_requests_local
     rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
     rescue_from ActionController::RoutingError, :with => :route_not_found
-    rescue_from ActionController::UnknownController, :with => :route_not_found
   end
 
   private
 
   def user_not_authorized
     flash[:danger] = "You are not authorized to perform this action."
-    redirect_to controller: "/home", action: "index"
+    redirect_to root_path
   end
 
   def record_not_found
     flash[:danger] = "The requested record could not be found."
-    redirect_to controller: "/home", action: "index"
+    redirect_to root_path
   end
 
   def route_not_found
     flash[:danger] = "The requested page does not exist."
-    redirect_to controller: "/home", action: "index"
+    redirect_to root_path
   end
 end
