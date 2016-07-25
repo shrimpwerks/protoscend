@@ -34,7 +34,7 @@
             <% if user_signed_in? %>
               <% if current_user[:role] > 0 %>
                 <li><%= link_to "Profile", edit_user_registration_path %></li>
-                <li><%= link_to "Go to Admin Site", admin_root_path %></li>
+                <li><%= link_to "Go to Admin Site", admin_root_path, {data: {turbolinks: false}}  %></li>
               <% end %>
               <li><%= link_to "Log Out", destroy_user_session_path, method: :delete %></li>
             <% else %>
