@@ -16,16 +16,16 @@ class ApplicationController < ActionController::Base
 
   def user_not_authorized
     flash[:danger] = "You are not authorized to perform this action."
-    redirect_to request.referrer || root_path
+    redirect_to root_path
   end
 
   def record_not_found
     flash[:danger] = "The requested record could not be found."
-    redirect_to request.referrer || root_path
+    redirect_to root_path
   end
 
   def route_not_found
     flash[:danger] = "The requested page does not exist."
-    redirect_to request.referrer || root_path
+    redirect_to root_path
   end
 end
