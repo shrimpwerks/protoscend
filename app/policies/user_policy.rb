@@ -4,10 +4,12 @@ class UserPolicy < ApplicationPolicy
   end
 
   def edit?
-    @user.role == "Manager" || @user.role == "Administrator"
+    @user.role == "Manager" || @user.role == "Administrator" ||
+    @user.role == "Supervisor"
   end
 
   def update?
-    @user.role == "Manager" || @user.role == "Administrator"
+    @user.role == "Manager" || @user.role == "Administrator" ||
+    @user.role == "Supervisor"
   end
 end
