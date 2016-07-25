@@ -33,4 +33,8 @@ class User < ActiveRecord::Base
     q = 'first_name ILIKE ? OR last_name ILIKE ? OR email ILIKE ?'
     where([q, "%#{term}%", "%#{term}%", "%#{term}%"])
   end
+
+  def self.active
+    where(hidden: nil)
+  end
 end
