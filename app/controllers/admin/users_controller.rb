@@ -8,6 +8,7 @@ module Admin
 
       @users = User.where(nil)
       @users = @users.with_full_text_search(params[:search]) if params[:search].present?
+      @users = @users.where(hidden: nil)
       @users = @users.order(sort_column + " " + sort_direction)
       @users = @users.page(params[:page])
     end
