@@ -17,7 +17,7 @@ module Admin
     end
 
     def expired_routes
-      Route.active_routes.expired_routes.location(params[:location]).group(:grade).count
+      Route.expired_routes.location(params[:location]).group(:grade).count
         .map { |key, value| [Route.grades.select { |gkey, gvalue| gvalue == key }.keys.first, value] }
     end
 
