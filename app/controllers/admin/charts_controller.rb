@@ -12,7 +12,7 @@ module Admin
     private
 
     def active_routes
-      Route.active_routes.location(params[:location]).group(:grade).count
+      Route.live_routes.location(params[:location]).group(:grade).count
         .map { |key, value| [Route.grades.select { |gkey, gvalue| gvalue == key }.keys.first, value] }
     end
 
