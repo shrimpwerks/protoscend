@@ -59,6 +59,11 @@ class Route < ActiveRecord::Base
     .where('expiration_date < ?', Date.today.to_s)
   end
 
+  def self.live_routes
+    active_routes
+    .where('expiration_date >= ?', Date.today.to_s)
+  end
+
   def self.newest_routes
     where(status: 0)
     .order(created_at: :desc)
