@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     root to: "home#index"
     get 'charts/routes', to: 'charts#routes', as: :routes_chart
     resources :users
+    resources :announcements
     resources :routes do
       resources :comments
     end
@@ -15,7 +16,6 @@ Rails.application.routes.draw do
         get :resolve
       end
     end
-    resources :announcements
   end
 
   root to: "home#index"
