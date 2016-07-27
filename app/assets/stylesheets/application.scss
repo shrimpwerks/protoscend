@@ -77,3 +77,11 @@ header.carousel .fill {
   border-left: 4px solid transparent;
   border-top: 4px solid;
 }
+
+// Add styles to Devise messages
+.alert.alert-notice {
+  @extend .alert, .alert-info;
+}
+.alert.alert-error {
+  @extend .alert, .alert-danger;
+}
