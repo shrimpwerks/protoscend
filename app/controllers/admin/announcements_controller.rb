@@ -1,5 +1,7 @@
 module Admin
   class AnnouncementsController < ApplicationController
+    layout "admin"
+
     helper_method :sort_column, :sort_direction
     before_action :set_announcement, only: [:show, :edit, :update, :destroy]
     before_action :new_announcement, only: [:new, :create, :index]
