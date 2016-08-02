@@ -27,7 +27,7 @@
 <h1>Oregon State Indoor Climbing Center</h1>
 
 <div class="row">
-  <div class="col-sm-4">
+  <div class="col-md-4">
     <h3>Announcements</h3>
     <% @announcements.each do |announcement| %>
       <div class="media">
@@ -42,12 +42,12 @@
     <% end %>
   </div>
 
-  <div class="col-sm-4">
+  <div class="col-md-4">
     <h3>Top Routes</h3>
 		<ul class="list-group">
 			<% @top_routes.each do |route| %>
 				<li class="list-group-item">
-					<%= link_to route.name, route %>
+					<%= link_to truncate(route.name, length: 25), route %>
 					<div class="pull-right">
 						<select class="top_routes_rating" data-rating="<%= route.rating %>">
 							<option value="1">1</option>
@@ -62,12 +62,12 @@
 		</ul>
   </div>
 
-  <div class="col-sm-4">
+  <div class="col-md-4">
     <h3>Newest Routes</h3>
 		<ul class="list-group">
 			<% @newest_routes.each do |route| %>
 				<li class="list-group-item">
-					<%= link_to route.name, route %>
+					<%= link_to truncate(route.name, length: 25), route %>
 					<div class="pull-right">
 						<%= route.created_at.strftime("%b %d, %Y") %>
 					</div>
