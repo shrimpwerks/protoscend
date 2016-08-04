@@ -13,7 +13,6 @@
 </h1>
 
 <div class="row">
-
   <div class="col-sm-4">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -103,7 +102,7 @@
         </div>
         <div class="list-group">
           <div class="list-group-item">
-            <div class="col-sm-6">
+            <div class="col-xs-6 col-xs-offset-4 col-sm-offset-2 col-md-offset-4">
               <select id="route_set_rating" data-rating="<%= @user_rating == nil ? 1 : @user_rating.rating %>">
                 <option value="1"><%= @route.id %></option>
                 <option value="2"><%= @route.id %></option>
@@ -111,9 +110,6 @@
                 <option value="4"><%= @route.id %></option>
                 <option value="5"><%= @route.id %></option>
               </select>
-            </div>
-            <div class="col-sm-6">
-              <div id="rating_description"><i><%= @user_rating == nil ? "not yet rated" : "your rating" %></i></div>
             </div>
             <br>
           </div>
@@ -132,7 +128,7 @@
             <p class="list-group-item-text">
               <%= form_for([@route, @comment], method: "post") do |f| %>
                 <%= f.text_area :comment, cols: 40, rows: 3, placeholder: "Leave a comment", class: "form-control comment-box" %>
-                <input type="submit" name="submit" id="comment_submit" value="Submit" class="btn btn-primary comment-submit" disabled="true">
+                <input type="submit" name="submit" id="comment_submit" value="Submit" class="btn btn-primary comment-submit">
               <% end %>
             </p>
           </div>
