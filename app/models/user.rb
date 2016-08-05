@@ -25,7 +25,9 @@ class User < ActiveRecord::Base
   end
 
   def self.setters
-    where('role <> 0').order(:first_name)
+    active
+    .where('role <> 0')
+    .order(:first_name)
   end
 
   # TODO Replace with ActiveRecord #or with Rails 5
@@ -35,6 +37,6 @@ class User < ActiveRecord::Base
   end
 
   def self.active
-    where(hidden: nil)
+    where(is_deleted: false)
   end
 end
