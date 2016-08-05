@@ -14,7 +14,7 @@
             <td><%= @route.user.name %></td>
           </tr>
           <tr>
-            <th><label for="route_label">Label</label></th>
+            <th><label for="route_label">Label ID</label></th>
             <td><%= @route.label %></td>
           </tr>
           <tr>
@@ -118,7 +118,7 @@
             <p class="list-group-item-text">
               <%= form_for([@route, @comment], method: "post") do |f| %>
                 <%= f.text_area :comment, cols: 40, rows: 3, placeholder: "Leave a comment", class: "form-control comment-box" %>
-                <input type="submit" name="submit" id="comment_submit" value="Submit" class="btn btn-primary comment-submit" disabled="true">
+                <input type="submit" name="submit" id="comment_submit" value="Submit" class="btn btn-primary comment-submit">
               <% end %>
             </p>
           </div>
