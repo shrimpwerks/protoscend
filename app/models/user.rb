@@ -26,7 +26,8 @@ class User < ActiveRecord::Base
 
   def self.setters
     active
-    .where('role <> 0').order(:first_name)
+    .where('role <> 0')
+    .order(:first_name)
   end
 
   # TODO Replace with ActiveRecord #or with Rails 5
