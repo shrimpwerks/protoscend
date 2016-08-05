@@ -1,4 +1,4 @@
-$(document).on('ready turbolinks:load', function(event) {
+$(document).on('ready', function(event) {
   var rating;
 
   $('#route_show_rating').barrating({

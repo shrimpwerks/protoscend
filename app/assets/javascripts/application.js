@@ -14,10 +14,9 @@
 //= require jquery_ujs
 //= require jquery-bar-rating
 //= require bootstrap-sprockets
-//= require turbolinks
 //= require_tree .
 
-$(document).on('ready turbolinks:load', function(event) {
+$(document).on('ready', function(event) {
   $("[data-url]").click(function() {
     window.document.location = $(this).data("url");
   });

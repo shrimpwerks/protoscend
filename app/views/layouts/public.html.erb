@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Protoscend</title>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
     <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
     <%= csrf_meta_tags %>
   </head>
@@ -34,7 +34,7 @@
             <% if user_signed_in? %>
               <% if current_user[:role] > 0 %>
                 <li><%= link_to "Profile", edit_user_registration_path %></li>
-                <li><%= link_to "Go to Admin Site", admin_root_path, {data: {turbolinks: false}}  %></li>
+                <li><%= link_to "Go to Admin Site", admin_root_path %></li>
               <% end %>
               <li><%= link_to "Log Out", destroy_user_session_path, method: :delete %></li>
             <% else %>
