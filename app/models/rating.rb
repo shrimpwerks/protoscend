@@ -1,11 +1,10 @@
 class Rating < ActiveRecord::Base
 
-  # associations
   belongs_to :route, inverse_of: :ratings
   belongs_to :user, inverse_of: :ratings
 
   enum ratings: {
-    :"2"   => 1,
+    :"1"   => 1,
     :"2"   => 2,
     :"3"   => 3,
     :"4"   => 4,
