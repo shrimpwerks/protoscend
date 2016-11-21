@@ -2,7 +2,7 @@
 
 <div class="row">
   <div class="col-xs-8">
-    <%= form_tag users_path, method: "get", class: "form-inline pull-left" do %>
+    <%= form_tag admin_users_path, method: "get", class: "form-inline pull-left" do %>
       <div class="input-group">
         <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
         <%= text_field_tag "search", params[:search], class: "form-control", placeholder: "Search users" %>
