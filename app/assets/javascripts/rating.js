@@ -6,7 +6,7 @@ $(document).on('ready', function(event) {
     readonly: true,
   });
 
-  $('.multi_rating').each(function() {
+  $('.top_routes_rating').each(function() {
     $(this).barrating({
       theme: 'bootstrap-stars',
       readonly: true,
