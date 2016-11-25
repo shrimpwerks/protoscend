@@ -30,16 +30,6 @@ class User < ActiveRecord::Base
     .order(:first_name)
   end
 
-  def self.top_setters
-    select("users.*, avg(ratings.rating) as rating")
-    .active
-    .joins(:routes)
-    .joins(:ratings)
-    .where.not(users: { role: 0 })
-    .group(:id)
-    .order("rating desc")
-  end
-
   # TODO Replace with ActiveRecord #or with Rails 5
   def self.with_full_text_search(term)
     q = 'first_name ILIKE ? OR last_name ILIKE ? OR email ILIKE ?'

@@ -15,23 +15,3 @@
     We appreciate your patience and would absolutely <b>love</b> any feedback or suggestions!
   </p>
 </div>
-
-<div class="col-md-4">
-  <h3>Top Setters</h3>
-  <ul class="list-group">
-    <% @top_setters.each do |user| %>
-      <li class="list-group-item">
-        <%= link_to truncate(user.name, length: 25), user %>
-        <div class="pull-right">
-          <select class="multi_rating" data-rating="<%= user.rating %>">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-        </div>
-      </li>
-    <% end %>
-  </ul>
-</div>
