@@ -1,5 +1,4 @@
 class AssignedRoutePolicy < ApplicationPolicy
-
   def create?
     @user.role != "Public"
   end
@@ -17,4 +16,10 @@ class AssignedRoutePolicy < ApplicationPolicy
      @user.role != "Employee") or
      @user.id == @record.user_id
   end
+
+  def destroy?
+    # Supervisors and up
+    (@user.role != "Public" and @user.role != "Setter" and
+     @user.role != "Employee")
+   end
 end

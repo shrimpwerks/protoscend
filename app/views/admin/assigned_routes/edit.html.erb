@@ -77,8 +77,8 @@
     <div class="form-group">
       <%= f.submit :submit, value: "Complete Route", class: "btn btn-success" %>
 
-      <% if policy(@route).destroy? %>
-        <%= link_to "Remove Assignment", [:admin, @route],
+      <% if policy(:assigned_route).destroy? %>
+        <%= link_to "Remove Assignment", [:admin, :assigned_route],
           class: "btn btn-danger", method: :delete,
           data: { confirm: "Are you sure you'd like to remove this assignment?" }
         %>
