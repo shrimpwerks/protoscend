@@ -61,16 +61,6 @@
 							class: "form-control", required: true %>
 					</div>
 
-					<!--
-					<div class="form-group">
-						<div class="checkbox">
-							<label>
-								<%= check_box_tag 'notify_email', 'yes', true %> Notify with Email
-							</label>
-						</div>
-					</div>
-					-->
-
 					<div class="form-group">
 		        <%= f.label :location %>
 		        <%= f.select :location, Route.locations.keys, { include_blank: true },
