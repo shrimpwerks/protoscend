@@ -1,7 +1,7 @@
 module Admin
   class HomeController < ApplicationController
     def index
-      @announcements = Announcement.all
+      @top_setters = User.top_setters
     end
   end
 end
