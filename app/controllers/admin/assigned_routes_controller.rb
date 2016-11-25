@@ -13,8 +13,6 @@ module Admin
       @form = AssignedRouteForm.new
 
       if @form.submit(assigned_route_params)
-        Mailer.assigned_route_mail(User.find(@form.user_id), @form.route).deliver_now
-
         flash[:success] = "Successfully assigned route."
         redirect_to action: :index
       else
