@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
     .where.not(users: { role: 0 })
     .group(:id)
     .order("rating desc")
+    .take(10)
   end
 
   # TODO Replace with ActiveRecord #or with Rails 5
