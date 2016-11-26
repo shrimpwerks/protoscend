@@ -7,7 +7,7 @@ module Admin
     private
 
     def check_role
-      if current_user.role == "Public"
+      if current_user.nil? || current_user.role == "Public"
         flash[:danger] = "The admin interface is for setters and staff's access. If this is a mistake please contact the gym manager."
         redirect_to root_path
       end
