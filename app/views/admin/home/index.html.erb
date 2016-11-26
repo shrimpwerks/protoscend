@@ -21,7 +21,7 @@
   <ul class="list-group">
     <% @top_setters.each do |user| %>
       <li class="list-group-item">
-        <%= link_to truncate(user.name, length: 25), user %>
+        <%= link_to truncate(user.name, length: 25), [:admin, user] %>
         <div class="pull-right">
           <select class="multi_rating" data-rating="<%= user.rating %>">
             <option value="1">1</option>
