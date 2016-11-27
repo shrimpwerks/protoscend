@@ -33,8 +33,8 @@ class User < ActiveRecord::Base
   def self.top_setters
     select("users.*, avg(ratings.rating) as rating")
     .active
-    .joins("LEFT OUTER JOIN routes ON routes.user_id = users.id")
-    .joins("LEFT OUTER JOIN ratings ON ratings.route_id = routes.id")
+    .joins(:routes)
+    .joins(routes: :ratings)
     .where(routes: { status: 0 })
     .where.not(users: { role: 0 })
     .group(:id)
