@@ -1,37 +1,38 @@
 <h1>Oregon State Indoor Climbing Center Administrator Site</h1>
-<div class="jumbotron">
-  <h1>Coming Soon!</h1>
-  <p>
-    It's been our goal to get this web tool available to the gym for some time now.
-    In order to have it ready and accessible for setting this summer, we've shoved off some quality of life features, such as:
-  </p>
-  <ul>
-    <li>advanced setting metrics (this page) for an overall status of the gym</li>
-    <li>events tracking</li>
-    <li>auto-generation of route labels</li>
-    <li>and more!</li>
-  </ul>
-  <p>
-    We appreciate your patience and would absolutely <b>love</b> any feedback or suggestions!
-  </p>
-</div>
 
-<div class="col-md-4">
-  <h3>Top Setters</h3>
-  <ul class="list-group">
-    <% @top_setters.each do |user| %>
-      <li class="list-group-item">
-        <%= link_to truncate(user.name, length: 25), [:admin, user] %>
-        <div class="pull-right">
-          <select class="multi_rating" data-rating="<%= user.rating %>">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-        </div>
-      </li>
+<div class="row">
+  <div class="col-md-6">
+    <h3>Announcements</h3>
+    <% @announcements.each do |announcement| %>
+    <div class="media">
+      <div class="media-body">
+        <h4 class="media-heading">
+          <%= announcement.subject %>
+          <small><%= announcement.reveal_date.strftime("%b %d, %Y") %></small>
+        </h4>
+        <%= simple_format(announcement.body) %>
+      </div>
+    </div>
     <% end %>
-  </ul>
+  </div>
+
+  <div class="col-md-6">
+    <h3>Top Setters</h3>
+    <ul class="list-group">
+      <% @top_setters.each do |user| %>
+        <li class="list-group-item">
+          <%= link_to truncate(user.name, length: 25), [:admin, user] %>
+          <div class="pull-right">
+            <select class="multi_rating" data-rating="<%= user.rating %>">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 </div>
