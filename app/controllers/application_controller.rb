@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   layout "public"
+	around_action :set_time_zone
 
   include Pundit
   # Prevent CSRF attacks by raising an exception.
@@ -13,6 +14,11 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def set_time_zone(&block)
+    # TODO Dynamically set this once we have more gyms
+    Time.use_zone('Pacific Time (US & Canada)', &block)
+  end
 
   def user_not_authorized
     flash[:danger] = "You are not authorized to perform this action."
