@@ -22,6 +22,10 @@ class Announcement < ActiveRecord::Base
     joins(:user)
   end
 
+  def self.chronological
+    order("reveal_date desc")
+  end
+
   # TODO Replace with ActiveRecord #or with Rails 5
   def self.with_full_text_search(term)
     q = 'subject ILIKE ? OR users.first_name ILIKE ? OR users.last_name ILIKE ? OR body ILIKE ?'
