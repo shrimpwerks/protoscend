@@ -3,9 +3,11 @@ cache: bundler
 
 before_script:
   - psql -c 'create database "protoscend_test";' -U postgres
+  - cp config/database.yml.travis config/database.yml
 
 script:
   - bundle exec rake db:schema:load
+  - bundle exec rake test
 
 after_failure:
   - echo $RAILS_ENV
