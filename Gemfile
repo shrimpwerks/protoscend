@@ -1,8 +1,6 @@
 source 'https://rubygems.org'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
-
 gem 'puma'
 gem 'pg'
 gem 'pundit'
@@ -22,7 +20,6 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-
 source 'https://rails-assets.org' do
   gem 'rails-assets-jquery-bar-rating', '1.1.3'
 end
@@ -32,12 +29,10 @@ group :production do
 end
 
 group :development, :test do
-  gem "factory_girl_rails"
+  gem 'dotenv-rails'
+  gem 'factory_girl_rails'
   gem 'ffaker'
-end
-
-group :test do
-  gem "rspec-rails", "~> 2.14"
-  gem "shoulda-matchers"
-  gem "email_spec"
+  gem 'minitest-rails', '~> 2.0'
+  gem 'minitest-rails-capybara'
+  gem 'email_spec'
 end
