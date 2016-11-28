@@ -22,8 +22,8 @@ class Announcement < ActiveRecord::Base
     joins(:user)
   end
 
-  def self.chronological
-    order("reveal_date desc")
+  def self.recent_first
+    order(reveal_date: :desc)
   end
 
   # TODO Replace with ActiveRecord #or with Rails 5

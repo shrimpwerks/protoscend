@@ -16,6 +16,7 @@ module Admin
     def show
       @user = User.find(params[:id])
       @assigned_routes = @user.routes.assigned_routes
+      @existing_routes = @user.routes.active_routes.recent_first
     end
 
     def edit

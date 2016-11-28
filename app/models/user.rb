@@ -31,14 +31,14 @@ class User < ActiveRecord::Base
   end
 
   def self.top_setters
-    select("users.*, avg(ratings.rating) as rating")
+    select("users.*, avg(ratings.rating) as rating, count(ratings.rating) as rating_count")
     .active
     .joins(:routes)
     .joins(routes: :ratings)
     .where(routes: { status: 0 })
     .where.not(users: { role: 0 })
     .group(:id)
-    .order("rating desc")
+    .order("rating desc", "rating_count desc", "id desc")
     .take(10)
   end
 
