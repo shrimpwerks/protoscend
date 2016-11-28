@@ -85,3 +85,7 @@ header.carousel .fill {
 .alert.alert-error {
   @extend .alert, .alert-danger;
 }
+.alert.alert-alert {
+  @extend .alert, .alert-warning;
+}
+
