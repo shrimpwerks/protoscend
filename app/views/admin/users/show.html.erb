@@ -37,6 +37,46 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
+      <h3 class="panel-title">Existing Routes</h3>
+    </div>
+    <table class="table">
+      <tbody>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th>
+            Grade
+          </th>
+          <th>
+            Location
+          </th>
+          <th>
+            Date Created
+          </th>
+        </tr>
+        <% @existing_routes.each do |route| %>
+          <tr>
+            <td>
+              <%= link_to route.name, route %>
+            </td>
+            <td>
+              <%= route.grade %>
+            </td>
+            <td>
+              <%= route.location %>
+            </td>
+            <td>
+              <%= route.created_at.strftime("%b %d, %Y") %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
       <h3 class="panel-title">Assigned Routes</h3>
     </div>
     <table class="table">
