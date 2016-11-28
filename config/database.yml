@@ -23,7 +23,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
+  database: protoscend_test
 
 production:
   <<: *default

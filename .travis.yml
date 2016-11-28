@@ -1,0 +1,12 @@
+language: ruby
+cache: bundler
+
+before_script:
+  - psql -c 'create database "protoscend_test";' -U postgres
+
+script:
+  - bundle exec rake db:schema:load
+
+after_failure:
+  - echo $RAILS_ENV
+  - bundle exec rake --version
